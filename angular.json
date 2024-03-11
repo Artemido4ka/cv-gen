@@ -5,10 +5,20 @@
   "projects": {
     "cv-generator": {
       "projectType": "application",
-      "schematics": {},
+      "schematics": {
+        "@schematics/angular": {
+          "component": {
+            "changeDetection": "OnPush",
+            "prefix": "cv-gen"
+          },
+          "directive": {
+            "prefix":"cvGen"
+          }
+        }
+      },
       "root": "",
       "sourceRoot": "src",
-      "prefix": "app",
+      "prefix": "cvGen",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",

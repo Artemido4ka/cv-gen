@@ -6,6 +6,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { AppComponent } from './app.component';
 import { StoreModule } from '@ngrx/store';
+import { AppRoutingModule } from './app-routing-routing.module';
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http);
@@ -16,6 +17,8 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   imports: [
     BrowserModule,
     HttpClientModule,
+    AppRoutingModule,
+    StoreModule.forRoot({}),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -23,7 +26,6 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
         deps: [HttpClient],
       },
     }),
-    StoreModule.forRoot({}),
   ],
   providers: [],
   bootstrap: [AppComponent],

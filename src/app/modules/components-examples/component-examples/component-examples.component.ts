@@ -2,18 +2,17 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'cv-gen-login-page',
-  templateUrl: './login-page.component.html',
-  styleUrls: ['./login-page.component.scss'],
+  selector: 'cv-gen-component-examples',
+  templateUrl: './component-examples.component.html',
+  styleUrls: ['./component-examples.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LoginPageComponent {
+export class ComponentExamplesComponent {
+
   constructor(private fb: FormBuilder) {}
 
   loginForm = this.fb.group({
     userName: ['', [Validators.required]],
-    // password: ['', [Validators.required]],
-    checkBox: [false],
     textarea: ['textarea text', [Validators.required]],
   });
 

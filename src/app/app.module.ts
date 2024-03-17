@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { StoreModule } from '@ngrx/store';
 import { AppRoutingModule } from './app-routing.module';
 
+
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http);
 }

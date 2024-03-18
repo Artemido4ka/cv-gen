@@ -18,6 +18,7 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { Subject, distinctUntilChanged, startWith, takeUntil, tap } from 'rxjs';
+import { ERRORS } from '../../constants/errors';
 
 @Component({
   selector: 'cv-gen-input',
@@ -40,6 +41,7 @@ export class InputComponent implements ControlValueAccessor, OnInit {
   private _destroy$ = new Subject<void>();
 
   constructor(private injector: Injector) {}
+  errorMessages: Record<string, string> = ERRORS;
 
   ngOnInit(): void {
     const ngControl = this.injector.get(NgControl);
@@ -58,6 +60,7 @@ export class InputComponent implements ControlValueAccessor, OnInit {
       )
       .subscribe(() => {
         this.control?.markAsUntouched();
+        console.log(this.errorMessages);
       });
   }
 

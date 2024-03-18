@@ -1,11 +1,25 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  ValidationErrors,
+  ValidatorFn,
+  Validators,
+} from '@angular/forms';
+import { ERRORS } from 'src/app/shared/constants/errors';
 
 export type OptionType = {
   id: number;
   name: string;
   abbrev: string;
 };
+
+export function requiredValidator(name: string): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const forbidden = Validators.required(control);
+    return forbidden ? { [name]: true } : null;
+  };
+}
 
 @Component({
   selector: 'cv-gen-component-examples',
@@ -17,7 +31,7 @@ export class ComponentExamplesComponent {
   constructor(private fb: FormBuilder) {}
 
   textform = this.fb.group({
-    userName: ['', [Validators.required, Validators.maxLength(8)]],
+    userName: ['', [Validators.maxLength(8), requiredValidator('inputIsRequired')]],
     textarea: ['textarea text', [Validators.required]],
   });
 

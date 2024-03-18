@@ -31,7 +31,6 @@ export class SelectComponent implements ControlValueAccessor, OnInit {
   control = new FormControl();
 
   ngOnInit(): void {
-    console.log(this.control);
     this.control.valueChanges
       .pipe(
         takeUntil(this._destroy$),

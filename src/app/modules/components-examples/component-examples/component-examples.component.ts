@@ -1,6 +1,12 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 
+export type OptionType = {
+  id: number;
+  name: string;
+  abbrev: string;
+};
+
 @Component({
   selector: 'cv-gen-component-examples',
   templateUrl: './component-examples.component.html',
@@ -10,13 +16,31 @@ import { FormBuilder, Validators } from '@angular/forms';
 export class ComponentExamplesComponent {
   constructor(private fb: FormBuilder) {}
 
-  form = this.fb.group({
+  textform = this.fb.group({
     userName: ['', [Validators.required, Validators.maxLength(8)]],
     textarea: ['textarea text', [Validators.required]],
   });
 
-  onSubmit(): void {
-    console.log(this.form, 'FORm');
-    console.log('Submitted !', this.form.value);
+  onTextSubmit(): void {
+    console.log(this.textform, 'textform');
+    console.log('Submitted !', this.textform.value);
+  }
+
+  testOptions = [
+    { id: 1, name: 'Arizona', abbrev: 'AZ' },
+    { id: 2, name: 'California', abbrev: 'CA' },
+    { id: 3, name: 'Colorado', abbrev: 'CO' },
+    { id: 4, name: 'New York', abbrev: 'NY' },
+    { id: 5, name: 'Pennsylvania', abbrev: 'PA' },
+  ];
+
+  selectForm = this.fb.group({
+    selectedOption: [this.testOptions[0], [Validators.required]],
+    // options: [this.testOptions],
+  });
+
+  onSelectSubmit(): void {
+    console.log(this.selectForm, 'selectForm');
+    console.log('Submitted !', this.selectForm.value);
   }
 }

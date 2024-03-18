@@ -6,6 +6,7 @@ import { ComponentExamplesComponent } from './component-examples/component-examp
 import { ReactiveFormsModule } from '@angular/forms';
 import { InputComponent } from 'src/app/shared/components/input/input.component';
 import { TextareaComponent } from 'src/app/shared/components/textarea/textarea.component';
+import { SelectComponent } from 'src/app/shared/components/select/select.component';
 
 @NgModule({
   declarations: [ComponentExamplesComponent],
@@ -15,6 +16,7 @@ import { TextareaComponent } from 'src/app/shared/components/textarea/textarea.c
     ReactiveFormsModule,
     InputComponent,
     TextareaComponent,
+    SelectComponent
   ],
 })
 export class ComponentsExamplesModule {}

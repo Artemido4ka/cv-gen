@@ -1,0 +1,9 @@
+<select [formControl]="control" [id]="selectId">
+  <option *ngFor="let option of options" [value]="option.id">
+    <div>
+      {{ option.id }}
+      {{ option.name }}
+      <ng-content></ng-content>
+    </div>
+  </option>
+</select>

@@ -1,2 +1,3 @@
-<label for="label">Label</label>
-<input [formControl]="control" id="label" />
+<label for="label">{{ label }}</label>
+<input [formControl]="control" id="label" [placeholder]="placeholder" />
+<div style="color: red" *ngIf="control.invalid && (control.dirty || control.touched)">Error</div>

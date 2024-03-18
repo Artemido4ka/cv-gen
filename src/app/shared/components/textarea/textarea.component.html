@@ -1,1 +1,5 @@
-<textarea [formControl]="control"></textarea>
+
+<label for="textarea">{{ label }}</label>
+
+<textarea [formControl]="control" [placeholder]="placeholder" id="textarea"></textarea>
+<div style="color: red" *ngIf="control.invalid && (control.dirty || control.touched)">Error</div>

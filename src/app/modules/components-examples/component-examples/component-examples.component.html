@@ -1,10 +1,17 @@
 <h1>Forms</h1>
-<form [formGroup]="loginForm">
-  <label for="name">Name</label>
+<form [formGroup]="form">
   <!-- <input id="name" formControlName="userName" /> -->
 
-  <cv-gen-input [formControlName]="'userName'"></cv-gen-input>
-  <cv-gen-textarea [formControlName]="'textarea'"></cv-gen-textarea>
+  <div class="container">
+    <cv-gen-input
+      formControlName="userName"
+      placeholder="test placeholder"
+      label="test input label"></cv-gen-input>
+    <cv-gen-textarea
+      [formControlName]="'textarea'"
+      label="test textarea label"
+      placeholder="test textarea placeholder"></cv-gen-textarea>
 
-  <button (click)="onSubmit()">Click me</button>
+    <button (click)="onSubmit()">Click me</button>
+  </div>
 </form>

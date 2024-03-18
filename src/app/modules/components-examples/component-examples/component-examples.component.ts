@@ -8,16 +8,15 @@ import { FormBuilder, Validators } from '@angular/forms';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ComponentExamplesComponent {
-
   constructor(private fb: FormBuilder) {}
 
-  loginForm = this.fb.group({
-    userName: ['', [Validators.required]],
+  form = this.fb.group({
+    userName: ['', [Validators.required, Validators.maxLength(8)]],
     textarea: ['textarea text', [Validators.required]],
   });
 
   onSubmit(): void {
-    console.log(this.loginForm, 'FORm');
-    console.log('Submitted !', this.loginForm.value);
+    console.log(this.form, 'FORm');
+    console.log('Submitted !', this.form.value);
   }
 }

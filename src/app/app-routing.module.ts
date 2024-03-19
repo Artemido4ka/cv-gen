@@ -17,7 +17,7 @@ const routes: Routes = [
         m => m.ComponentsExamplesModule
       ),
   },
-  { path: '**', redirectTo: 'auth' },
+  { path: '**', redirectTo: 'components-examples' },
 ];
 
 @NgModule({

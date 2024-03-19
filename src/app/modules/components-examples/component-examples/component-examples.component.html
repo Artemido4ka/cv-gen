@@ -1,8 +1,5 @@
-<h1>Forms</h1>
-
-<!-- <input id="name" formControlName="userName" /> -->
-
 <div class="container">
+  <h1>Forms</h1>
   <form [formGroup]="textform">
     <div class="container-item">
       <h2>Simple text input</h2>
@@ -27,9 +24,7 @@
     <form [formGroup]="selectForm">
       <h2>Select</h2>
 
-      <cv-gen-select formControlName="selectedOption" [options]="testOptions">
-        <button>delete</button>
-      </cv-gen-select>
+      <cv-gen-select formControlName="selectedOption" [options]="testOptions"> </cv-gen-select>
 
       <button (click)="onSelectSubmit()">Select submit</button>
     </form>

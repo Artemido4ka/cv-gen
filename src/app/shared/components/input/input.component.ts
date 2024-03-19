@@ -1,24 +1,15 @@
 import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Injector,
-  Input,
-  OnInit,
-  forwardRef,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit, Optional, Self } from '@angular/core';
 import {
   ControlValueAccessor,
   FormControl,
-  FormControlDirective,
-  FormControlName,
-  FormGroupDirective,
-  NG_VALUE_ACCESSOR,
   NgControl,
   ReactiveFormsModule,
+  Validators,
 } from '@angular/forms';
-import { Subject, distinctUntilChanged, startWith, takeUntil, tap } from 'rxjs';
+import { Subject, distinctUntilChanged, takeUntil, tap } from 'rxjs';
 import { ERRORS } from '../../constants/errors';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'cv-gen-input',
@@ -26,10 +17,7 @@ import { ERRORS } from '../../constants/errors';
   styleUrls: ['./input.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  providers: [
-    { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => InputComponent), multi: true },
-  ],
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, MatInputModule],
 })
 export class InputComponent implements ControlValueAccessor, OnInit {
   @Input() label: string;
@@ -37,31 +25,25 @@ export class InputComponent implements ControlValueAccessor, OnInit {
 
   onChange: (val: string) => void;
   onTouch: () => void;
-  control = new FormControl();
+  control = new FormControl('', [Validators.required]);
   private _destroy$ = new Subject<void>();
-
-  constructor(private injector: Injector) {}
   errorMessages: Record<string, string> = ERRORS;
 
-  ngOnInit(): void {
-    const ngControl = this.injector.get(NgControl);
-    if (ngControl instanceof FormControlName) {
-      this.control = this.injector.get(FormGroupDirective).getControl(ngControl);
-    } else {
-      this.control = (ngControl as FormControlDirective).form as FormControl;
+  constructor(@Self() @Optional() public ngControl: NgControl) {
+    if (this.ngControl) {
+      this.ngControl.valueAccessor = this;
     }
+  }
 
+  ngOnInit(): void {
+    console.log(this.control);
     this.control.valueChanges
       .pipe(
         takeUntil(this._destroy$),
-        startWith(this.control.value),
         distinctUntilChanged(),
-        tap(this.onChange)
+        tap(val => this.onChange(val as string))
       )
-      .subscribe(() => {
-        this.control?.markAsUntouched();
-        console.log(this.errorMessages);
-      });
+      .subscribe();
   }
 
   writeValue(value: string): void {

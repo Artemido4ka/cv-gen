@@ -31,7 +31,7 @@ export class ComponentExamplesComponent {
   constructor(private fb: FormBuilder) {}
 
   textform = this.fb.group({
-    userName: ['', [Validators.maxLength(8), requiredValidator('inputIsRequired')]],
+    userName: ['', [requiredValidator('inputIsRequired')]],
     textarea: ['textarea text', [Validators.required]],
   });
 

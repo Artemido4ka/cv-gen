@@ -32,7 +32,7 @@ export class ComponentExamplesComponent {
 
   textform = this.fb.group({
     userName: ['', [requiredValidator('inputIsRequired')]],
-    textarea: ['textarea text', [Validators.required]],
+    textarea: ['', [requiredValidator('textareaIsRequired')]],
   });
 
   onTextSubmit(): void {

@@ -1,10 +1,14 @@
 <div class="input">
-  <label class="input__label" for="labelId"
+  <label for="labelId"
     >{{ label }}
     <span *ngIf="ngControl.invalid && (ngControl.dirty || ngControl.touched)">*</span></label
   >
 
-  <input class="input__element" [formControl]="control" id="labelId" [placeholder]="placeholder" />
+  <input
+    [class.invalid]="ngControl.invalid && (ngControl.dirty || ngControl.touched)"
+    [formControl]="control"
+    id="labelId"
+    [placeholder]="placeholder" />
 
   <div class="errors" *ngIf="ngControl.invalid && (ngControl.dirty || ngControl.touched)">
     <ul class="errors__list">

@@ -1,23 +1,9 @@
 import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Injector,
-  Input,
-  OnInit,
-  forwardRef,
-} from '@angular/core';
-import {
-  ControlValueAccessor,
-  FormControl,
-  FormControlDirective,
-  FormControlName,
-  FormGroupDirective,
-  NG_VALUE_ACCESSOR,
-  NgControl,
-  ReactiveFormsModule,
-} from '@angular/forms';
-import { Subject, distinctUntilChanged, startWith, takeUntil, tap } from 'rxjs';
+import { ChangeDetectionStrategy, Component, Input, OnInit, Optional, Self } from '@angular/core';
+import { ControlValueAccessor, FormControl, NgControl, ReactiveFormsModule } from '@angular/forms';
+import { Subject, distinctUntilChanged, takeUntil, tap } from 'rxjs';
+import { ERRORS } from '../../constants/errors';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'cv-gen-textarea',
@@ -25,10 +11,7 @@ import { Subject, distinctUntilChanged, startWith, takeUntil, tap } from 'rxjs';
   styleUrls: ['./textarea.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  providers: [
-    { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => TextareaComponent), multi: true },
-  ],
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, MatInputModule],
 })
 export class TextareaComponent implements ControlValueAccessor, OnInit {
   @Input() label: string;
@@ -38,27 +21,23 @@ export class TextareaComponent implements ControlValueAccessor, OnInit {
   onTouch: () => void;
   control = new FormControl();
   private _destroy$ = new Subject<void>();
+  errorMessages: Record<string, string> = ERRORS;
 
-  constructor(private injector: Injector) {}
+  constructor(@Self() @Optional() public ngControl: NgControl) {
+    if (this.ngControl) {
+      this.ngControl.valueAccessor = this;
+    }
+  }
 
   ngOnInit(): void {
-    const ngControl = this.injector.get(NgControl);
-    if (ngControl instanceof FormControlName) {
-      this.control = this.injector.get(FormGroupDirective).getControl(ngControl);
-    } else {
-      this.control = (ngControl as FormControlDirective).form as FormControl;
-    }
-
+    this.control = this.ngControl.control as FormControl;
     this.control.valueChanges
       .pipe(
         takeUntil(this._destroy$),
-        startWith(this.control.value),
         distinctUntilChanged(),
-        tap(this.onChange)
+        tap(val => this.onChange(val as string))
       )
-      .subscribe(() => {
-        this.control?.markAsUntouched();
-      });
+      .subscribe();
   }
 
   writeValue(value: string): void {

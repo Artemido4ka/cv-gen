@@ -5,11 +5,9 @@ import {
   FormControl,
   NgControl,
   ReactiveFormsModule,
-  Validators,
 } from '@angular/forms';
 import { Subject, distinctUntilChanged, takeUntil, tap } from 'rxjs';
 import { ERRORS } from '../../constants/errors';
-import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'cv-gen-input',
@@ -17,7 +15,7 @@ import { MatInputModule } from '@angular/material/input';
   styleUrls: ['./input.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, MatInputModule],
+  imports: [ReactiveFormsModule, CommonModule],
 })
 export class InputComponent implements ControlValueAccessor, OnInit {
   @Input() label: string;
@@ -25,7 +23,7 @@ export class InputComponent implements ControlValueAccessor, OnInit {
 
   onChange: (val: string) => void;
   onTouch: () => void;
-  control = new FormControl('', [Validators.required]);
+  control = new FormControl();
   private _destroy$ = new Subject<void>();
   errorMessages: Record<string, string> = ERRORS;
 
@@ -36,7 +34,6 @@ export class InputComponent implements ControlValueAccessor, OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.control);
     this.control.valueChanges
       .pipe(
         takeUntil(this._destroy$),

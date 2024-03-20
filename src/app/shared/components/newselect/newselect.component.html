@@ -1,0 +1,21 @@
+<mat-form-field [class.mat-form-field-invalid]="true" appearance="outline">
+  <mat-select [formControl]="control" [multiple]="isMultiple" [class.mat-form-field-invalid]="true">
+    <mat-option *ngFor="let option of options" [value]="option">
+      <div>
+        {{ option.id }}
+        {{ option.name }}
+      </div>
+    </mat-option>
+  </mat-select>
+  <mat-error class="errors" *ngIf="showError">
+    <!-- <ng-container *ngFor="let error of ngControl.errors | keyvalue">
+      {{ errorMessages[error.key] }} <br />
+    </ng-container> -->
+  </mat-error>
+</mat-form-field>
+
+<div style="color: red" *ngIf="showError">
+  <ng-container *ngFor="let error of ngControl.errors | keyvalue">
+    {{ errorMessages[error.key] }} <br />
+  </ng-container>
+</div>

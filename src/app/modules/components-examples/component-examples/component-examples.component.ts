@@ -48,9 +48,19 @@ export class ComponentExamplesComponent {
     { id: 5, name: 'Pennsylvania', abbrev: 'PA' },
   ];
 
-  selectForm = this.fb.group({
+  simpleSelectForm = this.fb.group({
     selectedOption: [this.testOptions[0], [Validators.required]],
     // options: [this.testOptions],
+  });
+
+  onSimpleSelectSubmit(): void {
+    console.log(this.simpleSelectForm, 'simple selectForm');
+    console.log('Submitted !', this.simpleSelectForm.value);
+  }
+
+  selectForm = this.fb.group({
+    selectedOption: [this.testOptions[0], [requiredValidator('selectIsRequired')]],
+    multiSelectedOptions: [[], [requiredValidator('selectIsRequired')]],
   });
 
   onSelectSubmit(): void {

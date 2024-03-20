@@ -8,7 +8,7 @@
         placeholder="test placeholder"
         label="test input label"></cv-gen-input>
     </div>
-
+    <mat-divider></mat-divider>
     <div class="container-item">
       <h2>Simple text area</h2>
       <cv-gen-textarea
@@ -20,13 +20,28 @@
     <button (click)="onTextSubmit()">Text submit</button>
   </form>
 
-  <div>
-    <form [formGroup]="selectForm">
-      <h2>Select</h2>
-
+  <mat-divider></mat-divider>
+  <form [formGroup]="simpleSelectForm">
+    <div class="container-item">
+      <h2>Simple select</h2>
       <cv-gen-select formControlName="selectedOption" [options]="testOptions"> </cv-gen-select>
+      <button (click)="onSimpleSelectSubmit()">Simple submit</button>
+    </div>
+  </form>
+
+  <mat-divider></mat-divider>
+  <form [formGroup]="selectForm">
+    <div class="container-item">
+      <h2>Select and Multi Select</h2>
+
+      <cv-gen-newselect formControlName="selectedOption" [options]="testOptions"></cv-gen-newselect>
+
+      <cv-gen-newselect
+        formControlName="multiSelectedOptions"
+        [options]="testOptions"
+        [isMultiple]="true"></cv-gen-newselect>
 
       <button (click)="onSelectSubmit()">Select submit</button>
-    </form>
-  </div>
+    </div>
+  </form>
 </div>

@@ -7,13 +7,18 @@ import { MatSelectModule } from '@angular/material/select';
 
 import { tap } from 'rxjs';
 import { OptionType } from 'src/app/modules/components-examples/component-examples/component-examples.component';
-import { ERRORS } from '../../constants/errors';
-
+import { ErrorMessageComponent } from '../error-message/error-message.component';
 
 @Component({
-  selector: 'cv-gen-newselect',
+  selector: 'cv-gen-select',
   standalone: true,
-  imports: [CommonModule, MatFormFieldModule, MatSelectModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    ReactiveFormsModule,
+    ErrorMessageComponent,
+  ],
   templateUrl: './select.component.html',
   styleUrls: ['./select.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -27,14 +32,6 @@ export class SelectComponent implements ControlValueAccessor, OnInit {
   onChange: (val: OptionType[] | OptionType) => void;
   onTouch: () => void;
   control = new FormControl();
-
-  errorMessages: Record<string, string> = ERRORS;
-
-  public get showError(): boolean | null {
-    if (!this.ngControl) return false;
-    const { dirty, touched, invalid } = this.ngControl;
-    return invalid && (dirty || touched);
-  }
 
   constructor(@Self() @Optional() private ngControl: NgControl) {
     if (this.ngControl) {
@@ -52,6 +49,11 @@ export class SelectComponent implements ControlValueAccessor, OnInit {
         })
       )
       .subscribe();
+  }
+
+  public get showError(): boolean | null {
+    const { dirty, touched, invalid } = this.control;
+    return invalid && (dirty || touched);
   }
 
   ngOnInit(): void {

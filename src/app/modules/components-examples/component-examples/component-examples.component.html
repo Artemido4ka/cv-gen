@@ -34,23 +34,23 @@
   <form [formGroup]="selectForm" class="container-form">
     <div class="container-item">
       <h2>Select</h2>
-      <cv-gen-newselect
+      <cv-gen-select
         label="select label"
         placeholder="select placeholder"
         formControlName="selectedOption"
         [options]="testOptions">
-      </cv-gen-newselect>
+      </cv-gen-select>
     </div>
 
     <div class="container-item">
       <h2>Multi Select</h2>
-      <cv-gen-newselect
+      <cv-gen-select
         label="Multi select label"
         placeholder="Multi select placeholder"
         formControlName="multiSelectedOptions"
         [options]="testOptions"
         [isMultiple]="true">
-      </cv-gen-newselect>
+      </cv-gen-select>
     </div>
 
     <button (click)="onSelectSubmit()">Select submit</button>

@@ -1,20 +1,11 @@
 <div class="input">
-  <label for="labelId"
-    >{{ label }}
-    <span *ngIf="ngControl.invalid && (ngControl.dirty || ngControl.touched)">*</span></label
-  >
+  <label for="labelId">{{ label }} <span *ngIf="showError">*</span></label>
 
   <input
-    [class.invalid]="ngControl.invalid && (ngControl.dirty || ngControl.touched)"
+    [class.invalid]="showError"
     [formControl]="control"
     id="labelId"
     [placeholder]="placeholder" />
 
-  <div class="errors" *ngIf="ngControl.invalid && (ngControl.dirty || ngControl.touched)">
-    <ul class="errors__list">
-      <li *ngFor="let error of ngControl.errors | keyvalue">
-        {{ errorMessages[error.key] }}
-      </li>
-    </ul>
-  </div>
+  <cv-gen-error-message [showError]="showError" [errors]="control.errors"></cv-gen-error-message>
 </div>

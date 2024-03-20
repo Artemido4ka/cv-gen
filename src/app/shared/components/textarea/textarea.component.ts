@@ -1,9 +1,11 @@
+import { ErrorMessageComponent } from './../error-message/error-message.component';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input, OnInit, Optional, Self } from '@angular/core';
 import { ControlValueAccessor, FormControl, NgControl, ReactiveFormsModule } from '@angular/forms';
-import { Subject, distinctUntilChanged, takeUntil, tap } from 'rxjs';
-import { ERRORS } from '../../constants/errors';
+import { tap } from 'rxjs';
+
 import { MatInputModule } from '@angular/material/input';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'cv-gen-textarea',
@@ -11,7 +13,7 @@ import { MatInputModule } from '@angular/material/input';
   styleUrls: ['./textarea.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, MatInputModule],
+  imports: [ReactiveFormsModule, CommonModule, MatInputModule, ErrorMessageComponent],
 })
 export class TextareaComponent implements ControlValueAccessor, OnInit {
   @Input() label: string;
@@ -20,24 +22,34 @@ export class TextareaComponent implements ControlValueAccessor, OnInit {
   onChange: (val: string) => void;
   onTouch: () => void;
   control = new FormControl();
-  private _destroy$ = new Subject<void>();
-  errorMessages: Record<string, string> = ERRORS;
 
   constructor(@Self() @Optional() public ngControl: NgControl) {
     if (this.ngControl) {
       this.ngControl.valueAccessor = this;
     }
+    this.control.valueChanges
+      .pipe(
+        takeUntilDestroyed(),
+        tap(val => {
+          if (this.onChange && this.onTouch) {
+            this.onChange(val);
+            this.onTouch();
+          }
+        })
+      )
+      .subscribe();
+  }
+
+  public get showError(): boolean | null {
+    const { dirty, touched, invalid } = this.control;
+    return invalid && (dirty || touched);
   }
 
   ngOnInit(): void {
-    this.control = this.ngControl.control as FormControl;
-    this.control.valueChanges
-      .pipe(
-        takeUntil(this._destroy$),
-        distinctUntilChanged(),
-        tap(val => this.onChange(val as string))
-      )
-      .subscribe();
+    if (this.ngControl.control) {
+      const validators = this.ngControl.control.validator;
+      this.control.setValidators(validators);
+    }
   }
 
   writeValue(value: string): void {

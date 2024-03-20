@@ -1,5 +1,5 @@
 <div class="select">
-  <mat-form-field appearance="outline">
+  <mat-form-field appearance="outline" subscriptSizing="dynamic">
     <mat-select [formControl]="control" [multiple]="isMultiple" [placeholder]="placeholder">
       <mat-option *ngFor="let option of options" [value]="option" class="hide-checkbox">
         <div>
@@ -8,36 +8,7 @@
         </div>
       </mat-option>
     </mat-select>
-    <mat-error>
-      <ng-container *ngFor="let error of control.errors | keyvalue">
-        {{ errorMessages[error.key] }} <br />
-      </ng-container>
-    </mat-error>
   </mat-form-field>
 
-  <!-- <div style="color: red" *ngIf="showError">
-    <ng-container *ngFor="let error of ngControl.errors | keyvalue">
-      {{ errorMessages[error.key] }} <br />
-    </ng-container>
-  </div> -->
+  <cv-gen-error-message [showError]="showError" [errors]="control.errors"></cv-gen-error-message>
 </div>
-
-<!-- <div class="select">
-  <mat-form-field appearance="outline" [class.error]="showError" [class.error]="showError">
-    <mat-select [formControl]="control" [multiple]="isMultiple" [placeholder]="placeholder">
-      <mat-option *ngFor="let option of options" [value]="option" class="hide-checkbox">
-        <div>
-          {{ option.id }}
-          {{ option.name }}
-        </div>
-      </mat-option>
-    </mat-select>
-    <mat-error class="errors" *ngIf="showError"> </mat-error>
-  </mat-form-field>
-
-  <div style="color: red" *ngIf="showError">
-    <ng-container *ngFor="let error of ngControl.errors | keyvalue">
-      {{ errorMessages[error.key] }} <br />
-    </ng-container>
-  </div>
-</div> -->

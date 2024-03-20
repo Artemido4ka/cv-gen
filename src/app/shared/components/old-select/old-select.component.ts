@@ -10,7 +10,7 @@ import { OptionType } from 'src/app/modules/components-examples/component-exampl
 import { Subject, startWith, takeUntil, tap } from 'rxjs';
 
 @Component({
-  selector: 'cv-gen-select',
+  selector: 'cv-gen-old-select',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './old-select.component.html',

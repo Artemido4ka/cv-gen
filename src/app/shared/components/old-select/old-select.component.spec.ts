@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SelectComponent } from './select.component';
+import { OldSelectComponent } from './old-select.component';
 
 describe('SelectComponent', () => {
-  let component: SelectComponent;
-  let fixture: ComponentFixture<SelectComponent>;
+  let component: OldSelectComponent;
+  let fixture: ComponentFixture<OldSelectComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [SelectComponent]
+      imports: [OldSelectComponent],
     });
-    fixture = TestBed.createComponent(SelectComponent);
+    fixture = TestBed.createComponent(OldSelectComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

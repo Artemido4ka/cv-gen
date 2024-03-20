@@ -1,6 +1,7 @@
 <div class="container">
   <h1>Forms</h1>
-  <form [formGroup]="textform">
+
+  <form [formGroup]="textform" class="container-form">
     <div class="container-item">
       <h2>Simple text input</h2>
       <cv-gen-input
@@ -8,7 +9,7 @@
         placeholder="test placeholder"
         label="test input label"></cv-gen-input>
     </div>
-    <mat-divider></mat-divider>
+
     <div class="container-item">
       <h2>Simple text area</h2>
       <cv-gen-textarea
@@ -20,27 +21,29 @@
     <button (click)="onTextSubmit()">Text submit</button>
   </form>
 
-  <mat-divider></mat-divider>
+  <!-- <mat-divider></mat-divider>
   <form [formGroup]="simpleSelectForm">
     <div class="container-item">
       <h2>Simple select</h2>
       <cv-gen-select formControlName="selectedOption" [options]="testOptions"> </cv-gen-select>
       <button (click)="onSimpleSelectSubmit()">Simple submit</button>
     </div>
-  </form>
+  </form> -->
 
   <mat-divider></mat-divider>
-  <form [formGroup]="selectForm">
+  <form [formGroup]="selectForm" class="container-form">
     <div class="container-item">
-      <h2>Select and Multi Select</h2>
-
+      <h2>Select</h2>
       <cv-gen-newselect
         label="select label"
         placeholder="select placeholder"
         formControlName="selectedOption"
         [options]="testOptions">
       </cv-gen-newselect>
+    </div>
 
+    <div class="container-item">
+      <h2>Multi Select</h2>
       <cv-gen-newselect
         label="Multi select label"
         placeholder="Multi select placeholder"
@@ -48,8 +51,8 @@
         [options]="testOptions"
         [isMultiple]="true">
       </cv-gen-newselect>
-
-      <button (click)="onSelectSubmit()">Select submit</button>
     </div>
+
+    <button (click)="onSelectSubmit()">Select submit</button>
   </form>
 </div>

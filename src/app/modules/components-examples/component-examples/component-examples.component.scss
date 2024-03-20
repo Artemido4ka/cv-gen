@@ -5,7 +5,15 @@
   margin-left: 60px;
 }
 
-.container-item {
-  margin-bottom: 40px;
+.container-form {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
   max-width: 300px;
+}
+
+.container-item {
+  // margin: 40px 0;
+  // max-width: 300px;
+  // border: 1px solid red;
 }

@@ -1,4 +1,4 @@
-import { NewselectComponent } from './../../shared/components/newselect/newselect.component';
+import { SelectComponent } from '../../shared/components/select/select.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -7,8 +7,8 @@ import { ComponentExamplesComponent } from './component-examples/component-examp
 import { ReactiveFormsModule } from '@angular/forms';
 import { InputComponent } from 'src/app/shared/components/input/input.component';
 import { TextareaComponent } from 'src/app/shared/components/textarea/textarea.component';
-import { SelectComponent } from 'src/app/shared/components/select/select.component';
-import {MatDividerModule} from '@angular/material/divider'
+import { OldSelectComponent } from 'src/app/shared/components/old-select/old-select.component';
+import { MatDividerModule } from '@angular/material/divider';
 
 @NgModule({
   declarations: [ComponentExamplesComponent],
@@ -18,9 +18,9 @@ import {MatDividerModule} from '@angular/material/divider'
     ReactiveFormsModule,
     InputComponent,
     TextareaComponent,
+    OldSelectComponent,
     SelectComponent,
-    NewselectComponent,
-    MatDividerModule
+    MatDividerModule,
   ],
 })
 export class ComponentsExamplesModule {}

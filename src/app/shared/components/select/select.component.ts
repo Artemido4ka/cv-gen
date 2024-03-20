@@ -1,54 +1,68 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit, forwardRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit, Optional, Self } from '@angular/core';
+import { ControlValueAccessor, FormControl, NgControl, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import {
-  ControlValueAccessor,
-  FormControl,
-  NG_VALUE_ACCESSOR,
-  ReactiveFormsModule,
-} from '@angular/forms';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+
+import { tap } from 'rxjs';
 import { OptionType } from 'src/app/modules/components-examples/component-examples/component-examples.component';
-import { Subject, startWith, takeUntil, tap } from 'rxjs';
+import { ERRORS } from '../../constants/errors';
+
 
 @Component({
-  selector: 'cv-gen-select',
+  selector: 'cv-gen-newselect',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, MatFormFieldModule, MatSelectModule, ReactiveFormsModule],
   templateUrl: './select.component.html',
   styleUrls: ['./select.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [
-    { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => SelectComponent), multi: true },
-  ],
 })
 export class SelectComponent implements ControlValueAccessor, OnInit {
-  private _destroy$ = new Subject<void>();
-
   @Input() options: OptionType[];
-  @Input() selectId = '';
+  @Input() isMultiple: boolean;
+  @Input() label: string;
+  @Input() placeholder: string;
 
-  onChange: (val: OptionType) => void;
+  onChange: (val: OptionType[] | OptionType) => void;
   onTouch: () => void;
   control = new FormControl();
 
-  ngOnInit(): void {
+  errorMessages: Record<string, string> = ERRORS;
+
+  public get showError(): boolean | null {
+    if (!this.ngControl) return false;
+    const { dirty, touched, invalid } = this.ngControl;
+    return invalid && (dirty || touched);
+  }
+
+  constructor(@Self() @Optional() private ngControl: NgControl) {
+    if (this.ngControl) {
+      this.ngControl.valueAccessor = this;
+    }
+
     this.control.valueChanges
       .pipe(
-        takeUntil(this._destroy$),
-        startWith(this.control.value),
+        takeUntilDestroyed(),
         tap(val => {
-          if (this.onChange) {
-            const selectedOption = this.options.find(option => option.id === Number(val));
-            selectedOption && this.onChange(selectedOption);
+          if (this.onChange && this.onTouch) {
+            this.onChange(val);
+            this.onTouch();
           }
         })
       )
-      .subscribe(() => {
-        this.control?.markAsUntouched();
-      });
+      .subscribe();
   }
 
-  writeValue(value: OptionType): void {
-    this.control.setValue(value.id);
+  ngOnInit(): void {
+    if (this.ngControl.control) {
+      const validators = this.ngControl.control.validator;
+      this.control.setValidators(validators);
+    }
+  }
+
+  writeValue(value: OptionType[] | OptionType): void {
+    this.control.setValue(value);
   }
 
   registerOnChange(fn: () => void): void {

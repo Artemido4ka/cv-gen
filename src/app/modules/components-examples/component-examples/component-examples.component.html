@@ -34,12 +34,20 @@
     <div class="container-item">
       <h2>Select and Multi Select</h2>
 
-      <cv-gen-newselect formControlName="selectedOption" [options]="testOptions"></cv-gen-newselect>
+      <cv-gen-newselect
+        label="select label"
+        placeholder="select placeholder"
+        formControlName="selectedOption"
+        [options]="testOptions">
+      </cv-gen-newselect>
 
       <cv-gen-newselect
+        label="Multi select label"
+        placeholder="Multi select placeholder"
         formControlName="multiSelectedOptions"
         [options]="testOptions"
-        [isMultiple]="true"></cv-gen-newselect>
+        [isMultiple]="true">
+      </cv-gen-newselect>
 
       <button (click)="onSelectSubmit()">Select submit</button>
     </div>

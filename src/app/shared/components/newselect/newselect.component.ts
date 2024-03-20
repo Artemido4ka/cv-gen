@@ -2,12 +2,7 @@ import { ChangeDetectionStrategy, Component, Input, OnInit, Optional, Self } fro
 import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
-import {
-  ControlValueAccessor,
-  FormControl,
-  NgControl,
-  ReactiveFormsModule,
-} from '@angular/forms';
+import { ControlValueAccessor, FormControl, NgControl, ReactiveFormsModule } from '@angular/forms';
 import { Subject, takeUntil, tap } from 'rxjs';
 import { OptionType } from 'src/app/modules/components-examples/component-examples/component-examples.component';
 import { ERRORS } from '../../constants/errors';
@@ -24,6 +19,8 @@ export class NewselectComponent implements ControlValueAccessor, OnInit {
   private _destroy$ = new Subject<void>();
   @Input() options: OptionType[];
   @Input() isMultiple: boolean;
+  @Input() label: string;
+  @Input() placeholder: string;
 
   onChange: (val: OptionType[] | OptionType) => void;
   onTouch: () => void;
@@ -33,8 +30,8 @@ export class NewselectComponent implements ControlValueAccessor, OnInit {
 
   public get showError(): boolean | null {
     if (!this.ngControl) return false;
-    const { dirty, touched, invalid } = this.ngControl;
-    return invalid && (dirty || touched);
+    const { dirty, touched } = this.control;
+    return this.ngControl.invalid && (dirty || touched);
   }
 
   constructor(@Self() @Optional() public ngControl: NgControl) {

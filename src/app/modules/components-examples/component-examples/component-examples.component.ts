@@ -59,7 +59,7 @@ export class ComponentExamplesComponent {
   }
 
   selectForm = this.fb.group({
-    selectedOption: [this.testOptions[0], [requiredValidator('selectIsRequired')]],
+    selectedOption: ['', [requiredValidator('selectIsRequired')]],
     multiSelectedOptions: [[], [requiredValidator('selectIsRequired')]],
   });
 

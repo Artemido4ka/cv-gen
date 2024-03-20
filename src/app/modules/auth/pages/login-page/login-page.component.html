@@ -1,1 +1,15 @@
 <p>login-page works!</p>
+
+<form [formGroup]="loginForm">
+  <label for="name">Name</label>
+  <!-- <input id="name" formControlName="userName" /> -->
+
+  <div>
+    <input type="checkbox" value="" id="" formControlName="checkBox" />
+    <label for=""> Default checkbox </label>
+  </div>
+
+  <cv-gen-input [formControlName]="'userName'"></cv-gen-input>
+
+  <button (click)="onSubmit()">Click me</button>
+</form>

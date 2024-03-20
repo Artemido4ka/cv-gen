@@ -1,0 +1,23 @@
+.select {
+  display: flex;
+  flex-direction: column;
+}
+
+:host ::ng-deep .mdc-text-field--outlined {
+  --mdc-outlined-text-field-focus-outline-color: grey;
+}
+
+//apply only if error class
+:host ::ng-deep .error .mdc-text-field--outlined {
+  --mdc-outlined-text-field-outline-color: red;
+}
+
+//select arrow
+:host ::ng-deep .mat-mdc-select-arrow {
+  display: none;
+}
+
+//hide-checkbox
+::ng-deep .hide-checkbox .mat-pseudo-checkbox {
+  display: none;
+}

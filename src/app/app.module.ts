@@ -7,6 +7,8 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { AppComponent } from './app.component';
 import { StoreModule } from '@ngrx/store';
 import { AppRoutingModule } from './app-routing.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http);
@@ -26,6 +28,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
       },
     }),
     StoreModule.forRoot({}),
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -1,0 +1,23 @@
+<div class="textarea">
+  <label for="labelId"
+    >{{ label }} <span *ngIf="control.invalid && control.dirty && control.touched">*</span></label
+  >
+
+  <mat-form-field appearance="outline">
+    <textarea
+      [formControl]="control"
+      id="labelId"
+      [placeholder]="placeholder"
+      matInput
+      cdkTextareaAutosize
+      cdkAutosizeMinRows="6"
+      cdkAutosizeMaxRows="8">
+    </textarea>
+
+    <mat-error class="errors" *ngIf="control.invalid && (control.dirty || control.touched)">
+      <ng-container *ngFor="let error of control.errors | keyvalue">
+        {{ errorMessages[error.key] }} <br />
+      </ng-container>
+    </mat-error>
+  </mat-form-field>
+</div>

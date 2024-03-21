@@ -3,12 +3,15 @@
     <mat-select [formControl]="control" [multiple]="isMultiple" [placeholder]="placeholder">
       <mat-option *ngFor="let option of options" [value]="option" class="hide-checkbox">
         <div>
-          {{ option.id }}
-          {{ option.name }}
+          {{ option[optionTitle] }}
         </div>
       </mat-option>
     </mat-select>
   </mat-form-field>
 
-  <cv-gen-error-message [showError]="showError" [errors]="control.errors"></cv-gen-error-message>
+  <div>{{ control.invalid }}</div>
+  <div>{{ control.touched }}</div>
+  <cv-gen-error-message
+    [showError]="control.invalid && control.touched"
+    [errors]="control.errors"></cv-gen-error-message>
 </div>

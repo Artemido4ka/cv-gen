@@ -6,12 +6,12 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
-import { ERRORS } from 'src/app/shared/constants/errors';
 
 export type OptionType = {
-  id: number;
-  name: string;
-  abbrev: string;
+  [key: string]: number | string;
+  id?: number;
+  name?: string;
+  abbrev?: string;
 };
 
 export function requiredValidator(name: string): ValidatorFn {
@@ -41,11 +41,11 @@ export class ComponentExamplesComponent {
   }
 
   testOptions = [
-    { id: 1, name: 'Arizona', abbrev: 'AZ' },
-    { id: 2, name: 'California', abbrev: 'CA' },
-    { id: 3, name: 'Colorado', abbrev: 'CO' },
-    { id: 4, name: 'New York', abbrev: 'NY' },
-    { id: 5, name: 'Pennsylvania', abbrev: 'PA' },
+    { id1: 1, name1: 'Arizona', abbrev: 'AZ' },
+    { id1: 2, name1: 'California', abbrev: 'CA' },
+    { id1: 3, name1: 'Colorado', abbrev: 'CO' },
+    { id1: 4, name1: 'New York', abbrev: 'NY' },
+    { id1: 5, name1: 'Pennsylvania', abbrev: 'PA' },
   ];
 
   simpleSelectForm = this.fb.group({

@@ -14,16 +14,18 @@
   }
 }
 
-::ng-deep mat-form-field {
-  .mdc-text-field {
-    padding: 0 12px;
+:host ::ng-deep {
+  mat-form-field {
+    .mdc-text-field {
+      padding: 0 12px;
+    }
   }
-}
 
-//border
-:host ::ng-deep .mdc-text-field--outlined {
-  --mdc-outlined-text-field-container-shape: 4px;
-  --mdc-outlined-text-field-focus-outline-color: grey;
+  //border
+  .mdc-text-field--outlined {
+    --mdc-outlined-text-field-container-shape: 4px;
+    --mdc-outlined-text-field-focus-outline-color: grey;
+  }
 }
 
 /* width */

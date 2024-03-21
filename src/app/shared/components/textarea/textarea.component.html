@@ -1,5 +1,5 @@
 <div class="textarea">
-  <label for="labelId">{{ label }} <span *ngIf="showError">*</span></label>
+  <label for="labelId">{{ label }} <span *ngIf="control.invalid && control.touched">*</span></label>
 
   <mat-form-field appearance="outline" subscriptSizing="dynamic">
     <textarea
@@ -13,5 +13,7 @@
     </textarea>
   </mat-form-field>
 
-  <cv-gen-error-message [showError]="showError" [errors]="control.errors"></cv-gen-error-message>
+  <cv-gen-error-message
+    [showError]="control.invalid && control.touched"
+    [errors]="control.errors"></cv-gen-error-message>
 </div>

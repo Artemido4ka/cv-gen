@@ -39,13 +39,13 @@ export class ComponentExamplesComponent {
     console.log(this.textform, 'textform');
     console.log('Submitted !', this.textform.value);
   }
-
+  // SELECT FORMS
   testOptions = [
-    { id1: 1, name1: 'Arizona', abbrev: 'AZ' },
-    { id1: 2, name1: 'California', abbrev: 'CA' },
-    { id1: 3, name1: 'Colorado', abbrev: 'CO' },
-    { id1: 4, name1: 'New York', abbrev: 'NY' },
-    { id1: 5, name1: 'Pennsylvania', abbrev: 'PA' },
+    { id: 1, name: 'Arizona', abbrev: 'AZ' },
+    { id: 2, name: 'California', abbrev: 'CA' },
+    { id: 3, name: 'Colorado', abbrev: 'CO' },
+    { id: 4, name: 'New York', abbrev: 'NY' },
+    { id: 5, name: 'Pennsylvania', abbrev: 'PA' },
   ];
 
   simpleSelectForm = this.fb.group({
@@ -57,7 +57,7 @@ export class ComponentExamplesComponent {
     console.log(this.simpleSelectForm, 'simple selectForm');
     console.log('Submitted !', this.simpleSelectForm.value);
   }
-
+  //SELECT FORMS
   selectForm = this.fb.group({
     selectedOption: ['', [requiredValidator('selectIsRequired')]],
     multiSelectedOptions: [[], [requiredValidator('selectIsRequired')]],
@@ -66,5 +66,16 @@ export class ComponentExamplesComponent {
   onSelectSubmit(): void {
     console.log(this.selectForm, 'selectForm');
     console.log('Submitted !', this.selectForm.value);
+  }
+  //AUTOCOMPLETE FORMS
+  autocompleteTestOptions = ['1aa', '2bbbb', '3cccc'];
+
+  autocompleteForm = this.fb.group({
+    textValue: ['', [requiredValidator('selectIsRequired')]],
+  });
+
+  onAutoCompleteSubmit(): void {
+    console.log(this.autocompleteForm, 'autocompleteForm');
+    console.log('Submitted !', this.autocompleteForm.value);
   }
 }

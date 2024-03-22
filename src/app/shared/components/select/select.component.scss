@@ -10,7 +10,9 @@
   .mat-mdc-select-arrow {
     display: none;
   }
+}
 
+::ng-deep {
   .hide-checkbox .mat-pseudo-checkbox {
     display: none;
   }

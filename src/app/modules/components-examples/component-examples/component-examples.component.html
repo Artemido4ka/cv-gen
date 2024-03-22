@@ -55,4 +55,18 @@
 
     <button (click)="onSelectSubmit()">Select submit</button>
   </form>
+
+  <mat-divider></mat-divider>
+  <form [formGroup]="autocompleteForm" class="container-form">
+    <div class="container-item">
+      <h2>Autocomplete</h2>
+
+      <cv-gen-autocomplete
+        formControlName="textValue"
+        [options]="autocompleteTestOptions"
+        placeholder="Autocomplete placeholder"></cv-gen-autocomplete>
+    </div>
+
+    <button (click)="onAutoCompleteSubmit()">Autocomplete submit</button>
+  </form>
 </div>

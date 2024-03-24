@@ -5,6 +5,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { MatInputModule } from '@angular/material/input';
 import { BaseControlDirective } from '../../directives/base-control.directive';
 import { ReactiveFormsModule } from '@angular/forms';
+import { LabelComponent } from '../label/label.component';
 
 @Component({
   selector: 'cv-gen-textarea',
@@ -12,7 +13,13 @@ import { ReactiveFormsModule } from '@angular/forms';
   styleUrls: ['./textarea.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, MatInputModule, ErrorMessageComponent],
+  imports: [
+    ReactiveFormsModule,
+    CommonModule,
+    MatInputModule,
+    ErrorMessageComponent,
+    LabelComponent,
+  ],
 })
 export class TextareaComponent extends BaseControlDirective {
   @Input() label: string;

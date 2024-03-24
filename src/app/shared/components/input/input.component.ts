@@ -4,6 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { ErrorMessageComponent } from './../error-message/error-message.component';
 import { BaseControlDirective } from '../../directives/base-control.directive';
+import { LabelComponent } from '../label/label.component';
 
 @Component({
   selector: 'cv-gen-input',
@@ -11,7 +12,7 @@ import { BaseControlDirective } from '../../directives/base-control.directive';
   styleUrls: ['./input.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, ErrorMessageComponent],
+  imports: [ReactiveFormsModule, CommonModule, ErrorMessageComponent, LabelComponent],
 })
 export class InputComponent extends BaseControlDirective {
   @Input() label: string;

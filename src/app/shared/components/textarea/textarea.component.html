@@ -1,10 +1,13 @@
 <div class="textarea">
-  <label for="labelId">{{ label }} <span *ngIf="control.invalid && control.touched">*</span></label>
+  <cv-gen-label
+  [label]="label"
+  [hasError]="control.invalid && control.touched"
+  id="textareaId"></cv-gen-label>
 
   <mat-form-field appearance="outline" subscriptSizing="dynamic">
     <textarea
       [formControl]="control"
-      id="labelId"
+      id="textareaId"
       [placeholder]="placeholder"
       matInput
       cdkTextareaAutosize

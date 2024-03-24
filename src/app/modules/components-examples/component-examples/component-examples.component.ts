@@ -14,10 +14,10 @@ export type OptionType = {
   abbrev?: string;
 };
 
-export function requiredValidator(name: string): ValidatorFn {
+export function requiredValidator(name: string, messageRoot: string): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
     const forbidden = Validators.required(control);
-    return forbidden ? { [name]: true } : null;
+    return forbidden ? { [name]: messageRoot } : null;
   };
 }
 
@@ -31,8 +31,8 @@ export class ComponentExamplesComponent {
   constructor(private fb: FormBuilder) {}
 
   textform = this.fb.group({
-    userName: ['', [requiredValidator('inputIsRequired')]],
-    textarea: ['', [requiredValidator('textareaIsRequired')]],
+    userName: ['', [requiredValidator('inputIsRequired', 'shared')]],
+    textarea: ['', [requiredValidator('textareaIsRequired', 'shared')]],
   });
 
   onTextSubmit(): void {
@@ -59,8 +59,8 @@ export class ComponentExamplesComponent {
   }
   //SELECT FORMS
   selectForm = this.fb.group({
-    selectedOption: ['', [requiredValidator('selectIsRequired')]],
-    multiSelectedOptions: [[], [requiredValidator('selectIsRequired')]],
+    selectedOption: ['', [requiredValidator('selectIsRequired', 'shared')]],
+    multiSelectedOptions: [[], [requiredValidator('selectIsRequired', 'shared')]],
   });
 
   onSelectSubmit(): void {
@@ -71,7 +71,7 @@ export class ComponentExamplesComponent {
   autocompleteTestOptions = ['apple', 'orange', 'cherry'];
 
   autocompleteForm = this.fb.group({
-    textValue: ['', [requiredValidator('selectIsRequired')]],
+    textValue: ['', [requiredValidator('selectIsRequired', 'shared')]],
   });
   onAutoCompleteSubmit(): void {
     console.log(this.autocompleteForm, 'autocompleteForm');
@@ -80,7 +80,10 @@ export class ComponentExamplesComponent {
 
   //AUTOCOMPLETE WITH SELECT FORMS
   autocompleteSelectForm = this.fb.group({
-    multiSelectedOptionsAndNewOptions: [[this.autocompleteTestOptions[0]], [requiredValidator('selectIsRequired')]],
+    multiSelectedOptionsAndNewOptions: [
+      [this.autocompleteTestOptions[0]],
+      [requiredValidator('selectIsRequired', 'shared')],
+    ],
   });
   onAutoCompleteSelectSubmit(): void {
     console.log(this.autocompleteForm, 'autocompleteForm');

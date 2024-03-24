@@ -1,7 +1,8 @@
 <div [hidden]="!showError">
   <ul class="errors">
     <li *ngFor="let error of errors | keyvalue">
-      {{ errorMessages[error.key] }}
+      <!-- {{ errorMessages[error.key] }} -->
+      {{ error | formatTranslation | translate }}
     </li>
   </ul>
 </div>

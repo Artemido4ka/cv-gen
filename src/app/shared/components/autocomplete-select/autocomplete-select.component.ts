@@ -58,7 +58,6 @@ export class AutocompleteSelectComponent extends BaseControlDirective implements
 
   protected override initControlValueChanges(): void {
     this.control.valueChanges.pipe(untilDestroyed(this)).subscribe(value => {
-      console.log(this.control);
       this.onChange(value);
       this.onTouch()
     });

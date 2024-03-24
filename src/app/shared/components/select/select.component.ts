@@ -31,7 +31,6 @@ type OptionType = {
 export class SelectComponent extends BaseControlDirective implements OnInit {
   @Input() options: OptionType[];
   @Input() isMultiple: boolean;
-  @Input() label: string;
   @Input() placeholder: string;
   @Input() optionValue = 'id';
   @Input() optionName = 'name';

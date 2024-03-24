@@ -68,13 +68,21 @@ export class ComponentExamplesComponent {
     console.log('Submitted !', this.selectForm.value);
   }
   //AUTOCOMPLETE FORMS
-  autocompleteTestOptions = ['1aa', '2bbbb', '3cccc'];
+  autocompleteTestOptions = ['apple', 'orange', 'cherry'];
 
   autocompleteForm = this.fb.group({
     textValue: ['', [requiredValidator('selectIsRequired')]],
   });
-
   onAutoCompleteSubmit(): void {
+    console.log(this.autocompleteForm, 'autocompleteForm');
+    console.log('Submitted !', this.autocompleteForm.value);
+  }
+
+  //AUTOCOMPLETE WITH SELECT FORMS
+  autocompleteSelectForm = this.fb.group({
+    multiSelectedOptionsAndNewOptions: [[this.autocompleteTestOptions[0]], [requiredValidator('selectIsRequired')]],
+  });
+  onAutoCompleteSelectSubmit(): void {
     console.log(this.autocompleteForm, 'autocompleteForm');
     console.log('Submitted !', this.autocompleteForm.value);
   }

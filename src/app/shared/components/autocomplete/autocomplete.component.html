@@ -3,8 +3,11 @@
     type="text"
     placeholder="Search for a street"
     [formControl]="control"
-    [matAutocomplete]="auto"
-    class="example-input" />
+    [matAutocomplete]="auto" />
+
+  <cv-gen-error-message
+    [showError]="control.invalid && control.touched"
+    [errors]="control.errors"></cv-gen-error-message>
 
   <mat-autocomplete #auto="matAutocomplete">
     <mat-option *ngFor="let option of filteredOptions" [value]="option" class="hide-checkbox">

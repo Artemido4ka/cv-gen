@@ -23,7 +23,7 @@
     }
   }
 
-  input.invalid {
+  .ng-invalid {
     border-color: #ff4d4f;
     &:focus {
       border: 1px solid #ff4d4f;

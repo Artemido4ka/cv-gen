@@ -1,17 +1,18 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
-import { debounceTime, map } from 'rxjs';
+import { debounceTime, map, startWith } from 'rxjs';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { BaseControlDirective } from '../../directives/base-control.directive';
 import { untilDestroyed } from '@ngneat/until-destroy';
+import { ErrorMessageComponent } from '../error-message/error-message.component';
 
 const DELAY = 500;
 
 @Component({
   selector: 'cv-gen-autocomplete',
   standalone: true,
-  imports: [CommonModule, MatAutocompleteModule, ReactiveFormsModule],
+  imports: [CommonModule, MatAutocompleteModule, ReactiveFormsModule, ErrorMessageComponent],
   templateUrl: './autocomplete.component.html',
   styleUrls: ['./autocomplete.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -20,12 +21,11 @@ export class AutocompleteComponent extends BaseControlDirective {
   filteredOptions: string[];
   @Input() options: string[];
 
-  xui: string;
-
   protected override initControlValueChanges(): void {
     this.control.valueChanges
       .pipe(
         untilDestroyed(this),
+        startWith(''),
         map(value => ({ value, filteredOptions: this.filter(value || '') }))
         // debounceTime(DELAY)
       )

@@ -1,11 +1,7 @@
 <div class="input">
   <label for="labelId">{{ label }} <span *ngIf="control.invalid && control.touched">*</span></label>
 
-  <input
-    [class.invalid]="control.invalid && control.touched"
-    [formControl]="control"
-    id="labelId"
-    [placeholder]="placeholder" />
+  <input [formControl]="control" id="labelId" [placeholder]="placeholder" />
 
   <cv-gen-error-message
     [showError]="control.invalid && control.touched"

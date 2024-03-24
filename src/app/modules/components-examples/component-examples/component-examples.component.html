@@ -17,18 +17,8 @@
         label="test textarea label"
         placeholder="test textarea placeholder"></cv-gen-textarea>
     </div>
-
     <button (click)="onTextSubmit()">Text submit</button>
   </form>
-
-  <!-- <mat-divider></mat-divider>
-  <form [formGroup]="simpleSelectForm">
-    <div class="container-item">
-      <h2>Simple select</h2>
-      <cv-gen-select formControlName="selectedOption" [options]="testOptions"> </cv-gen-select>
-      <button (click)="onSimpleSelectSubmit()">Simple submit</button>
-    </div>
-  </form> -->
 
   <mat-divider></mat-divider>
   <form [formGroup]="selectForm" class="container-form">
@@ -52,7 +42,6 @@
         [isMultiple]="true">
       </cv-gen-select>
     </div>
-
     <button (click)="onSelectSubmit()">Select submit</button>
   </form>
 
@@ -60,13 +49,25 @@
   <form [formGroup]="autocompleteForm" class="container-form">
     <div class="container-item">
       <h2>Autocomplete</h2>
-
       <cv-gen-autocomplete
         formControlName="textValue"
         [options]="autocompleteTestOptions"
         placeholder="Autocomplete placeholder"></cv-gen-autocomplete>
     </div>
-
     <button (click)="onAutoCompleteSubmit()">Autocomplete submit</button>
+  </form>
+
+  <mat-divider></mat-divider>
+  <form [formGroup]="autocompleteSelectForm" class="container-form">
+    <div class="container-item">
+      <h2>Autocomplete Select</h2>
+
+      <cv-gen-autocomplete-select
+        formControlName="multiSelectedOptionsAndNewOptions"
+        [options]="autocompleteTestOptions"
+        placeholder="Autocomplete select placeholder"></cv-gen-autocomplete-select>
+    </div>
+
+    <button (click)="onAutoCompleteSelectSubmit()">Autocomplete Select submit</button>
   </form>
 </div>

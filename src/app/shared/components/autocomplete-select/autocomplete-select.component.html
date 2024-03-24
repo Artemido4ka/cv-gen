@@ -1,0 +1,35 @@
+<div class="autocomplete">
+  <mat-chip-grid #chipGrid aria-label="Chips selection" class="chips">
+    <mat-chip-row
+      *ngFor="let chip of chips"
+      (removed)="remove(chip)"
+      [formControl]="control"
+      name="chip"
+      ngDefaultControl
+      class="chip">
+      {{ chip }}
+      <button matChipRemove [attr.aria-label]="'remove ' + chip">
+        <mat-icon fontIcon="cancel"></mat-icon>
+      </button>
+    </mat-chip-row>
+  </mat-chip-grid>
+
+  <input
+    type="text"
+    placeholder="Search for a street"
+    [formControl]="inputControl"
+    [matAutocomplete]="auto"
+    (matChipInputTokenEnd)="add($event)"
+    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+    [matChipInputFor]="chipGrid" />
+
+  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+    <mat-option *ngFor="let option of filteredOptions" [value]="option" class="hide-checkbox">
+      {{ option }}
+    </mat-option>
+  </mat-autocomplete>
+
+  <cv-gen-error-message
+    [showError]="control.invalid && control.touched"
+    [errors]="control.errors"></cv-gen-error-message>
+</div>

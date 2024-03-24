@@ -10,6 +10,7 @@ import { TextareaComponent } from 'src/app/shared/components/textarea/textarea.c
 import { OldSelectComponent } from 'src/app/shared/components/old-select/old-select.component';
 import { MatDividerModule } from '@angular/material/divider';
 import { AutocompleteComponent } from 'src/app/shared/components/autocomplete/autocomplete.component';
+import { AutocompleteSelectComponent } from 'src/app/shared/components/autocomplete-select/autocomplete-select.component';
 
 @NgModule({
   declarations: [ComponentExamplesComponent],
@@ -22,7 +23,8 @@ import { AutocompleteComponent } from 'src/app/shared/components/autocomplete/au
     OldSelectComponent,
     SelectComponent,
     MatDividerModule,
-    AutocompleteComponent
+    AutocompleteComponent,
+    AutocompleteSelectComponent,
   ],
 })
 export class ComponentsExamplesModule {}

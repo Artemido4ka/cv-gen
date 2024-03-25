@@ -15,13 +15,6 @@ import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatIconModule } from '@angular/material/icon';
 import { ErrorMessageComponent } from '../error-message/error-message.component';
 
-type OptionType = {
-  [key: string]: number | string;
-  id?: number;
-  name?: string;
-  abbrev?: string;
-};
-
 @Component({
   selector: 'cv-gen-autocomplete-select',
   standalone: true,
@@ -38,11 +31,6 @@ type OptionType = {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AutocompleteSelectComponent extends BaseControlDirective implements OnInit {
-  // @Input() label: string;
-  // @Input() placeholder: string;
-  // @Input() optionValue = 'id';
-  // @Input() optionName = 'name';
-
   @Input() options: string[];
   chips: string[] = [];
   filteredOptions: string[];
@@ -59,7 +47,7 @@ export class AutocompleteSelectComponent extends BaseControlDirective implements
   protected override initControlValueChanges(): void {
     this.control.valueChanges.pipe(untilDestroyed(this)).subscribe(value => {
       this.onChange(value);
-      this.onTouch()
+      this.onTouch();
     });
   }
 

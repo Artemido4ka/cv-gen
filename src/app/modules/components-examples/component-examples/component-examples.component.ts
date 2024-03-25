@@ -6,7 +6,7 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
-//import { TableElement } from 'src/app/shared/components/table/table.component';
+import { MatTableDataSource } from '@angular/material/table';
 
 export type OptionType = {
   [key: string]: number | string;
@@ -92,11 +92,19 @@ export class ComponentExamplesComponent {
 
   //-------------------------------TABLE-------------------------------
   TABLE_DATA: TableElement[] = [
-    { id: 1, name: 'Yeugenia1', surName: 'Test1', email: 'test@mail.com1' },
+    { id: 1, name: 'name1', surName: 'Test1', email: 'test@mail.com1' },
     { id: 2, name: 'Yeugenia2', surName: 'Test2', email: 'test@mail.com2' },
     { id: 3, name: 'Yeugenia3', surName: 'Test3', email: 'test@mail.com3' },
     { id: 4, name: 'Yeugenia4', surName: 'Test4', email: 'test@mail.com4' },
     { id: 5, name: 'Yeugenia5', surName: 'Test5', email: 'test@mail.com5' },
+    { id: 6, name: 'Yeugenia6', surName: 'Test6', email: 'test@mail.com6' },
+    { id: 7, name: 'Yeugenia7', surName: 'Test7', email: 'test@mail.com7' },
+    { id: 8, name: 'Yeugenia8', surName: 'Test8', email: 'test@mail.com8' },
+    { id: 9, name: 'Yeugenia9', surName: 'Test9', email: 'test@mail.com9' },
+    { id: 10, name: 'Yeugenia10', surName: 'Test10', email: 'test@mail.com10' },
+    { id: 11, name: 'Yeugenia11', surName: 'Test11', email: 'test@mail.com11' },
+    { id: 12, name: 'Yeugenia12', surName: 'Test12', email: 'test@mail.com12' },
+    { id: 13, name: 'Yeugenia13', surName: 'Test13', email: 'test@mail.com13' },
   ];
 
   columns = [
@@ -121,6 +129,8 @@ export class ComponentExamplesComponent {
       cell: (element: TableElement) => `${element.email}`,
     },
   ];
+
+  tableData = new MatTableDataSource(this.TABLE_DATA);
 
   linkUrl = '/home/projects';
 }

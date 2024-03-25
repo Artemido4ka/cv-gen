@@ -1,7 +1,7 @@
 <div class="container">
   <h1>Forms</h1>
 
-  <!-- <form [formGroup]="textform" class="container-form">
+  <form [formGroup]="textform" class="container-form">
     <div class="container-item">
       <h2>Simple text input</h2>
       <cv-gen-input
@@ -18,10 +18,10 @@
         placeholder="test textarea placeholder"></cv-gen-textarea>
     </div>
     <button (click)="onTextSubmit()">Text submit</button>
-  </form> -->
+  </form>
 
   <mat-divider></mat-divider>
-  <!-- <form [formGroup]="selectForm" class="container-form">
+  <form [formGroup]="selectForm" class="container-form">
     <div class="container-item">
       <h2>Select</h2>
       <cv-gen-select
@@ -43,10 +43,10 @@
       </cv-gen-select>
     </div>
     <button (click)="onSelectSubmit()">Select submit</button>
-  </form> -->
+  </form>
 
   <mat-divider></mat-divider>
-  <!-- <form [formGroup]="autocompleteForm" class="container-form">
+  <form [formGroup]="autocompleteForm" class="container-form">
     <div class="container-item">
       <h2>Autocomplete</h2>
       <cv-gen-autocomplete
@@ -55,7 +55,7 @@
         placeholder="Autocomplete placeholder"></cv-gen-autocomplete>
     </div>
     <button (click)="onAutoCompleteSubmit()">Autocomplete submit</button>
-  </form> -->
+  </form>
 
   <mat-divider></mat-divider>
   <form [formGroup]="autocompleteSelectForm" class="container-form">
@@ -73,6 +73,6 @@
   <mat-divider></mat-divider>
 
   <div>
-    <cv-gen-table [tableData]="TABLE_DATA" [columns]="columns" [linkUrl]="linkUrl"></cv-gen-table>
+    <cv-gen-table [tableData]="tableData" [columns]="columns" [linkUrl]="linkUrl"></cv-gen-table>
   </div>
 </div>

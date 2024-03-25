@@ -11,6 +11,7 @@ import { OldSelectComponent } from 'src/app/shared/components/old-select/old-sel
 import { MatDividerModule } from '@angular/material/divider';
 import { AutocompleteComponent } from 'src/app/shared/components/autocomplete/autocomplete.component';
 import { AutocompleteSelectComponent } from 'src/app/shared/components/autocomplete-select/autocomplete-select.component';
+import { TableComponent } from 'src/app/shared/components/table/table.component';
 
 @NgModule({
   declarations: [ComponentExamplesComponent],
@@ -25,6 +26,7 @@ import { AutocompleteSelectComponent } from 'src/app/shared/components/autocompl
     MatDividerModule,
     AutocompleteComponent,
     AutocompleteSelectComponent,
+    TableComponent
   ],
 })
 export class ComponentsExamplesModule {}

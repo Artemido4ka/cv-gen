@@ -30,7 +30,7 @@ import { ErrorMessageComponent } from '../error-message/error-message.component'
   styleUrls: ['./autocomplete-select.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AutocompleteSelectComponent extends BaseControlDirective implements OnInit {
+export class AutocompleteSelectComponent extends BaseControlDirective<string[]> implements OnInit {
   @Input() options: string[];
   chips: string[] = [];
   filteredOptions: string[];

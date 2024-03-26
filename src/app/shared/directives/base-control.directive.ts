@@ -7,7 +7,7 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
   selector: '[cvGenBaseControl]',
   standalone: true,
 })
-export class BaseControlDirective implements ControlValueAccessor, OnInit, DoCheck {
+export class BaseControlDirective<T> implements ControlValueAccessor, OnInit, DoCheck {
   constructor(private ngControl: NgControl) {
     this.ngControl.valueAccessor = this;
     // if (this.ngControl.control?.parent) {
@@ -15,7 +15,7 @@ export class BaseControlDirective implements ControlValueAccessor, OnInit, DoChe
     // }
   }
   private readonly cdRef = inject(ChangeDetectorRef);
-  onChange: (val: any) => void;
+  onChange: (val: T) => void;
   onTouch: () => void;
   control = new FormControl();
 
@@ -35,7 +35,7 @@ export class BaseControlDirective implements ControlValueAccessor, OnInit, DoChe
     }
   }
 
-  writeValue(value: any): void {
+  writeValue(value: T): void {
     this.control.setValue(value);
     // this.cdRef.detectChanges();
   }
@@ -53,7 +53,7 @@ export class BaseControlDirective implements ControlValueAccessor, OnInit, DoChe
   }
 
   protected initControlValueChanges(): void {
-    this.control.valueChanges.pipe(untilDestroyed(this)).subscribe((value: any) => {
+    this.control.valueChanges.pipe(untilDestroyed(this)).subscribe((value: T) => {
       this.onChange(value);
     });
   }

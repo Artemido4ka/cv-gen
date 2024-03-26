@@ -14,7 +14,7 @@ import { LabelComponent } from '../label/label.component';
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule, ErrorMessageComponent, LabelComponent],
 })
-export class InputComponent extends BaseControlDirective {
+export class InputComponent extends BaseControlDirective<string> {
   @Input() label: string;
   @Input() placeholder: string;
 }

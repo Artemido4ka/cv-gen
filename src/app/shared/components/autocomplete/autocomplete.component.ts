@@ -17,7 +17,7 @@ const DELAY = 500;
   styleUrls: ['./autocomplete.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AutocompleteComponent extends BaseControlDirective {
+export class AutocompleteComponent extends BaseControlDirective<string> {
   filteredOptions: string[];
   @Input() options: string[];
 

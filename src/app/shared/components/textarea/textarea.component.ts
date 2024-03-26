@@ -21,7 +21,7 @@ import { LabelComponent } from '../label/label.component';
     LabelComponent,
   ],
 })
-export class TextareaComponent extends BaseControlDirective {
+export class TextareaComponent extends BaseControlDirective<string> {
   @Input() label: string;
   @Input() placeholder: string;
 }

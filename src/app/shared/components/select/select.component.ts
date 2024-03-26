@@ -28,13 +28,13 @@ type OptionType = {
   styleUrls: ['./select.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SelectComponent extends BaseControlDirective implements OnInit {
+export class SelectComponent
+  extends BaseControlDirective<OptionType[] | OptionType>
+  implements OnInit
+{
   @Input() options: OptionType[];
   @Input() isMultiple: boolean;
   @Input() placeholder: string;
   @Input() optionValue = 'id';
   @Input() optionName = 'name';
-
-  // writeValue(value: OptionType[] | OptionType): void {
-  // .subscribe((value: OptionType[] | OptionType) => {
 }

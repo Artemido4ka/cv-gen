@@ -5,8 +5,8 @@
         {{ column.header }}
       </th>
       <td mat-cell *matCellDef="let row" class="cell">
-        <button (dblclick)="handleCellClick(row.id)" class="cell-link">
-          {{ column.cell(row) }}
+        <button (dblclick)="handleRowClick(row.id)" class="cell-link">
+          {{ row[column.columnDef] }}
         </button>
       </td>
     </ng-container>

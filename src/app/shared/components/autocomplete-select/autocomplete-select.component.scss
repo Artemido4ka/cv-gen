@@ -1,14 +1,13 @@
+:host {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
 .autocomplete {
   border: 1px solid #d9d9d9;
   border-radius: 0 2px 2px 0;
   padding: 12px;
-
-  .chips {
-    // margin-bottom: 10px;
-  }
-
-  .chip {
-  }
 
   input {
     box-sizing: border-box;

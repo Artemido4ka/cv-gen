@@ -2,7 +2,7 @@
   <mat-chip-grid #chipGrid aria-label="Chips selection" class="chips">
     <mat-chip-row
       *ngFor="let chip of chips"
-      (removed)="remove(chip)"
+      (removed)="removeChip(chip)"
       [formControl]="control"
       name="chip"
       ngDefaultControl
@@ -19,11 +19,11 @@
     placeholder="Search for a street"
     [formControl]="inputControl"
     [matAutocomplete]="auto"
-    (matChipInputTokenEnd)="add($event)"
+    (matChipInputTokenEnd)="addChip($event)"
     [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
     [matChipInputFor]="chipGrid" />
 
-  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectChip($event)">
     <mat-option *ngFor="let option of filteredOptions" [value]="option" class="hide-checkbox">
       {{ option }}
     </mat-option>

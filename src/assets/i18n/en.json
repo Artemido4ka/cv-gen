@@ -2,9 +2,21 @@
   "test": "someName",
   "shared": {
     "errors": {
-      "inputIsRequired": "Please, specify the field !",
-      "textareaIsRequired": "Textarea is required !",
-      "selectIsRequired": "Please, select something !"
+      "input": {
+        "required" : "Please, specify the field !"
+      },
+      "textarea": {
+        "required" : "Textarea is required !"
+      },
+      "select": {
+        "required" : "Please, select something !"
+      },
+      "date": {
+        "required" : "Please, select the date !"
+      },
+      "autoComplete": {
+        "required" : "Please, type something !"
+      }
     }
   }
 }

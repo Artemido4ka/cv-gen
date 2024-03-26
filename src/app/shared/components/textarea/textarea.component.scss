@@ -1,17 +1,7 @@
-.textarea {
-  display: flex;
-  flex-direction: column;
-
-  //TODO remove to label
-  label {
-    font-size: 12px;
-    margin-bottom: 4px;
-  }
-
-  span {
-    color: #ff4d4f;
-    margin-left: 4px;
-  }
+:host {
+  display: block;
+  height: 100%;
+  width: 100%;
 }
 
 :host ::ng-deep {
@@ -25,6 +15,22 @@
   .mdc-text-field--outlined {
     --mdc-outlined-text-field-container-shape: 4px;
     --mdc-outlined-text-field-focus-outline-color: grey;
+  }
+}
+
+.textarea {
+  display: flex;
+  flex-direction: column;
+
+  //TODO remove to label
+  label {
+    font-size: 12px;
+    margin-bottom: 4px;
+  }
+
+  span {
+    color: #ff4d4f;
+    margin-left: 4px;
   }
 }
 

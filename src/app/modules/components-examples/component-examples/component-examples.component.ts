@@ -22,10 +22,10 @@ interface TableElement {
   email: string;
 }
 
-export function requiredValidator(name: string, messageRoot: string): ValidatorFn {
+export function requiredValidator(messageRoot: string): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
     const forbidden = Validators.required(control);
-    return forbidden ? { [name]: messageRoot } : null;
+    return forbidden ? { required: messageRoot } : null;
   };
 }
 
@@ -40,8 +40,8 @@ export class ComponentExamplesComponent {
 
   //-------------------TEXT FORMS-------------------------------
   textform = this.fb.group({
-    userName: ['', [requiredValidator('inputIsRequired', 'shared')]],
-    textarea: ['', [requiredValidator('textareaIsRequired', 'shared')]],
+    userName: ['', [requiredValidator('shared.errors.input.required')]],
+    textarea: ['', [requiredValidator('shared.errors.textarea.required')]],
   });
 
   onTextSubmit(): void {
@@ -58,8 +58,8 @@ export class ComponentExamplesComponent {
   ];
 
   selectForm = this.fb.group({
-    selectedOption: ['', [requiredValidator('selectIsRequired', 'shared')]],
-    multiSelectedOptions: [[], [requiredValidator('selectIsRequired', 'shared')]],
+    selectedOption: ['', [requiredValidator('shared.errors.select.required')]],
+    multiSelectedOptions: [[], [requiredValidator('shared.errors.select.required')]],
   });
 
   onSelectSubmit(): void {
@@ -71,7 +71,7 @@ export class ComponentExamplesComponent {
   autocompleteTestOptions = ['apple', 'orange', 'cherry'];
 
   autocompleteForm = this.fb.group({
-    textValue: ['', [requiredValidator('selectIsRequired', 'shared')]],
+    textValue: ['', [requiredValidator('shared.errors.autoComplete.required')]],
   });
   onAutoCompleteSubmit(): void {
     console.log(this.autocompleteForm, 'autocompleteForm');
@@ -82,7 +82,7 @@ export class ComponentExamplesComponent {
   autocompleteSelectForm = this.fb.group({
     multiSelectedOptionsAndNewOptions: [
       [this.autocompleteTestOptions[0]],
-      [requiredValidator('selectIsRequired', 'shared')],
+      [requiredValidator('shared.errors.select.required')],
     ],
   });
   onAutoCompleteSelectSubmit(): void {
@@ -137,7 +137,7 @@ export class ComponentExamplesComponent {
   //-------------------------------DATE-PICKER-------------------------------
 
   datepickerForm = this.fb.group({
-    date: [new Date(), [requiredValidator('selectIsRequired', 'shared')]],
+    date: [new Date(), [requiredValidator('shared.errors.date.required')]],
   });
   onDatePickerSubmit(): void {
     console.log(this.datepickerForm, 'datepickerForm');

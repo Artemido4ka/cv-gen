@@ -1,18 +1,18 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BaseControlDirective } from '../../directives/base-control.directive';
-import {
-  MatAutocompleteModule,
-  MatAutocompleteSelectedEvent,
-} from '@angular/material/autocomplete';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-
-import { MatChipInputEvent, MatChipsModule } from '@angular/material/chips';
 import { untilDestroyed } from '@ngneat/until-destroy';
 import { map, startWith } from 'rxjs';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 
+import { MatChipInputEvent, MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
+import {
+  MatAutocompleteModule,
+  MatAutocompleteSelectedEvent,
+} from '@angular/material/autocomplete';
+
+import { BaseControlDirective } from '../../directives/base-control.directive';
 import { ErrorMessageComponent } from '../error-message/error-message.component';
 
 @Component({
@@ -56,14 +56,14 @@ export class AutocompleteSelectComponent extends BaseControlDirective<string[]> 
       .pipe(
         untilDestroyed(this),
         startWith(''),
-        map(value => this.filter(value || ''))
+        map(inputValue => this.filterOptions(inputValue || ''))
       )
-      .subscribe(value => {
-        this.filteredOptions = value;
+      .subscribe(filteredOptions => {
+        this.filteredOptions = filteredOptions;
       });
   }
 
-  private filter(value: string): string[] {
+  private filterOptions(value: string): string[] {
     const filterValue = this.normalizeValue(value);
     return this.options.filter(option => this.normalizeValue(option).includes(filterValue));
   }
@@ -72,7 +72,7 @@ export class AutocompleteSelectComponent extends BaseControlDirective<string[]> 
     return value.toLowerCase().replace(/\s/g, '');
   }
 
-  add(event: MatChipInputEvent) {
+  addChip(event: MatChipInputEvent) {
     const value = (event.value || '').trim();
     if (value) {
       this.chips.push(value);
@@ -80,13 +80,13 @@ export class AutocompleteSelectComponent extends BaseControlDirective<string[]> 
     this.control.setValue(this.chips);
   }
 
-  selected(event: MatAutocompleteSelectedEvent): void {
+  selectChip(event: MatAutocompleteSelectedEvent): void {
     this.chips.push(event.option.value);
     this.inputControl.setValue(null);
     this.control.setValue(this.chips);
   }
 
-  remove(chip: string): void {
+  removeChip(chip: string): void {
     const index = this.chips.indexOf(chip);
 
     if (index >= 0) {

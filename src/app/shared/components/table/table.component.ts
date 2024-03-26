@@ -7,8 +7,9 @@ import {
   ViewChild,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { Router, RouterLink, RouterModule } from '@angular/router';
+
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 
 type Cell<T> = {
@@ -43,7 +44,7 @@ export class TableComponent<T> implements OnInit, AfterViewInit {
     this.tableData.paginator = this.paginator;
   }
 
-  handleCellClick(id: number) {
+  handleRowClick(id: number) {
     this.router.navigate([this.linkUrl, id]);
   }
 }

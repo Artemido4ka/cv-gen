@@ -61,18 +61,25 @@
   <form [formGroup]="autocompleteSelectForm" class="container-form">
     <div class="container-item">
       <h2>Autocomplete Select</h2>
-
       <cv-gen-autocomplete-select
         formControlName="multiSelectedOptionsAndNewOptions"
         [options]="autocompleteTestOptions"
         placeholder="Autocomplete select placeholder"></cv-gen-autocomplete-select>
     </div>
-
     <button (click)="onAutoCompleteSelectSubmit()">Autocomplete Select submit</button>
   </form>
-  <mat-divider></mat-divider>
 
+  <mat-divider></mat-divider>
   <div>
     <cv-gen-table [tableData]="tableData" [columns]="columns" [linkUrl]="linkUrl"></cv-gen-table>
   </div>
+
+  <mat-divider></mat-divider>
+  <form [formGroup]="datepickerForm" class="container-form">
+    <div class="container-item">
+      <h2>Date Picker</h2>
+      <cv-gen-datepicker formControlName="date"></cv-gen-datepicker>
+    </div>
+    <button (click)="onDatePickerSubmit()">Date Picker submit</button>
+  </form>
 </div>

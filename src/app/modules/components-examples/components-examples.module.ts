@@ -12,6 +12,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { AutocompleteComponent } from 'src/app/shared/components/autocomplete/autocomplete.component';
 import { AutocompleteSelectComponent } from 'src/app/shared/components/autocomplete-select/autocomplete-select.component';
 import { TableComponent } from 'src/app/shared/components/table/table.component';
+import { DatepickerComponent } from 'src/app/shared/components/datepicker/datepicker.component';
 
 @NgModule({
   declarations: [ComponentExamplesComponent],
@@ -26,7 +27,8 @@ import { TableComponent } from 'src/app/shared/components/table/table.component'
     MatDividerModule,
     AutocompleteComponent,
     AutocompleteSelectComponent,
-    TableComponent
+    TableComponent,
+    DatepickerComponent,
   ],
 })
 export class ComponentsExamplesModule {}

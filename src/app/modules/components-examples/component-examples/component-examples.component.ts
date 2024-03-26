@@ -133,4 +133,14 @@ export class ComponentExamplesComponent {
   tableData = new MatTableDataSource(this.TABLE_DATA);
 
   linkUrl = '/home/projects';
+
+  //-------------------------------DATE-PICKER-------------------------------
+
+  datepickerForm = this.fb.group({
+    date: [new Date(), [requiredValidator('selectIsRequired', 'shared')]],
+  });
+  onDatePickerSubmit(): void {
+    console.log(this.datepickerForm, 'datepickerForm');
+    console.log('Submitted !', this.datepickerForm.value);
+  }
 }

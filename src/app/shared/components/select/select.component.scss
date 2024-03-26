@@ -1,8 +1,4 @@
 :host ::ng-deep {
-  .mdc-text-field--outlined {
-    --mdc-outlined-text-field-focus-outline-color: grey;
-  }
-
   .error .mdc-text-field--outlined {
     --mdc-outlined-text-field-outline-color: red;
   }

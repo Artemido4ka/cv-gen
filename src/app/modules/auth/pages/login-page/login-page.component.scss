@@ -1,0 +1,39 @@
+:host {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+.container {
+  margin: 0 auto;
+  width: 360px;
+
+  .inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .bottom-items {
+    margin: 22px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+//TODO: move to link component
+.link {
+  text-decoration: none;
+  box-sizing: content-box;
+  height: 100%;
+  color: #1890ff;
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+//TODO: move to button component
+.button {
+  width: 100%;
+}

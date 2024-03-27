@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
+import { requiredValidator } from 'src/app/shared/validators/required.validator';
 
 @Component({
   selector: 'cv-gen-login-page',
@@ -11,14 +12,12 @@ export class LoginPageComponent {
   constructor(private fb: FormBuilder) {}
 
   loginForm = this.fb.group({
-    userName: ['', [Validators.required]],
-    // password: ['', [Validators.required]],
+    userName: ['', [requiredValidator('auth.login.password.errors.required')]],
+    password: ['', [requiredValidator('auth.login.userName.errors.required')]],
     checkBox: [false],
-    textarea: ['textarea text', [Validators.required]],
   });
 
   onSubmit(): void {
-    console.log(this.loginForm, 'FORm');
     console.log('Submitted !', this.loginForm.value);
   }
 }

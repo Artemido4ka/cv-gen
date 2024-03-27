@@ -1,15 +1,36 @@
-<p>login-page works!</p>
+<div class="container">
+  <form [formGroup]="loginForm" class="form">
+    <div class="inputs">
+      <cv-gen-input
+        id="nameId"
+        formControlName="userName"
+        placeholder="auth.login.userName.placeholder"
+        label="auth.login.userName.label"></cv-gen-input>
+      <cv-gen-input
+        id="passwordId"
+        type="password"
+        formControlName="password"
+        placeholder="auth.login.password.placeholder"
+        label="auth.login.password.label"></cv-gen-input>
+    </div>
 
-<form [formGroup]="loginForm">
-  <label for="name">Name</label>
-  <!-- <input id="name" formControlName="userName" /> -->
+    <div class="bottom-items">
+      <mat-checkbox class="example-margin" formControlName="checkBox">{{
+        'auth.login.checkbox' | translate
+      }}</mat-checkbox>
 
-  <div>
-    <input type="checkbox" value="" id="" formControlName="checkBox" />
-    <label for=""> Default checkbox </label>
-  </div>
+      <a routerLink="" class="link">
+        {{ 'auth.login.forgotPassword' | translate }}
+      </a>
+    </div>
 
-  <cv-gen-input [formControlName]="'userName'"></cv-gen-input>
-
-  <button (click)="onSubmit()">Click me</button>
-</form>
+    <button
+      class="button"
+      mat-raised-button
+      color="primary"
+      (click)="onSubmit()"
+      [disabled]="loginForm.invalid">
+      {{ 'auth.login.button' | translate }}
+    </button>
+  </form>
+</div>

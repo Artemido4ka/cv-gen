@@ -1,22 +1,42 @@
 {
-  "test": "someName",
   "shared": {
     "errors": {
       "input": {
-        "required" : "Please, specify the field !"
+        "required": "Please, specify the field !"
       },
       "textarea": {
-        "required" : "Textarea is required !"
+        "required": "Textarea is required !"
       },
       "select": {
-        "required" : "Please, select something !"
+        "required": "Please, select something !"
       },
       "date": {
-        "required" : "Please, select the date !"
+        "required": "Please, select the date !"
       },
       "autoComplete": {
-        "required" : "Please, type something !"
+        "required": "Please, type something !"
       }
+    }
+  },
+  "auth": {
+    "login": {
+      "userName": {
+        "placeholder": "Enter user name",
+        "label": "User Name",
+        "errors": {
+          "required": "Please, enter user name !"
+        }
+      },
+      "password": {
+        "placeholder": "Enter user password",
+        "label": "Password",
+        "errors": {
+          "required": "Please, enter password !"
+        }
+      },
+      "checkbox": "Remember me",
+      "forgotPassword": "Forgot your password ?",
+      "button": "Login"
     }
   }
 }

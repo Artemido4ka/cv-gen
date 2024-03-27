@@ -2,9 +2,13 @@
   <cv-gen-label
     [label]="label"
     [hasError]="control.invalid && control.touched"
-    id="inputId"></cv-gen-label>
+    [id]="id"></cv-gen-label>
 
-  <input [formControl]="control" id="inputId" [placeholder]="placeholder" />
+  <input
+    [type]="type"
+    [formControl]="control"
+    [id]="id"
+    [placeholder]="placeholder | translate" />
 
   <cv-gen-error-message
     [showError]="control.invalid && control.touched"

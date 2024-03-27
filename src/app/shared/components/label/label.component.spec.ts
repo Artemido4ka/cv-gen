@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LabelComponent } from './label.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('LabelComponent', () => {
   let component: LabelComponent;
@@ -8,7 +9,7 @@ describe('LabelComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [LabelComponent]
+      imports: [LabelComponent, TranslateModule.forRoot()],
     });
     fixture = TestBed.createComponent(LabelComponent);
     component = fixture.componentInstance;

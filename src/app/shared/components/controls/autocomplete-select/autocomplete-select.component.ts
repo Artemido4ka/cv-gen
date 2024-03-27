@@ -12,8 +12,8 @@ import {
   MatAutocompleteSelectedEvent,
 } from '@angular/material/autocomplete';
 
-import { BaseControlDirective } from '../../directives/base-control.directive';
-import { ErrorMessageComponent } from '../error-message/error-message.component';
+import { BaseControlDirective } from '../../../directives/base-control.directive';
+import { ErrorMessageComponent } from '../../error-message/error-message.component';
 
 @Component({
   selector: 'cv-gen-autocomplete-select',

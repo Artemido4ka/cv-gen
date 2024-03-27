@@ -4,8 +4,8 @@ import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 
-import { ErrorMessageComponent } from '../error-message/error-message.component';
-import { BaseControlDirective } from '../../directives/base-control.directive';
+import { ErrorMessageComponent } from '../../error-message/error-message.component';
+import { BaseControlDirective } from '../../../directives/base-control.directive';
 
 type OptionType = {
   [key: string]: number | string;

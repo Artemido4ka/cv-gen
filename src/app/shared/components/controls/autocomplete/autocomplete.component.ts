@@ -3,9 +3,9 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { debounceTime, map, startWith } from 'rxjs';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { BaseControlDirective } from '../../directives/base-control.directive';
+import { BaseControlDirective } from '../../../directives/base-control.directive';
 import { untilDestroyed } from '@ngneat/until-destroy';
-import { ErrorMessageComponent } from '../error-message/error-message.component';
+import { ErrorMessageComponent } from '../../error-message/error-message.component';
 
 const DELAY = 500;
 

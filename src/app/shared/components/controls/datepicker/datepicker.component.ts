@@ -5,7 +5,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatNativeDateModule } from '@angular/material/core';
-import { BaseControlDirective } from '../../directives/base-control.directive';
+import { BaseControlDirective } from '../../../directives/base-control.directive';
 
 @Component({
   selector: 'cv-gen-datepicker',

@@ -1,12 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import {
-  AbstractControl,
-  FormBuilder,
-  ValidationErrors,
-  ValidatorFn,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
+import { requiredValidator } from 'src/app/shared/validators/required.validator';
 
 export type OptionType = {
   [key: string]: number | string;
@@ -20,13 +15,6 @@ interface TableElement {
   name: string;
   surName: string;
   email: string;
-}
-
-export function requiredValidator(messageRoot: string): ValidatorFn {
-  return (control: AbstractControl): ValidationErrors | null => {
-    const forbidden = Validators.required(control);
-    return forbidden ? { required: messageRoot } : null;
-  };
 }
 
 @Component({

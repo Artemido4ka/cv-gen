@@ -1,11 +1,11 @@
-import { ErrorMessageComponent } from './../error-message/error-message.component';
+import { ErrorMessageComponent } from '../../error-message/error-message.component';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import { MatInputModule } from '@angular/material/input';
-import { BaseControlDirective } from '../../directives/base-control.directive';
+import { BaseControlDirective } from '../../../directives/base-control.directive';
 import { ReactiveFormsModule } from '@angular/forms';
-import { LabelComponent } from '../label/label.component';
+import { LabelComponent } from '../../label/label.component';
 
 @Component({
   selector: 'cv-gen-textarea',

@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LoginPageComponent } from './login-page.component';
-import { InputComponent } from 'src/app/shared/components/input/input.component';
+import { InputComponent } from 'src/app/shared/components/controls/input/input.component';
 import { ReactiveFormsModule } from '@angular/forms';
 
 describe('LoginPageComponent', () => {
@@ -11,7 +11,7 @@ describe('LoginPageComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [LoginPageComponent],
-      imports:[InputComponent, ReactiveFormsModule]
+      imports: [InputComponent, ReactiveFormsModule],
     });
     fixture = TestBed.createComponent(LoginPageComponent);
     component = fixture.componentInstance;

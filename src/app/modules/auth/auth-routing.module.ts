@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthPageComponent } from './pages/auth-page/auth-page.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { RegistrationPageComponent } from './pages/registration-page/registration-page.component';
+import { RoutingPaths } from 'src/app/shared/constants/routing-paths';
 
 const routes: Routes = [
   {
@@ -10,14 +11,14 @@ const routes: Routes = [
     component: AuthPageComponent,
     children: [
       {
-        path: 'login',
+        path: RoutingPaths.AUTH_LOGIN,
         component: LoginPageComponent,
       },
       {
-        path: 'registration',
+        path: RoutingPaths.AUTH_REGISTRATION,
         component: RegistrationPageComponent,
       },
-      { path: '**', redirectTo: 'login' },
+      { path: '**', redirectTo: RoutingPaths.AUTH_LOGIN },
     ],
   },
 ];

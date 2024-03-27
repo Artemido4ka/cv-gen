@@ -1,23 +1,24 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { RoutingPaths } from './shared/constants/routing-paths';
 
 const routes: Routes = [
   {
-    path: 'auth',
+    path: RoutingPaths.AUTH,
     loadChildren: () => import('./modules/auth/auth.module').then(m => m.AuthModule),
   },
   {
-    path: 'home',
+    path: RoutingPaths.HOME,
     loadChildren: () => import('./modules/home/home.module').then(m => m.HomeModule),
   },
   {
-    path: 'components-examples',
+    path: RoutingPaths.STORY_BOOK,
     loadChildren: () =>
       import('./modules/components-examples/components-examples.module').then(
         m => m.ComponentsExamplesModule
       ),
   },
-  { path: '**', redirectTo: 'components-examples' },
+  { path: '**', redirectTo: RoutingPaths.AUTH },
 ];
 
 @NgModule({

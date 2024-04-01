@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { RoutingPaths } from './shared/constants/routing-paths';
+import { authGuard } from './modules/auth/guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -10,6 +11,7 @@ const routes: Routes = [
   {
     path: RoutingPaths.HOME,
     loadChildren: () => import('./modules/home/home.module').then(m => m.HomeModule),
+    canActivate: [authGuard],
   },
   {
     path: RoutingPaths.STORY_BOOK,
@@ -18,7 +20,7 @@ const routes: Routes = [
         m => m.ComponentsExamplesModule
       ),
   },
-  { path: '**', redirectTo: RoutingPaths.AUTH },
+  { path: '**', redirectTo: RoutingPaths.HOME },
 ];
 
 @NgModule({

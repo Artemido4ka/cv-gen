@@ -1,6 +1,3 @@
-export const AUTH = {
-  path: 'auth',
-};
 export class RoutingPaths {
   public static readonly AUTH = 'auth';
   public static readonly AUTH_LOGIN = 'login';

@@ -10,6 +10,7 @@ import { AuthPageComponent } from './pages/auth-page/auth-page.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { RegistrationPageComponent } from './pages/registration-page/registration-page.component';
 import { InputComponent } from 'src/app/shared/components/controls/input/input.component';
+import { ErrorMessageComponent } from 'src/app/shared/components/error-message/error-message.component';
 
 @NgModule({
   declarations: [AuthPageComponent, LoginPageComponent, RegistrationPageComponent],
@@ -21,6 +22,7 @@ import { InputComponent } from 'src/app/shared/components/controls/input/input.c
     TranslateModule,
     MatCheckboxModule,
     MatButtonModule,
+    ErrorMessageComponent,
   ],
 })
 export class AuthModule {}

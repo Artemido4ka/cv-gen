@@ -1,6 +1,9 @@
 {
   "shared": {
     "errors": {
+      "auth": {
+        "unexpected": "Unexpected error"
+      },
       "input": {
         "required": "Please, specify the field !"
       },
@@ -36,7 +39,10 @@
       },
       "checkbox": "Remember me",
       "forgotPassword": "Forgot your password ?",
-      "button": "Login"
+      "button": "Login",
+      "errors": {
+        "credentials": "Wrong email or password !"
+      }
     }
   }
 }

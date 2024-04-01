@@ -19,17 +19,21 @@
         'auth.login.checkbox' | translate
       }}</mat-checkbox>
 
-      <a routerLink="" class="link">
+      <a routerLink="#" class="link">
         {{ 'auth.login.forgotPassword' | translate }}
       </a>
     </div>
 
+    <cv-gen-error-message
+      [showError]="loginForm.invalid"
+      [errors]="loginForm.errors"></cv-gen-error-message>
+
     <button
+      [disabled]="loginForm.invalid"
       class="button"
       mat-raised-button
       color="primary"
-      (click)="onSubmit()"
-      [disabled]="loginForm.invalid">
+      (click)="onSubmit()">
       {{ 'auth.login.button' | translate }}
     </button>
   </form>

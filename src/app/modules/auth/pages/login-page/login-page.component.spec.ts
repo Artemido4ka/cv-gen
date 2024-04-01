@@ -5,6 +5,8 @@ import { InputComponent } from 'src/app/shared/components/controls/input/input.c
 import { ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { ErrorMessageComponent } from 'src/app/shared/components/error-message/error-message.component';
 
 describe('LoginPageComponent', () => {
   let component: LoginPageComponent;
@@ -13,7 +15,15 @@ describe('LoginPageComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [LoginPageComponent],
-      imports: [InputComponent, ReactiveFormsModule, TranslateModule.forRoot(), MatCheckboxModule],
+      imports: [
+        InputComponent,
+        ReactiveFormsModule,
+        TranslateModule.forRoot(),
+        MatCheckboxModule,
+        HttpClientModule,
+        ErrorMessageComponent,
+      ],
+      providers: [HttpClient],
     });
     fixture = TestBed.createComponent(LoginPageComponent);
     component = fixture.componentInstance;

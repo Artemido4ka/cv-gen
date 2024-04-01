@@ -1,2 +1,10 @@
-<p>home-page layout</p>
-<router-outlet></router-outlet>
+<div class="container">
+  <cv-gen-header></cv-gen-header>
+  <div class="page">
+    <cv-gen-sidebar></cv-gen-sidebar>
+    <section class="section">
+      <div class="breadcrumbs">breadcrumbs</div>
+      <div class="content"><router-outlet></router-outlet></div>
+    </section>
+  </div>
+</div>

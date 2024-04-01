@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { ProjectsServiceTsService } from './services/projects.service';
+import { ProjectsServiceTsService } from '../../services/projects.service';
 
 @Component({
   selector: 'cv-gen-projects-page',

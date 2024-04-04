@@ -1,1 +1,12 @@
-<p>projects-page works!</p>
+isLoading:{{ isLoading }}
+
+<div class="projects">
+  <button>Add project</button>
+
+  <!-- <cv-gen-table [tableData]="projects" [columns]="columns" [linkUrl]="linkUrl"></cv-gen-table> -->
+
+  <cv-gen-custom-table
+    [tableData]="projects"
+    [columns]="columns"
+    [linkUrl]="linkUrl"></cv-gen-custom-table>
+</div>

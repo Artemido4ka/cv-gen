@@ -11,7 +11,7 @@ import { OldSelectComponent } from 'src/app/shared/components/old-select/old-sel
 import { MatDividerModule } from '@angular/material/divider';
 import { AutocompleteComponent } from 'src/app/shared/components/controls/autocomplete/autocomplete.component';
 import { AutocompleteSelectComponent } from 'src/app/shared/components/controls/autocomplete-select/autocomplete-select.component';
-import { TableComponent } from 'src/app/shared/components/table/table.component';
+import { TableComponent } from 'src/app/shared/components/tables/table/table.component';
 import { DatepickerComponent } from 'src/app/shared/components/controls/datepicker/datepicker.component';
 
 @NgModule({

@@ -11,27 +11,28 @@ import { Router, RouterLink, RouterModule } from '@angular/router';
 
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { ComponentType } from '@angular/cdk/portal';
 
-type Cell<T> = {
+type Column = {
   columnDef: string;
   header: string;
-  cell: (element: T) => string;
+  cellComponent?: ComponentType<unknown>;
 };
 
 @Component({
-  selector: 'cv-gen-table',
+  selector: 'cv-gen-custom-table',
   standalone: true,
   imports: [CommonModule, MatTableModule, RouterLink, RouterModule, MatPaginatorModule],
-  templateUrl: './table.component.html',
-  styleUrls: ['./table.component.scss'],
+  templateUrl: './custom-table.component.html',
+  styleUrls: ['./custom-table.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TableComponent<T> implements OnInit, AfterViewInit {
+export class CustomTableComponent<T> implements OnInit, AfterViewInit {
   displayedColumns: string[] = [];
   constructor(private router: Router) {}
 
   @Input() tableData: MatTableDataSource<T>;
-  @Input() columns: Cell<T>[];
+  @Input() columns: Column[];
   @Input() linkUrl: string;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -41,7 +42,9 @@ export class TableComponent<T> implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.tableData.paginator = this.paginator;
+    if (this.tableData) {
+      this.tableData.paginator = this.paginator;
+    }
   }
 
   handleRowClick(id: number) {

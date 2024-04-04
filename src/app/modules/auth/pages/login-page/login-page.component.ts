@@ -38,6 +38,7 @@ export class LoginPageComponent {
       next: () => {
         this.isLoading = false;
         this.router.navigate([RoutingPaths.HOME]);
+        this.cdRef.markForCheck();
       },
       error: errorMessage => {
         this.loginForm.setErrors({ error: errorMessage });

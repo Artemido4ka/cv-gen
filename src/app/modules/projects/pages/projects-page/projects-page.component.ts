@@ -1,8 +1,11 @@
+import { ActivatedRoute, Router } from '@angular/router';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { MatTableDataSource, MatTableDataSourcePaginator } from '@angular/material/table';
+
 import { ProjectsServiceTsService } from '../../services/projects.service';
 import { FormatedProject } from 'src/app/shared/types/project.types';
-import { MatTableDataSource, MatTableDataSourcePaginator } from '@angular/material/table';
 import { TableItemsCellComponent } from 'src/app/shared/components/cells/table-items-cell/table-items-cell.component';
+import { RoutingPaths } from 'src/app/shared/constants/routing-paths';
 
 @Component({
   selector: 'cv-gen-projects-page',
@@ -13,56 +16,58 @@ import { TableItemsCellComponent } from 'src/app/shared/components/cells/table-i
 export class ProjectsPageComponent implements OnInit {
   constructor(
     private projectsService: ProjectsServiceTsService,
-    private readonly cdRef: ChangeDetectorRef
+    private readonly cdRef: ChangeDetectorRef,
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
   isLoading = false;
 
-  //ToDo: change url
-  linkUrl = '/home/projects';
+  linkUrl = `${this.router.url}/${RoutingPaths.EDIT}`;
   projects: MatTableDataSource<FormatedProject, MatTableDataSourcePaginator>;
 
   columns = [
     {
       columnDef: 'id',
-      header: 'Project id',
+      header: 'home.projects.table.headers.id',
     },
     {
       columnDef: 'projectName',
-      header: 'Project name',
+      header: 'home.projects.table.headers.projectName',
     },
     {
       columnDef: 'description',
-      header: 'Project Description',
+      header: 'home.projects.table.headers.description',
     },
     {
       columnDef: 'startDate',
-      header: 'startDate',
+      header: 'home.projects.table.headers.startDate',
     },
     {
       columnDef: 'endDate',
-      header: 'endDate',
+      header: 'home.projects.table.headers.endDate',
     },
     {
       columnDef: 'teamSize',
-      header: 'teamSize',
+      header: 'home.projects.table.headers.teamSize',
     },
     {
       columnDef: 'responsibilities',
-      header: 'responsibilities',
+      header: 'home.projects.table.headers.responsibilities',
       cellComponent: TableItemsCellComponent,
     },
     {
       columnDef: 'teamRoles',
-      header: 'teamRoles',
+      header: 'home.projects.table.headers.teamRoles',
       cellComponent: TableItemsCellComponent,
     },
     {
       columnDef: 'techStack',
-      header: 'techStack',
+      header: 'home.projects.table.headers.techStack',
       cellComponent: TableItemsCellComponent,
     },
   ];
 
+  //TODO: handle error
   ngOnInit(): void {
     this.isLoading = true;
     this.projectsService.getProjects().subscribe({
@@ -77,5 +82,9 @@ export class ProjectsPageComponent implements OnInit {
         this.cdRef.markForCheck();
       },
     });
+  }
+
+  onSubmit() {
+    this.router.navigate([RoutingPaths.ADD], { relativeTo: this.route });
   }
 }

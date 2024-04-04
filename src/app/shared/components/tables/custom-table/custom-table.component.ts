@@ -12,6 +12,7 @@ import { Router, RouterLink, RouterModule } from '@angular/router';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { ComponentType } from '@angular/cdk/portal';
+import { TranslateModule } from '@ngx-translate/core';
 
 type Column = {
   columnDef: string;
@@ -22,7 +23,14 @@ type Column = {
 @Component({
   selector: 'cv-gen-custom-table',
   standalone: true,
-  imports: [CommonModule, MatTableModule, RouterLink, RouterModule, MatPaginatorModule],
+  imports: [
+    CommonModule,
+    MatTableModule,
+    RouterLink,
+    RouterModule,
+    MatPaginatorModule,
+    TranslateModule,
+  ],
   templateUrl: './custom-table.component.html',
   styleUrls: ['./custom-table.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

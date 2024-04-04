@@ -1,7 +1,7 @@
-isLoading:{{ isLoading }}
-
 <div class="projects">
-  <button>Add project</button>
+  <button class="button" mat-raised-button color="primary" (click)="onSubmit()">
+    {{ 'home.projects.buttons.addProject' | translate }}
+  </button>
 
   <!-- <cv-gen-table [tableData]="projects" [columns]="columns" [linkUrl]="linkUrl"></cv-gen-table> -->
 

@@ -1,3 +1,4 @@
+import { RoutingPaths } from 'src/app/shared/constants/routing-paths';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomePageComponent } from './page/home-page/home-page.component';
@@ -8,14 +9,14 @@ const routes: Routes = [
     component: HomePageComponent,
     children: [
       {
-        path: 'employees',
+        path: RoutingPaths.EMPLOYEES,
         loadChildren: () => import('../employee/employee.module').then(m => m.EmployeeModule),
       },
       {
-        path: 'projects',
+        path: RoutingPaths.PROJECTS,
         loadChildren: () => import('../projects/projects.module').then(m => m.ProjectsModule),
       },
-      { path: '**', redirectTo: 'projects' },
+      { path: '**', redirectTo: RoutingPaths.PROJECTS },
     ],
   },
 ];

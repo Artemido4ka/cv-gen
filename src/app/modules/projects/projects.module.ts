@@ -9,6 +9,7 @@ import { TableComponent } from 'src/app/shared/components/tables/table/table.com
 import { MatButtonModule } from '@angular/material/button';
 import { CustomTableComponent } from 'src/app/shared/components/tables/custom-table/custom-table.component';
 import { TableItemsCellComponent } from 'src/app/shared/components/cells/table-items-cell/table-items-cell.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [ProjectsPageComponent, AddProjectPageComponent, EditProjectPageComponent],
@@ -18,7 +19,9 @@ import { TableItemsCellComponent } from 'src/app/shared/components/cells/table-i
     TableComponent,
     MatButtonModule,
     CustomTableComponent,
-    TableItemsCellComponent
+    TableItemsCellComponent,
+    MatButtonModule,
+    TranslateModule,
   ],
 })
 export class ProjectsModule {}

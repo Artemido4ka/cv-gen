@@ -44,5 +44,25 @@
         "credentials": "Wrong email or password !"
       }
     }
+  },
+  "home": {
+    "projects": {
+      "table": {
+        "headers": {
+          "id": "id",
+          "projectName": "Project Name",
+          "description": "Description",
+          "startDate": "Start Date",
+          "endDate": "End Date",
+          "teamSize": "id",
+          "responsibilities": "Responsibilities",
+          "teamRoles": "Team Roles",
+          "techStack": "Tech Stack"
+        }
+      },
+      "buttons": {
+        "addProject": "Add Project"
+      }
+    }
   }
 }

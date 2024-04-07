@@ -10,6 +10,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { CustomTableComponent } from 'src/app/shared/components/tables/custom-table/custom-table.component';
 import { TableItemsCellComponent } from 'src/app/shared/components/cells/table-items-cell/table-items-cell.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { InputComponent } from 'src/app/shared/components/controls/input/input.component';
+import { DatepickerComponent } from 'src/app/shared/components/controls/datepicker/datepicker.component';
+import { AutocompleteSelectComponent } from 'src/app/shared/components/controls/autocomplete-select/autocomplete-select.component';
+import { TextareaComponent } from 'src/app/shared/components/controls/textarea/textarea.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [ProjectsPageComponent, AddProjectPageComponent, EditProjectPageComponent],
@@ -22,6 +27,11 @@ import { TranslateModule } from '@ngx-translate/core';
     TableItemsCellComponent,
     MatButtonModule,
     TranslateModule,
+    InputComponent,
+    DatepickerComponent,
+    AutocompleteSelectComponent,
+    TextareaComponent,
+    ReactiveFormsModule
   ],
 })
 export class ProjectsModule {}

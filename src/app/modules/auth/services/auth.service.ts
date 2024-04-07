@@ -40,15 +40,15 @@ export class AuthService {
     return accessToken ? true : false;
   }
 
-  login(email: string, password: string) {
-    const body = { email, password };
-
-    return this.http.post<TokensResponse>(this.LOGIN_URL, body, { withCredentials: true }).pipe(
-      catchError(this.handleLoginError),
-      tap(val => {
-        this.setAccessToken(val.access_token);
-      })
-    );
+  login(credentials: { userName: string; password: string }) {
+    return this.http
+      .post<TokensResponse>(this.LOGIN_URL, credentials, { withCredentials: true })
+      .pipe(
+        catchError(this.handleLoginError),
+        tap(val => {
+          this.setAccessToken(val.access_token);
+        })
+      );
   }
 
   handleLoginError(err: HttpErrorResponse) {

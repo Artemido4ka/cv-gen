@@ -1,35 +1,43 @@
-<div class="autocomplete">
-  <mat-chip-grid #chipGrid aria-label="Chips selection" class="chips">
-    <mat-chip-row
-      *ngFor="let chip of chips"
-      (removed)="removeChip(chip)"
-      [formControl]="control"
-      name="chip"
-      ngDefaultControl
-      class="chip">
-      {{ chip }}
-      <button matChipRemove [attr.aria-label]="'remove ' + chip">
-        <mat-icon fontIcon="cancel"></mat-icon>
-      </button>
-    </mat-chip-row>
-  </mat-chip-grid>
+<div>
+  <cv-gen-label
+    [label]="label"
+    [hasError]="control.invalid && control.touched"
+    [id]="id"></cv-gen-label>
 
-  <input
-    type="text"
-    placeholder="Search for a street"
-    [formControl]="inputControl"
-    [matAutocomplete]="auto"
-    (matChipInputTokenEnd)="addChip($event)"
-    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-    [matChipInputFor]="chipGrid" />
+  <div class="autocomplete">
+    <mat-chip-grid #chipGrid aria-label="Chips selection" class="chips">
+      <mat-chip-row
+        *ngFor="let chip of chips"
+        (removed)="removeChip(chip)"
+        [formControl]="control"
+        name="chip"
+        ngDefaultControl
+        class="chip">
+        {{ chip }}
+        <button matChipRemove [attr.aria-label]="'remove ' + chip">
+          <mat-icon fontIcon="cancel"></mat-icon>
+        </button>
+      </mat-chip-row>
+    </mat-chip-grid>
 
-  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectChip($event)">
-    <mat-option *ngFor="let option of filteredOptions" [value]="option" class="hide-checkbox">
-      {{ option }}
-    </mat-option>
-  </mat-autocomplete>
+    <input
+      type="text"
+      [placeholder]="placeholder | translate"
+      [formControl]="inputControl"
+      [matAutocomplete]="auto"
+      (matChipInputTokenEnd)="addChip($event)"
+      [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+      [matChipInputFor]="chipGrid"
+       />
 
-  <cv-gen-error-message
-    [showError]="control.invalid && control.touched"
-    [errors]="control.errors"></cv-gen-error-message>
+    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectChip($event)">
+      <mat-option *ngFor="let option of filteredOptions" [value]="option" class="hide-checkbox">
+        {{ option }}
+      </mat-option>
+    </mat-autocomplete>
+
+    <cv-gen-error-message
+      [showError]="control.invalid && control.touched"
+      [errors]="control.errors"></cv-gen-error-message>
+  </div>
 </div>

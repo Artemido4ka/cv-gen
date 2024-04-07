@@ -24,17 +24,18 @@ export class LoginPageComponent {
   loginForm = this.fb.group({
     userName: ['', [requiredValidator('auth.login.password.errors.required')]],
     password: ['', [requiredValidator('auth.login.userName.errors.required')]],
-    checkBox: [false],
   });
 
   private readonly cdRef = inject(ChangeDetectorRef);
 
   onSubmit(): void {
-    const email = this.loginForm.value.userName;
-    const password = this.loginForm.value.password;
+    if (this.loginForm.invalid && this.loginForm.touched) {
+      return;
+    }
+
     this.isLoading = true;
 
-    this.authService.login(email, password).subscribe({
+    this.authService.login(this.loginForm.getRawValue()).subscribe({
       next: () => {
         this.isLoading = false;
         this.router.navigate([RoutingPaths.HOME]);

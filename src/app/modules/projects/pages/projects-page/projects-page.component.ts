@@ -4,8 +4,8 @@ import { MatTableDataSource, MatTableDataSourcePaginator } from '@angular/materi
 
 import { ProjectsServiceTsService } from '../../services/projects.service';
 import { FormatedProject } from 'src/app/shared/types/project.types';
-import { TableItemsCellComponent } from 'src/app/shared/components/cells/table-items-cell/table-items-cell.component';
 import { RoutingPaths } from 'src/app/shared/constants/routing-paths';
+import { projectsTableColumns } from '../../constants/projects.constant';
 
 @Component({
   selector: 'cv-gen-projects-page',
@@ -25,47 +25,7 @@ export class ProjectsPageComponent implements OnInit {
   linkUrl = `${this.router.url}/${RoutingPaths.EDIT}`;
   projects: MatTableDataSource<FormatedProject, MatTableDataSourcePaginator>;
 
-  columns = [
-    {
-      columnDef: 'id',
-      header: 'home.projects.table.headers.id',
-    },
-    {
-      columnDef: 'projectName',
-      header: 'home.projects.table.headers.projectName',
-    },
-    {
-      columnDef: 'description',
-      header: 'home.projects.table.headers.description',
-    },
-    {
-      columnDef: 'startDate',
-      header: 'home.projects.table.headers.startDate',
-    },
-    {
-      columnDef: 'endDate',
-      header: 'home.projects.table.headers.endDate',
-    },
-    {
-      columnDef: 'teamSize',
-      header: 'home.projects.table.headers.teamSize',
-    },
-    {
-      columnDef: 'responsibilities',
-      header: 'home.projects.table.headers.responsibilities',
-      cellComponent: TableItemsCellComponent,
-    },
-    {
-      columnDef: 'teamRoles',
-      header: 'home.projects.table.headers.teamRoles',
-      cellComponent: TableItemsCellComponent,
-    },
-    {
-      columnDef: 'techStack',
-      header: 'home.projects.table.headers.techStack',
-      cellComponent: TableItemsCellComponent,
-    },
-  ];
+  projectsTableColumns = projectsTableColumns;
 
   //TODO: handle error
   ngOnInit(): void {

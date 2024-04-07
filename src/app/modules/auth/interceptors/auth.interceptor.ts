@@ -23,6 +23,7 @@ export class AuthInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       catchError((error: HttpErrorResponse) => {
         if (error.status === (401 || 403)) {
+          window.alert('Expired !');
           return this.handleAuthError(request, next);
         }
 
@@ -43,14 +44,13 @@ export class AuthInterceptor implements HttpInterceptor {
     return this.authService.refreshToken().pipe(
       switchMap((response: TokensResponse) => {
         const newAccessToken = response.access_token;
-        //TODO:uncomment to work refresh
-        // this.authService.setAccessToken(newAccessToken);
-        // request = this.addTokenToRequest(request, newAccessToken);
+        this.authService.setAccessToken(newAccessToken);
+        request = this.addTokenToRequest(request, newAccessToken);
 
         return next.handle(request);
       }),
       catchError(refreshTokenError => {
-        // this.authService.logout().subscribe();
+        this.authService.logout().subscribe();
         return throwError(() => refreshTokenError);
       })
     );

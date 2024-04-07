@@ -54,6 +54,7 @@ export class BaseControlDirective<T> implements ControlValueAccessor, OnInit, Do
 
   protected initControlValueChanges(): void {
     this.control.valueChanges.pipe(untilDestroyed(this)).subscribe((value: T) => {
+      this.onTouch();
       this.onChange(value);
     });
   }

@@ -2,7 +2,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MatTableDataSource, MatTableDataSourcePaginator } from '@angular/material/table';
 
-import { ProjectsServiceTsService } from '../../services/projects.service';
+import { ProjectsService } from '../../services/projects.service';
 import { FormatedProject } from 'src/app/shared/types/project.types';
 import { RoutingPaths } from 'src/app/shared/constants/routing-paths';
 import { projectsTableColumns } from '../../constants/projects.constant';
@@ -15,7 +15,7 @@ import { projectsTableColumns } from '../../constants/projects.constant';
 })
 export class ProjectsPageComponent implements OnInit {
   constructor(
-    private projectsService: ProjectsServiceTsService,
+    private projectsService: ProjectsService,
     private readonly cdRef: ChangeDetectorRef,
     private router: Router,
     private route: ActivatedRoute

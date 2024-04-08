@@ -15,6 +15,7 @@ import { DatepickerComponent } from 'src/app/shared/components/controls/datepick
 import { AutocompleteSelectComponent } from 'src/app/shared/components/controls/autocomplete-select/autocomplete-select.component';
 import { TextareaComponent } from 'src/app/shared/components/controls/textarea/textarea.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ProjectFormComponent } from 'src/app/shared/components/controls/project-form/project-form.component';
 
 @NgModule({
   declarations: [ProjectsPageComponent, AddProjectPageComponent, EditProjectPageComponent],
@@ -31,7 +32,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     DatepickerComponent,
     AutocompleteSelectComponent,
     TextareaComponent,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ProjectFormComponent,
   ],
 })
 export class ProjectsModule {}

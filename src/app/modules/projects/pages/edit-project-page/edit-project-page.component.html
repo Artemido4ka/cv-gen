@@ -1,67 +1,8 @@
-<form [formGroup]="projectForm">
+<div>
   <button>Archive</button>
 
-  <div class="main-items">
-    <div class="item">
-      <cv-gen-input
-        formControlName="projectName"
-        placeholder="home.project.projectName.placeholder"
-        label="home.project.projectName.label"></cv-gen-input>
-    </div>
-    <div class="item">
-      <cv-gen-datepicker
-        placeholder="home.project.startDate.placeholder"
-        label="home.project.startDate.label"
-        formControlName="startDate"></cv-gen-datepicker>
-    </div>
+  <cv-gen-project-form [projectForm]="projectForm"></cv-gen-project-form>
 
-    <div class="item">
-      <cv-gen-datepicker
-        formControlName="endDate"
-        placeholder="home.project.endDate.placeholder"
-        label="home.project.endDate.label"></cv-gen-datepicker>
-    </div>
-
-    <div class="item">
-      <cv-gen-textarea
-        formControlName="description"
-        placeholder="home.project.description.placeholder"
-        label="home.project.description.label"></cv-gen-textarea>
-    </div>
-
-    <div class="item">
-      <cv-gen-input
-        type="number"
-        formControlName="teamSize"
-        placeholder="home.project.teamSize.placeholder"
-        label="home.project.teamSize.label"></cv-gen-input>
-    </div>
-
-    <div class="item">
-      <cv-gen-autocomplete-select
-        formControlName="teachStack"
-        [options]="teachStackOptions"
-        placeholder="home.project.teachStack.placeholder"
-        label="home.project.teachStack.label"></cv-gen-autocomplete-select>
-    </div>
-
-    <div class="item">
-      <cv-gen-autocomplete-select
-        formControlName="roles"
-        [options]="rolesOptions"
-        placeholder="home.project.roles.placeholder"
-        label="home.project.roles.label"></cv-gen-autocomplete-select>
-    </div>
-
-    <div class="item">
-      <cv-gen-autocomplete-select
-        formControlName="responsibilities"
-        [options]="responsibilitiesOptions"
-        placeholder="home.project.responsibilities.placeholder"
-        label="home.project.responsibilities.label"></cv-gen-autocomplete-select>
-    </div>
-  </div>
-
-  <button>Save</button>
+  <button (click)="handleSaveChanges()">Save</button>
   <button>Cancel</button>
-</form>
+</div>

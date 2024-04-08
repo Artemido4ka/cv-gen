@@ -50,7 +50,8 @@ export class AuthInterceptor implements HttpInterceptor {
         return next.handle(request);
       }),
       catchError(refreshTokenError => {
-        this.authService.logout().subscribe();
+        //TODO: this catch block is called not only in refreshTokenError case, but also in case of this.addTokenToRequest, fix it
+        // this.authService.logout().subscribe();
         return throwError(() => refreshTokenError);
       })
     );

@@ -10,6 +10,8 @@ export interface Project {
   techStack: TechStackItem[];
 }
 
+export type RequestProject = Omit<FormatedProject, 'id'>;
+
 export interface FormatedProject
   extends Omit<Project, 'responsibilities' | 'teamRoles' | 'techStack'> {
   responsibilities: string[];

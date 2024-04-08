@@ -27,8 +27,7 @@
       [matAutocomplete]="auto"
       (matChipInputTokenEnd)="addChip($event)"
       [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-      [matChipInputFor]="chipGrid"
-       />
+      [matChipInputFor]="chipGrid" />
 
     <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectChip($event)">
       <mat-option *ngFor="let option of filteredOptions" [value]="option" class="hide-checkbox">
@@ -37,7 +36,7 @@
     </mat-autocomplete>
 
     <cv-gen-error-message
-      [showError]="control.invalid && control.touched"
+      [showError]="control.invalid && inputControl.touched"
       [errors]="control.errors"></cv-gen-error-message>
   </div>
 </div>

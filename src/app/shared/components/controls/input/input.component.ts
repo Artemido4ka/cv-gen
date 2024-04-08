@@ -6,6 +6,7 @@ import { ErrorMessageComponent } from '../../error-message/error-message.compone
 import { BaseControlDirective } from '../../../directives/base-control.directive';
 import { LabelComponent } from '../../label/label.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { untilDestroyed } from '@ngneat/until-destroy';
 
 @Component({
   selector: 'cv-gen-input',
@@ -21,9 +22,17 @@ import { TranslateModule } from '@ngx-translate/core';
     TranslateModule,
   ],
 })
-export class InputComponent extends BaseControlDirective<string> {
+export class InputComponent extends BaseControlDirective<string | number> {
   @Input() label: string;
   @Input() placeholder: string;
   @Input() type = 'text';
   @Input() id = 'inputId';
+
+  override initControlValueChanges() {
+    this.control.valueChanges.pipe(untilDestroyed(this)).subscribe((value: string) => {
+      const isNumber = this.type === 'number';
+      this.onTouch();
+      this.onChange(isNumber ? Number(value) : value);
+    });
+  }
 }

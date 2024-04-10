@@ -1,13 +1,11 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder } from '@angular/forms';
-import {
-  positiveNumberValidator,
-  requiredValidator,
-} from 'src/app/shared/validators/required.validator';
+import { FormBuilder, Validators } from '@angular/forms';
+import { customValidator } from 'src/app/shared/validators/validators';
 import { ProjectsService } from '../../services/projects.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormatedProject } from 'src/app/shared/types/project.types';
 import { RoutingPaths } from 'src/app/shared/constants/routing-paths';
+import { projectRequiredFieldValidator } from '../../constants/projects.constant';
 
 @Component({
   selector: 'cv-gen-edit-project-page',
@@ -29,17 +27,17 @@ export class EditProjectPageComponent implements OnInit {
   projectId: number;
 
   projectForm = this.fb.group({
-    projectName: ['', [requiredValidator('home.project.projectName.errors.required')]],
-    startDate: ['', requiredValidator('home.project.startDate.errors.required')],
-    endDate: ['', requiredValidator('home.project.endDate.errors.required')],
-    teamSize: [0, positiveNumberValidator('home.project.teamSize.errors.required')],
-    description: ['', requiredValidator('home.project.description.errors.required')],
-    techStack: [new FormArray([]), requiredValidator('home.project.teachStack.errors.required')],
-    teamRoles: [new FormArray([]), requiredValidator('home.project.roles.errors.required')],
-    responsibilities: [
-      new FormArray([]),
-      requiredValidator('home.project.responsibilities.errors.required'),
+    projectName: ['', [projectRequiredFieldValidator('projectName')]],
+    startDate: ['', projectRequiredFieldValidator('startDate')],
+    endDate: ['', projectRequiredFieldValidator('endDate')],
+    teamSize: [
+      0,
+      customValidator(Validators.min(1), 'home.project.teamSize.errors.required', 'minTeamSize'),
     ],
+    description: ['', projectRequiredFieldValidator('description')],
+    techStack: [Array<string>(), projectRequiredFieldValidator('teachStack')],
+    teamRoles: [Array<string>(), projectRequiredFieldValidator('roles')],
+    responsibilities: [Array<string>(), projectRequiredFieldValidator('responsibilities')],
   });
 
   getProject() {
@@ -50,7 +48,7 @@ export class EditProjectPageComponent implements OnInit {
         this.isLoading = false;
 
         this.projectForm.patchValue(project);
-
+        this.projectForm.markAsUntouched();
         this.cdRef.markForCheck();
       },
       error: error => {
@@ -64,13 +62,10 @@ export class EditProjectPageComponent implements OnInit {
   ngOnInit(): void {
     this.projectId = Number(this.route.snapshot.paramMap.get('id'));
     this.getProject();
-
-    console.log(this.project);
   }
 
   handleSaveChanges() {
-    console.log(this.projectForm.getRawValue());
-    if (this.projectForm.invalid && this.projectForm.touched) {
+    if (this.projectForm.invalid) {
       return;
     }
     this.isLoading = true;

@@ -1,4 +1,6 @@
-import { TableItemsCellComponent } from "src/app/shared/components/cells/table-items-cell/table-items-cell.component";
+import { Validators } from '@angular/forms';
+import { TableItemsCellComponent } from 'src/app/shared/components/cells/table-items-cell/table-items-cell.component';
+import { customValidator } from 'src/app/shared/validators/validators';
 
 export const projectsTableColumns = [
   {
@@ -41,3 +43,12 @@ export const projectsTableColumns = [
     cellComponent: TableItemsCellComponent,
   },
 ];
+
+export const projectRequiredFieldValidator = (translationKey: string) =>
+  customValidator(
+    Validators.required,
+    `home.project.${translationKey}.errors.required`,
+    'required'
+  );
+
+  

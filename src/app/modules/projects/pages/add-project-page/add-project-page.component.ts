@@ -1,12 +1,10 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
-import { FormArray, FormBuilder } from '@angular/forms';
-import {
-  positiveNumberValidator,
-  requiredValidator,
-} from 'src/app/shared/validators/required.validator';
+import { FormBuilder, Validators } from '@angular/forms';
+import { customValidator } from 'src/app/shared/validators/validators';
 import { ProjectsService } from '../../services/projects.service';
 import { Router } from '@angular/router';
 import { RoutingPaths } from 'src/app/shared/constants/routing-paths';
+import { projectRequiredFieldValidator } from '../../constants/projects.constant';
 
 @Component({
   selector: 'cv-gen-add-project-page',
@@ -25,23 +23,23 @@ export class AddProjectPageComponent {
   isLoading = false;
 
   projectForm = this.fb.group({
-    projectName: ['', [requiredValidator('home.project.projectName.errors.required')]],
-    startDate: ['', requiredValidator('home.project.startDate.errors.required')],
-    endDate: ['', requiredValidator('home.project.endDate.errors.required')],
-    teamSize: [0, positiveNumberValidator('home.project.teamSize.errors.required')],
-    description: ['', requiredValidator('home.project.description.errors.required')],
-    techStack: [new FormArray([]), requiredValidator('home.project.teachStack.errors.required')],
-    teamRoles: [new FormArray([]), requiredValidator('home.project.roles.errors.required')],
-    responsibilities: [
-      new FormArray([]),
-      requiredValidator('home.project.responsibilities.errors.required'),
+    projectName: ['', [projectRequiredFieldValidator('projectName')]],
+    startDate: ['', projectRequiredFieldValidator('startDate')],
+    endDate: ['', projectRequiredFieldValidator('endDate')],
+    teamSize: [
+      0,
+      customValidator(Validators.min(1), 'home.project.teamSize.errors.required', 'minTeamSize'),
     ],
+    description: ['', projectRequiredFieldValidator('description')],
+    techStack: [Array<string>(), projectRequiredFieldValidator('teachStack')],
+    teamRoles: [Array<string>(), projectRequiredFieldValidator('roles')],
+    responsibilities: [Array<string>(), projectRequiredFieldValidator('responsibilities')],
   });
 
   handleSave() {
-    if (this.projectForm.invalid && this.projectForm.touched) {
-      return;
-    }
+    // if (this.projectForm.invalid) {
+    //   return;
+    // }
     this.isLoading = true;
 
     this.projectsService.createProject(this.projectForm.getRawValue()).subscribe({
@@ -51,6 +49,7 @@ export class AddProjectPageComponent {
         this.cdRef.markForCheck();
       },
       error: errorMessage => {
+        console.log(errorMessage);
         this.projectForm.setErrors({ error: errorMessage });
         this.isLoading = false;
         this.cdRef.markForCheck();

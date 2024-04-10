@@ -18,7 +18,11 @@ export class ProjectsService {
       catchError(err => {
         return throwError(() => err);
       }),
-      map(projects => projects.map(project => this.formatProject(project)))
+      map(projects =>
+        projects
+          .map(project => this.formatProjectDate(project))
+          .map(project => this.formatProjectArrays(project))
+      )
     );
   }
 
@@ -27,12 +31,16 @@ export class ProjectsService {
       catchError(err => {
         return throwError(() => err);
       }),
-      map(project => this.formatProject(project))
+      map(project => this.formatProjectArrays(project))
     );
   }
 
   createProject(projectBody: RequestProject) {
-    return this.http.post(this.PROJECTS_URL, projectBody).pipe(catchError(err => err));
+    return this.http.post(this.PROJECTS_URL, projectBody).pipe(
+      catchError(err => {
+        return throwError(() => err);
+      })
+    );
   }
 
   updateProject(projectId: number, projectBody: RequestProject) {
@@ -41,16 +49,20 @@ export class ProjectsService {
       .pipe(catchError(err => err));
   }
 
-  formatProject(project: Project): FormatedProject {
-    // const format = 'dd MM yyyy';
-    // const locale = 'en';
-    // const startDate = formatDate(project.startDate, format, locale);
-    // const endDate = formatDate(project.endDate, format, locale);
+  formatProjectArrays(project: Project): FormatedProject {
     const responsibilities = project.responsibilities.map(i => i.name);
     const techStack = project.techStack.map(i => i.name);
     const teamRoles = project.teamRoles.map(i => i.name);
 
-    // return { ...project, responsibilities, techStack, teamRoles, startDate, endDate };
     return { ...project, responsibilities, techStack, teamRoles };
+  }
+
+  formatProjectDate(project: Project): Project {
+    const format = 'dd MM yyyy';
+    const locale = 'en';
+    const startDate = formatDate(project.startDate, format, locale);
+    const endDate = formatDate(project.endDate, format, locale);
+
+    return { ...project, startDate, endDate };
   }
 }

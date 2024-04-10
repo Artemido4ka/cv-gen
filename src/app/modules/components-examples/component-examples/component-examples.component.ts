@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
-import { requiredValidator } from 'src/app/shared/validators/required.validator';
+import { requiredValidator } from 'src/app/shared/validators/validators';
 
 export type OptionType = {
   [key: string]: number | string;

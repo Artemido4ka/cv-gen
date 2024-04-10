@@ -54,6 +54,7 @@ export class AutocompleteSelectComponent extends BaseControlDirective<string[]> 
   override writeValue(value: string[]): void {
     this.control.setValue(value);
     this.chips = this.control.value;
+    this.cdRef.detectChanges();
   }
 
   initInputControlValueChanges(): void {

@@ -27,7 +27,9 @@ export class AuthInterceptor implements HttpInterceptor {
           return this.handleAuthError(request, next);
         }
 
-        return throwError(() => error);
+        return throwError(() => {
+          return error;
+        });
       })
     );
   }
@@ -49,10 +51,11 @@ export class AuthInterceptor implements HttpInterceptor {
 
         return next.handle(request);
       }),
-      catchError(refreshTokenError => {
-        //TODO: this catch block is called not only in refreshTokenError case, but also in case of this.addTokenToRequest, fix it
-        // this.authService.logout().subscribe();
-        return throwError(() => refreshTokenError);
+      catchError(refreshTokenOrRequestError => {
+        if (refreshTokenOrRequestError.status === 403) {
+          this.authService.logout().subscribe();
+        }
+        return throwError(() => refreshTokenOrRequestError);
       })
     );
   }

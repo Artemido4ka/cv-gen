@@ -50,8 +50,4 @@ export class TableComponent<T> implements OnInit, AfterViewInit {
   handleRowClick(id: number) {
     this.router.navigate([this.linkUrl, id]);
   }
-
-  log(row: any) {
-    console.log(row);
-  }
 }

@@ -1,7 +1,9 @@
-<div>
+<div class="add-form">
   <button>Archive</button>
 
-  <cv-gen-project-form [projectForm]="projectForm"></cv-gen-project-form>
+  <div class="form">
+    <cv-gen-project-form [projectForm]="projectForm"></cv-gen-project-form>
+  </div>
 
   <button (click)="handleSave()">Save</button>
   <button>Cancel</button>

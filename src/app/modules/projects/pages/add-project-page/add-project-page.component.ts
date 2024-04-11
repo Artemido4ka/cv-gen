@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
-import { customValidator } from 'src/app/shared/validators/validators';
+import { FormBuilder } from '@angular/forms';
 import { ProjectsService } from '../../services/projects.service';
 import { Router } from '@angular/router';
 import { RoutingPaths } from 'src/app/shared/constants/routing-paths';
-import { projectRequiredFieldValidator } from '../../constants/projects.constant';
+import { FormatedProject } from 'src/app/shared/types/project.types';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'cv-gen-add-project-page',
@@ -14,46 +14,44 @@ import { projectRequiredFieldValidator } from '../../constants/projects.constant
 })
 export class AddProjectPageComponent {
   constructor(
-    private fb: FormBuilder,
     private projectsService: ProjectsService,
-    private cdRef: ChangeDetectorRef,
-    private router: Router
+    private readonly cdRef: ChangeDetectorRef,
+    private fb: FormBuilder,
+    private router: Router,
+    private location: Location
   ) {}
 
   isLoading = false;
+  project: FormatedProject;
 
-  projectForm = this.fb.group({
-    projectName: ['', [projectRequiredFieldValidator('projectName')]],
-    startDate: ['', projectRequiredFieldValidator('startDate')],
-    endDate: ['', projectRequiredFieldValidator('endDate')],
-    teamSize: [
-      0,
-      customValidator(Validators.min(1), 'home.project.teamSize.errors.required', 'minTeamSize'),
-    ],
-    description: ['', projectRequiredFieldValidator('description')],
-    techStack: [Array<string>(), projectRequiredFieldValidator('teachStack')],
-    teamRoles: [Array<string>(), projectRequiredFieldValidator('roles')],
-    responsibilities: [Array<string>(), projectRequiredFieldValidator('responsibilities')],
+  addForm = this.fb.group({
+    addProjectForm: [],
   });
 
   handleSave() {
-    // if (this.projectForm.invalid) {
-    //   return;
-    // }
+    if (this.addForm.invalid) {
+      this.addForm.controls.addProjectForm.markAsTouched();
+      return;
+    }
     this.isLoading = true;
 
-    this.projectsService.createProject(this.projectForm.getRawValue()).subscribe({
-      next: () => {
-        this.isLoading = false;
-        this.router.navigate([RoutingPaths.HOME, RoutingPaths.PROJECTS]);
-        this.cdRef.markForCheck();
-      },
-      error: errorMessage => {
-        console.log(errorMessage);
-        this.projectForm.setErrors({ error: errorMessage });
-        this.isLoading = false;
-        this.cdRef.markForCheck();
-      },
-    });
+    this.projectsService
+      .createProject(this.addForm.controls.addProjectForm.getRawValue())
+      .subscribe({
+        next: () => {
+          this.isLoading = false;
+          this.router.navigate([RoutingPaths.HOME, RoutingPaths.PROJECTS]);
+          this.cdRef.markForCheck();
+        },
+        error: errorMessage => {
+          // this.projectForm.setErrors({ error: errorMessage });
+          this.isLoading = false;
+          this.cdRef.markForCheck();
+        },
+      });
+  }
+
+  handleCancel() {
+    this.location.back();
   }
 }

@@ -1,10 +1,14 @@
-<div class="edit-form">
-  <button>Archive</button>
-
+<form class="edit-form" [formGroup]="editForm">
   <div class="form">
-    <cv-gen-project-form [projectForm]="projectForm"></cv-gen-project-form>
+    <cv-gen-project-form formControlName="editProjectForm"></cv-gen-project-form>
   </div>
 
-  <button (click)="handleSaveChanges()">Save</button>
-  <button>Cancel</button>
-</div>
+  <div class="buttons">
+    <button mat-raised-button color="primary" (click)="handleSaveChanges()">
+      {{ 'home.project.buttons.save' | translate }}
+    </button>
+    <button mat-raised-button (click)="handleCancel()">
+      {{ 'home.project.buttons.cancel' | translate }}
+    </button>
+  </div>
+</form>

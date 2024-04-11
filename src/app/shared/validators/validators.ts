@@ -23,8 +23,7 @@ export function customValidator(
   errorKey = 'errorMessage'
 ): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
-    console.log(validatorFn(control));
-
+    //TODO: delete this if ok
     // const forbidden = !!Object.keys(validatorFn(control)).length;
     // return forbidden ? { [errorKey]: messageRoot } : null;
     const forbidden = validatorFn(control);

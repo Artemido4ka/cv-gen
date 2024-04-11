@@ -1,7 +1,7 @@
 <div>
   <cv-gen-label
     [label]="label"
-    [hasError]="control.invalid && inputControl.touched"
+    [hasError]="control.invalid && control.touched"
     [id]="id"></cv-gen-label>
 
   <div class="autocomplete">
@@ -23,7 +23,7 @@
     <input
       type="text"
       [placeholder]="placeholder | translate"
-      [formControl]="inputControl"
+      [formControl]="control"
       [matAutocomplete]="auto"
       (matChipInputTokenEnd)="addChip($event)"
       [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
@@ -36,7 +36,7 @@
     </mat-autocomplete>
 
     <cv-gen-error-message
-      [showError]="control.invalid && inputControl.touched"
+      [showError]="control.invalid && control.touched"
       [errors]="control.errors"></cv-gen-error-message>
   </div>
 </div>

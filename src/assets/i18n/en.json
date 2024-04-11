@@ -120,6 +120,10 @@
         "errors": {
           "required": "Please, enter description !"
         }
+      },
+      "buttons": {
+        "save": "Save",
+        "cancel": "Cancel"
       }
     }
   }

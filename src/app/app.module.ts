@@ -31,6 +31,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     BrowserAnimationsModule,
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
+
   bootstrap: [AppComponent],
 })
 export class AppModule {}

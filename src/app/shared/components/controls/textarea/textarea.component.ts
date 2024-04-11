@@ -6,6 +6,7 @@ import { MatInputModule } from '@angular/material/input';
 import { BaseControlDirective } from '../../../directives/base-control.directive';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LabelComponent } from '../../label/label.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'cv-gen-textarea',
@@ -19,6 +20,7 @@ import { LabelComponent } from '../../label/label.component';
     MatInputModule,
     ErrorMessageComponent,
     LabelComponent,
+    TranslateModule,
   ],
 })
 export class TextareaComponent extends BaseControlDirective<string> {

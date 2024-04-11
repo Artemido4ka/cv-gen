@@ -14,6 +14,8 @@ import {
 
 import { BaseControlDirective } from '../../../directives/base-control.directive';
 import { ErrorMessageComponent } from '../../error-message/error-message.component';
+import { LabelComponent } from '../../label/label.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'cv-gen-autocomplete-select',
@@ -25,12 +27,17 @@ import { ErrorMessageComponent } from '../../error-message/error-message.compone
     MatChipsModule,
     MatIconModule,
     ErrorMessageComponent,
+    LabelComponent,
+    TranslateModule,
   ],
   templateUrl: './autocomplete-select.component.html',
   styleUrls: ['./autocomplete-select.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AutocompleteSelectComponent extends BaseControlDirective<string[]> implements OnInit {
+  @Input() label: string;
+  @Input() placeholder: string;
+  @Input() id = 'autocompleteSelectId';
   @Input() options: string[];
   chips: string[] = [];
   filteredOptions: string[];
@@ -44,11 +51,10 @@ export class AutocompleteSelectComponent extends BaseControlDirective<string[]> 
     this.initControlValueChanges();
   }
 
-  protected override initControlValueChanges(): void {
-    this.control.valueChanges.pipe(untilDestroyed(this)).subscribe(value => {
-      this.onChange(value);
-      this.onTouch();
-    });
+  override writeValue(value: string[]): void {
+    this.control.setValue(value);
+    this.chips = this.control.value;
+    this.cdRef.detectChanges();
   }
 
   initInputControlValueChanges(): void {
@@ -59,6 +65,7 @@ export class AutocompleteSelectComponent extends BaseControlDirective<string[]> 
         map(inputValue => this.filterOptions(inputValue || ''))
       )
       .subscribe(filteredOptions => {
+        //TODO: do it on backend
         this.filteredOptions = filteredOptions;
       });
   }

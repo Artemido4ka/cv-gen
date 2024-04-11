@@ -1,1 +1,14 @@
-<p>add-project-page works!</p>
+<form class="add-form" [formGroup]="addForm">
+  <div class="form">
+    <cv-gen-project-form formControlName="addProjectForm"></cv-gen-project-form>
+  </div>
+
+  <div class="buttons">
+    <button mat-raised-button color="primary" (click)="handleSave()">
+      {{ 'home.project.buttons.save' | translate }}
+    </button>
+    <button mat-raised-button (click)="handleCancel()">
+      {{ 'home.project.buttons.cancel' | translate }}
+    </button>
+  </div>
+</form>

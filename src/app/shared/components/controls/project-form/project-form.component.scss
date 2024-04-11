@@ -1,0 +1,20 @@
+.form {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+
+  grid-column-gap: 20px;
+  grid-row-gap: 50px;
+
+  .item:nth-child(-n + 3) {
+    grid-row: 1;
+  }
+
+  .item:nth-child(4),
+  .item:nth-child(5) {
+    grid-row: 2;
+  }
+
+  .item:nth-child(n + 6) {
+    grid-row: 3;
+  }
+}

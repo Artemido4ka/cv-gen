@@ -14,7 +14,7 @@ export class BaseControlDirective<T> implements ControlValueAccessor, OnInit, Do
     //   this.control.setParent(this.ngControl.control?.parent);
     // }
   }
-  private readonly cdRef = inject(ChangeDetectorRef);
+  public readonly cdRef = inject(ChangeDetectorRef);
   onChange: (val: T) => void;
   onTouch: () => void;
   control = new FormControl();
@@ -37,7 +37,7 @@ export class BaseControlDirective<T> implements ControlValueAccessor, OnInit, Do
 
   writeValue(value: T): void {
     this.control.setValue(value);
-    // this.cdRef.detectChanges();
+    this.cdRef.detectChanges();
   }
 
   registerOnChange(fn: () => void): void {
@@ -54,6 +54,7 @@ export class BaseControlDirective<T> implements ControlValueAccessor, OnInit, Do
 
   protected initControlValueChanges(): void {
     this.control.valueChanges.pipe(untilDestroyed(this)).subscribe((value: T) => {
+      this.onTouch();
       this.onChange(value);
     });
   }

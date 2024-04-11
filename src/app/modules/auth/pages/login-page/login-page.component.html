@@ -15,9 +15,7 @@
     </div>
 
     <div class="bottom-items">
-      <mat-checkbox class="example-margin" formControlName="checkBox">{{
-        'auth.login.checkbox' | translate
-      }}</mat-checkbox>
+      <mat-checkbox class="example-margin">{{ 'auth.login.checkbox' | translate }}</mat-checkbox>
 
       <a routerLink="#" class="link">
         {{ 'auth.login.forgotPassword' | translate }}
@@ -28,12 +26,7 @@
       [showError]="loginForm.invalid"
       [errors]="loginForm.errors"></cv-gen-error-message>
 
-    <button
-      [disabled]="loginForm.invalid"
-      class="button"
-      mat-raised-button
-      color="primary"
-      (click)="onSubmit()">
+    <button class="button" mat-raised-button color="primary" (click)="onSubmit()">
       {{ 'auth.login.button' | translate }}
     </button>
   </form>

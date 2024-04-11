@@ -15,7 +15,8 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 type Cell<T> = {
   columnDef: string;
   header: string;
-  cell: (element: T) => string;
+  key?: string;
+  // cell: (element: T) => string;
 };
 
 @Component({
@@ -41,7 +42,9 @@ export class TableComponent<T> implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.tableData.paginator = this.paginator;
+    if (this.tableData) {
+      this.tableData.paginator = this.paginator;
+    }
   }
 
   handleRowClick(id: number) {

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { catchError, tap, throwError } from 'rxjs';
 import { API_URLS } from 'src/app/shared/constants/api-urls';
 import { RoutingPaths } from 'src/app/shared/constants/routing-paths';
+import { ErrorsService } from 'src/app/shared/services/errors.service';
 
 export interface TokensResponse {
   access_token: string;
@@ -16,7 +17,8 @@ export interface TokensResponse {
 export class AuthService {
   constructor(
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private errorsService: ErrorsService
   ) {}
 
   LOGIN_URL = API_URLS.LOGIN;
@@ -44,19 +46,13 @@ export class AuthService {
     return this.http
       .post<TokensResponse>(this.LOGIN_URL, credentials, { withCredentials: true })
       .pipe(
-        catchError(this.handleLoginError),
+        catchError((error: HttpErrorResponse) => {
+          return throwError(() => error);
+        }),
         tap(val => {
           this.setAccessToken(val.access_token);
         })
       );
-  }
-
-  handleLoginError(err: HttpErrorResponse) {
-    let errorMessage = 'shared.errors.auth.unexpected';
-    if (err.status === 403) {
-      errorMessage = 'auth.login.errors.credentials';
-    }
-    return throwError(() => errorMessage);
   }
 
   // refreshToken() {

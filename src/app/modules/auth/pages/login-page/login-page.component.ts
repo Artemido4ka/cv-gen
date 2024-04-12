@@ -29,7 +29,8 @@ export class LoginPageComponent {
   private readonly cdRef = inject(ChangeDetectorRef);
 
   onSubmit(): void {
-    if (this.loginForm.invalid && this.loginForm.touched) {
+    if (this.loginForm.invalid) {
+      this.loginForm.markAllAsTouched();
       return;
     }
 
@@ -41,9 +42,7 @@ export class LoginPageComponent {
         this.router.navigate([RoutingPaths.HOME]);
         this.cdRef.markForCheck();
       },
-      error: errorMessage => {
-        //TODO:move this error to toast service
-        this.loginForm.setErrors({ error: errorMessage });
+      error: () => {
         this.isLoading = false;
         this.cdRef.markForCheck();
       },

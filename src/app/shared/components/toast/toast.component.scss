@@ -1,0 +1,71 @@
+.container {
+  position: absolute;
+
+  z-index: 100;
+
+  .close-btn {
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+
+    .toast-icon {
+      color: white;
+    }
+  }
+}
+
+%default-toast {
+  margin: 1rem;
+  display: flex;
+  box-shadow: 6px 6px 12px #00000040;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border-radius: 4px;
+  color: white;
+  gap: 10px;
+}
+
+.success-toast {
+  @extend %default-toast;
+  background: green;
+  border-left: 6px solid green;
+}
+
+.warning-toast {
+  @extend %default-toast;
+  background: orange;
+}
+
+.danger-toast {
+  @extend %default-toast;
+  background: red;
+}
+
+.top-right {
+  @extend .container;
+  top: 0;
+  right: 0;
+}
+
+.top-left {
+  @extend .container;
+  top: 0;
+  left: 0;
+}
+
+.bottom-left {
+  @extend .container;
+  bottom: 0;
+  left: 0;
+}
+
+.bottom-right {
+  @extend .container;
+  bottom: 0;
+  right: 0;
+}

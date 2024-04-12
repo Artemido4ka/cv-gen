@@ -1,3 +1,4 @@
+import { ErrorsService } from './../../../shared/services/errors.service';
 import { Injectable } from '@angular/core';
 import {
   HttpRequest,
@@ -11,7 +12,10 @@ import { AuthService, TokensResponse } from '../services/auth.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private errorsService: ErrorsService
+  ) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     const accessToken = this.authService.getAccessToken();
@@ -23,11 +27,11 @@ export class AuthInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       catchError((error: HttpErrorResponse) => {
         if (error.status === (401 || 403)) {
-          window.alert('Expired !');
           return this.handleAuthError(request, next);
         }
 
         return throwError(() => {
+          this.errorsService.handleError(error);
           return error;
         });
       })
@@ -50,26 +54,16 @@ export class AuthInterceptor implements HttpInterceptor {
         request = this.addTokenToRequest(request, newAccessToken);
 
         return next.handle(request);
+        // return next.handle(request).pipe(catchError(e => of(e)));
       }),
       catchError(refreshTokenOrRequestError => {
         if (refreshTokenOrRequestError.status === 403) {
           this.authService.logout().subscribe();
         }
+
+        this.errorsService.handleError(refreshTokenOrRequestError);
         return throwError(() => refreshTokenOrRequestError);
       })
     );
   }
-
-  // private handleUnauthorizedErrors() {
-  //   return this.authService.logout().pipe(
-  //     switchMap(() => {
-  //       console.log('inside logout');
-  //       this.router.navigate([RoutingPaths.AUTH]);
-  //       return throwError(() => refreshError);
-  //     }),
-  //     catchError(logoutError => {
-  //       return throwError(() => logoutError);
-  //     })
-  //   );
-  // }
 }

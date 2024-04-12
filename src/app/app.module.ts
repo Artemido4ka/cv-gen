@@ -9,6 +9,7 @@ import { StoreModule } from '@ngrx/store';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthInterceptor } from './modules/auth/interceptors/auth.interceptor';
+import { ToastComponent } from './shared/components/toast/toast.component';
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http);
@@ -29,6 +30,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     }),
     StoreModule.forRoot({}),
     BrowserAnimationsModule,
+    ToastComponent,
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
 

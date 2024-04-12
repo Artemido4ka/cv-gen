@@ -1,0 +1,14 @@
+<div [class]="toastService.toastPosition$ | async">
+  <div
+    *ngFor="let item of toastService.toastsArray$ | async"
+    [class]="item.toastStatus"
+    [@toastTrigger]>
+    <div style="max-width: 160px">
+      {{ item.toastMsg }}
+    </div>
+
+    <button class="close-btn" (click)="closeToast(item.toastId)">
+      <mat-icon class="toast-icon" fontIcon="cancel"></mat-icon>
+    </button>
+  </div>
+</div>

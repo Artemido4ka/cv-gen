@@ -1,3 +1,4 @@
+import { appReducers } from './store/app.store';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
@@ -10,6 +11,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthInterceptor } from './modules/auth/interceptors/auth.interceptor';
 import { ToastComponent } from './shared/components/toast/toast.component';
+import { EffectsModule } from '@ngrx/effects';
+import { ProjectsEffects } from './store/projects/project.effects';
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http);
@@ -28,7 +31,8 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
         deps: [HttpClient],
       },
     }),
-    StoreModule.forRoot({}),
+    StoreModule.forRoot(appReducers),
+    EffectsModule.forRoot([ProjectsEffects]),
     BrowserAnimationsModule,
     ToastComponent,
   ],

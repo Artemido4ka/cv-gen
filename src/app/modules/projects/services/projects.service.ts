@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, throwError } from 'rxjs';
 import { API_URLS } from 'src/app/shared/constants/api-urls';
-import { FormatedProject, Project, RequestProject } from 'src/app/shared/types/project.types';
+import { IFormatedProject, IProject, RequestProject } from 'src/app/shared/types/project.types';
 
 @Injectable({
   providedIn: 'root',
@@ -14,20 +14,19 @@ export class ProjectsService {
   PROJECTS_URL = API_URLS.PROJECTS;
 
   getProjects() {
-    return this.http.get<Project[]>(this.PROJECTS_URL).pipe(
-      catchError(err => {
-        return throwError(() => err);
-      }),
-      map(projects =>
-        projects
-          .map(project => this.formatProjectDate(project))
-          .map(project => this.formatProjectArrays(project))
-      )
-    );
+    return this.http
+      .get<IProject[]>(this.PROJECTS_URL)
+      .pipe(
+        map(projects =>
+          projects
+            .map(project => this.formatProjectDate(project))
+            .map(project => this.formatProjectArrays(project))
+        )
+      );
   }
 
   getProjectById(projectId: number) {
-    return this.http.get<Project>(`${this.PROJECTS_URL}/${projectId}`).pipe(
+    return this.http.get<IProject>(`${this.PROJECTS_URL}/${projectId}`).pipe(
       catchError(err => {
         return throwError(() => err);
       }),
@@ -49,7 +48,7 @@ export class ProjectsService {
       .pipe(catchError(err => err));
   }
 
-  formatProjectArrays(project: Project): FormatedProject {
+  formatProjectArrays(project: IProject): IFormatedProject {
     const responsibilities = project.responsibilities.map(i => i.name);
     const techStack = project.techStack.map(i => i.name);
     const teamRoles = project.teamRoles.map(i => i.name);
@@ -57,7 +56,7 @@ export class ProjectsService {
     return { ...project, responsibilities, techStack, teamRoles };
   }
 
-  formatProjectDate(project: Project): Project {
+  formatProjectDate(project: IProject): IProject {
     const format = 'dd MM yyyy';
     const locale = 'en';
     const startDate = formatDate(project.startDate, format, locale);

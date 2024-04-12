@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@
 import { FormBuilder } from '@angular/forms';
 import { ProjectsService } from '../../services/projects.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormatedProject } from 'src/app/shared/types/project.types';
+import { IFormatedProject } from 'src/app/shared/types/project.types';
 import { RoutingPaths } from 'src/app/shared/constants/routing-paths';
 import { Location } from '@angular/common';
 
@@ -23,7 +23,7 @@ export class EditProjectPageComponent implements OnInit {
   ) {}
 
   isLoading = false;
-  project: FormatedProject;
+  project: IFormatedProject;
   projectId: number;
 
   editForm = this.fb.group({

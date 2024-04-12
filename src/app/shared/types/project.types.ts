@@ -1,4 +1,4 @@
-export interface Project {
+export interface IProject {
   id: number;
   projectName: string;
   description: string;
@@ -10,10 +10,10 @@ export interface Project {
   techStack: TechStackItem[];
 }
 
-export type RequestProject = Omit<FormatedProject, 'id'>;
+export type RequestProject = Omit<IFormatedProject, 'id'>;
 
-export interface FormatedProject
-  extends Omit<Project, 'responsibilities' | 'teamRoles' | 'techStack'> {
+export interface IFormatedProject
+  extends Omit<IProject, 'responsibilities' | 'teamRoles' | 'techStack'> {
   responsibilities: string[];
   teamRoles: string[];
   techStack: string[];

@@ -19,7 +19,7 @@ import {
 import { AutocompleteSelectComponent } from '../autocomplete-select/autocomplete-select.component';
 import { projectRequiredFieldValidator } from 'src/app/modules/projects/constants/projects.constant';
 import { customValidator } from 'src/app/shared/validators/validators';
-import { FormatedProject } from 'src/app/shared/types/project.types';
+import { IFormatedProject } from 'src/app/shared/types/project.types';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
 @UntilDestroy()
@@ -57,7 +57,7 @@ export class ProjectFormComponent implements ControlValueAccessor, DoCheck, OnIn
   rolesOptions = ['roles1', 'roles2', 'roles3'];
   responsibilitiesOptions = ['responsibility1', 'responsibility2', 'responsibility3'];
 
-  onChange: (val: Partial<FormatedProject>) => void;
+  onChange: (val: Partial<IFormatedProject>) => void;
   onTouch: () => void;
 
   constructor(
@@ -93,13 +93,13 @@ export class ProjectFormComponent implements ControlValueAccessor, DoCheck, OnIn
   protected initFormValuesChanges(): void {
     this.projectForm.valueChanges
       .pipe(untilDestroyed(this))
-      .subscribe((value: Partial<FormatedProject>) => {
+      .subscribe((value: Partial<IFormatedProject>) => {
         this.onTouch();
         this.onChange(value);
       });
   }
 
-  writeValue(project: FormatedProject | null): void {
+  writeValue(project: IFormatedProject | null): void {
     if (project) {
       this.projectForm.patchValue(project);
       this.projectForm.markAsUntouched();

@@ -2,11 +2,12 @@ import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterModule } from '@angular/router';
+import { ToastComponent } from './shared/components/toast/toast.component';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), RouterModule],
+      imports: [TranslateModule.forRoot(), RouterModule, ToastComponent],
       declarations: [AppComponent],
     }).compileComponents();
   }));

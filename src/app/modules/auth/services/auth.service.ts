@@ -1,10 +1,9 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, tap, throwError } from 'rxjs';
 import { API_URLS } from 'src/app/shared/constants/api-urls';
 import { RoutingPaths } from 'src/app/shared/constants/routing-paths';
-import { ErrorsService } from 'src/app/shared/services/errors.service';
 
 export interface TokensResponse {
   access_token: string;
@@ -17,8 +16,7 @@ export interface TokensResponse {
 export class AuthService {
   constructor(
     private http: HttpClient,
-    private router: Router,
-    private errorsService: ErrorsService
+    private router: Router
   ) {}
 
   LOGIN_URL = API_URLS.LOGIN;
@@ -46,9 +44,6 @@ export class AuthService {
     return this.http
       .post<TokensResponse>(this.LOGIN_URL, credentials, { withCredentials: true })
       .pipe(
-        catchError((error: HttpErrorResponse) => {
-          return throwError(() => error);
-        }),
         tap(val => {
           this.setAccessToken(val.access_token);
         })

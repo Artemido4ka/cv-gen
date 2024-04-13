@@ -13,6 +13,7 @@ import { AuthInterceptor } from './modules/auth/interceptors/auth.interceptor';
 import { ToastComponent } from './shared/components/toast/toast.component';
 import { EffectsModule } from '@ngrx/effects';
 import { ProjectsEffects } from './store/projects/project.effects';
+import { UserEffects } from './store/user/user.effects';
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http);
@@ -32,7 +33,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
       },
     }),
     StoreModule.forRoot(appReducers),
-    EffectsModule.forRoot([ProjectsEffects]),
+    EffectsModule.forRoot([ProjectsEffects, UserEffects]),
     BrowserAnimationsModule,
     ToastComponent,
   ],

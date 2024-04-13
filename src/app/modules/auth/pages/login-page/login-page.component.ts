@@ -1,11 +1,18 @@
 import { Router } from '@angular/router';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 
-import { AuthService } from '../../services/auth.service';
 import { RoutingPaths } from 'src/app/shared/constants/routing-paths';
 import { loginRequiredFieldValidator } from '../../constants/auth.constants';
+import { Store, select } from '@ngrx/store';
+import { IAppState } from 'src/app/store/app.store';
+import { loginUserAction } from 'src/app/store/user/user.actions';
+import { Observable } from 'rxjs';
+import { EReqStatus } from 'src/app/shared/constants/request.status';
+import { selectUserReqStatus } from 'src/app/store/user/selectors';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
+@UntilDestroy()
 @Component({
   selector: 'cv-gen-login-page',
   templateUrl: './login-page.component.html',
@@ -15,37 +22,28 @@ import { loginRequiredFieldValidator } from '../../constants/auth.constants';
 export class LoginPageComponent {
   constructor(
     private fb: FormBuilder,
-    private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private store: Store<IAppState>
   ) {}
 
-  isLoading = false;
+  reqStatus$: Observable<EReqStatus> = this.store.pipe(select(selectUserReqStatus));
 
   loginForm = this.fb.group({
     userName: ['', [loginRequiredFieldValidator('userName')]],
     password: ['', [loginRequiredFieldValidator('password')]],
   });
 
-  private readonly cdRef = inject(ChangeDetectorRef);
-
   onSubmit(): void {
     if (this.loginForm.invalid) {
       this.loginForm.markAllAsTouched();
       return;
     }
+    this.store.dispatch(loginUserAction({ user: this.loginForm.getRawValue() }));
 
-    this.isLoading = true;
-
-    this.authService.login(this.loginForm.getRawValue()).subscribe({
-      next: () => {
-        this.isLoading = false;
+    this.reqStatus$.pipe(untilDestroyed(this)).subscribe(reqStatus => {
+      if (reqStatus === EReqStatus.SUCCESS) {
         this.router.navigate([RoutingPaths.HOME]);
-        this.cdRef.markForCheck();
-      },
-      error: () => {
-        this.isLoading = false;
-        this.cdRef.markForCheck();
-      },
+      }
     });
   }
 }

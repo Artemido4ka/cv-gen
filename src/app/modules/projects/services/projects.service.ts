@@ -1,7 +1,7 @@
 import { formatDate } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, map, throwError } from 'rxjs';
+import { map } from 'rxjs';
 import { API_URLS } from 'src/app/shared/constants/api-urls';
 import { IFormatedProject, IProject, RequestProject } from 'src/app/shared/types/project.types';
 
@@ -20,35 +20,30 @@ export class ProjectsService {
         map(projects =>
           projects
             .map(project => this.formatProjectDate(project))
-            .map(project => this.formatProjectArrays(project))
+            .map(project => this.formatProject(project))
         )
       );
   }
 
   getProjectById(projectId: number) {
-    return this.http.get<IProject>(`${this.PROJECTS_URL}/${projectId}`).pipe(
-      catchError(err => {
-        return throwError(() => err);
-      }),
-      map(project => this.formatProjectArrays(project))
-    );
+    return this.http
+      .get<IProject>(`${this.PROJECTS_URL}/${projectId}`)
+      .pipe(map(project => this.formatProject(project)));
   }
 
   createProject(projectBody: RequestProject) {
-    return this.http.post(this.PROJECTS_URL, projectBody).pipe(
-      catchError(err => {
-        return throwError(() => err);
-      })
-    );
+    return this.http
+      .post<IProject>(this.PROJECTS_URL, projectBody)
+      .pipe(map(project => this.formatProject(project)));
   }
 
   updateProject(projectId: number, projectBody: RequestProject) {
     return this.http
-      .put(`${this.PROJECTS_URL}/${projectId}`, projectBody)
-      .pipe(catchError(err => err));
+      .put<IProject>(`${this.PROJECTS_URL}/${projectId}`, projectBody)
+      .pipe(map(project => this.formatProject(project)));
   }
 
-  formatProjectArrays(project: IProject): IFormatedProject {
+  formatProject(project: IProject): IFormatedProject {
     const responsibilities = project.responsibilities.map(i => i.name);
     const techStack = project.techStack.map(i => i.name);
     const teamRoles = project.teamRoles.map(i => i.name);

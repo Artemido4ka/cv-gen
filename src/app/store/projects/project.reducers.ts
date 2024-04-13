@@ -1,6 +1,15 @@
 import { createReducer, on } from '@ngrx/store';
 import { initialProjectState } from './project.state';
 import {
+  addProjectAction,
+  addProjectFailedAction,
+  addProjectSuccessAction,
+  editProjectAction,
+  editProjectFailedAction,
+  editProjectSuccessAction,
+  getProjectAction,
+  getProjectFailedAction,
+  getProjectSuccessAction,
   getProjectsAction,
   getProjectsFailedAction,
   getProjectsSuccessAction,
@@ -9,6 +18,8 @@ import { EReqStatus } from 'src/app/shared/constants/request.status';
 
 export const projectReducers = createReducer(
   initialProjectState,
+
+  //Get all projects
   on(getProjectsAction, state => ({ ...state, requestStatus: EReqStatus.PENDING })),
 
   on(getProjectsSuccessAction, (state, { projects }) => {
@@ -16,6 +27,39 @@ export const projectReducers = createReducer(
   }),
 
   on(getProjectsFailedAction, (state, { error }) => {
+    return { ...state, error, requestStatus: EReqStatus.FAILED };
+  }),
+
+  //Get project by id
+  on(getProjectAction, state => ({ ...state, requestStatus: EReqStatus.PENDING })),
+
+  on(getProjectSuccessAction, (state, { project }) => {
+    return { ...state, project, requestStatus: EReqStatus.SUCCESS };
+  }),
+
+  on(getProjectFailedAction, (state, { error }) => {
+    return { ...state, error, requestStatus: EReqStatus.FAILED };
+  }),
+
+  //Create project
+  on(addProjectAction, state => ({ ...state, requestStatus: EReqStatus.PENDING })),
+
+  on(addProjectSuccessAction, (state, { project }) => {
+    return { ...state, project, requestStatus: EReqStatus.SUCCESS };
+  }),
+
+  on(addProjectFailedAction, (state, { error }) => {
+    return { ...state, error, requestStatus: EReqStatus.FAILED };
+  }),
+
+  //Update project
+  on(editProjectAction, state => ({ ...state, requestStatus: EReqStatus.PENDING })),
+
+  on(editProjectSuccessAction, (state, { project }) => {
+    return { ...state, project, requestStatus: EReqStatus.SUCCESS };
+  }),
+
+  on(editProjectFailedAction, (state, { error }) => {
     return { ...state, error, requestStatus: EReqStatus.FAILED };
   })
 );

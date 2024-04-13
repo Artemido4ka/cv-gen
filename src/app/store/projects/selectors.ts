@@ -2,19 +2,24 @@ import { createSelector } from '@ngrx/store';
 import { IProjectsState } from './project.state';
 import { IAppState } from '../app.store';
 
-const selectUsers = (state: IAppState) => state.projectsState;
+const selectProjectsState = (state: IAppState) => state.projectsState;
 
 export const selectProjects = createSelector(
-  selectUsers,
+  selectProjectsState,
   (state: IProjectsState) => state.projects
 );
 
 export const selectProjectReqStatus = createSelector(
-  selectUsers,
+  selectProjectsState,
   (state: IProjectsState) => state.requestStatus
 );
 
 export const selectProjectError = createSelector(
-  selectUsers,
+  selectProjectsState,
   (state: IProjectsState) => state.error
+);
+
+export const selectProject = createSelector(
+  selectProjectsState,
+  (state: IProjectsState) => state.project
 );

@@ -1,11 +1,18 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 import { FormBuilder } from '@angular/forms';
-import { ProjectsService } from '../../services/projects.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Store, select } from '@ngrx/store';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { Observable } from 'rxjs';
+
 import { IFormatedProject } from 'src/app/shared/types/project.types';
 import { RoutingPaths } from 'src/app/shared/constants/routing-paths';
-import { Location } from '@angular/common';
+import { IAppState } from 'src/app/store/app.store';
+import { editProjectAction, getProjectAction } from 'src/app/store/projects/project.actions';
+import { selectProject } from 'src/app/store/projects/selectors';
 
+@UntilDestroy()
 @Component({
   selector: 'cv-gen-edit-project-page',
   templateUrl: './edit-project-page.component.html',
@@ -14,66 +21,45 @@ import { Location } from '@angular/common';
 })
 export class EditProjectPageComponent implements OnInit {
   constructor(
-    private projectsService: ProjectsService,
-    private readonly cdRef: ChangeDetectorRef,
     private route: ActivatedRoute,
     private fb: FormBuilder,
     private router: Router,
-    private location: Location
+    private location: Location,
+    private store: Store<IAppState>
   ) {}
 
-  isLoading = false;
-  project: IFormatedProject;
   projectId: number;
 
   editForm = this.fb.group({
     editProjectForm: [],
   });
 
-  getProject() {
-    this.isLoading = true;
-
-    this.projectsService.getProjectById(this.projectId).subscribe({
-      next: project => {
-        this.project = project;
-        this.isLoading = false;
-        this.editForm.controls.editProjectForm.setValue(project);
-        this.editForm.controls.editProjectForm.markAsUntouched();
-        this.cdRef.markForCheck();
-      },
-      error: error => {
-        this.isLoading = false;
-        this.cdRef.markForCheck();
-      },
-    });
-  }
+  project$: Observable<IFormatedProject> = this.store.pipe(select(selectProject));
 
   ngOnInit(): void {
     this.projectId = Number(this.route.snapshot.paramMap.get('id'));
-    this.getProject();
+    this.store.dispatch(getProjectAction({ id: this.projectId }));
+
+    this.project$.pipe(untilDestroyed(this)).subscribe(project => {
+      this.editForm.controls.editProjectForm.setValue(project);
+      //TODO: markAsUntouched() can be deleted later
+      this.editForm.controls.editProjectForm.markAsUntouched();
+    });
   }
 
   handleSaveChanges() {
     if (this.editForm.invalid) {
-      this.editForm.controls.editProjectForm.markAsTouched();
+      this.editForm.controls.editProjectForm.markAllAsTouched();
       return;
     }
 
-    this.isLoading = true;
-    this.projectsService
-      .updateProject(this.projectId, this.editForm.controls.editProjectForm.getRawValue())
-      .subscribe({
-        next: () => {
-          this.isLoading = false;
-          this.router.navigate([RoutingPaths.HOME, RoutingPaths.PROJECTS]);
-          this.cdRef.markForCheck();
-        },
-        error: errorMessage => {
-          // this.projectForm.setErrors({ error: errorMessage });
-          this.isLoading = false;
-          this.cdRef.markForCheck();
-        },
-      });
+    const sendData = {
+      id: this.projectId,
+      project: this.editForm.controls.editProjectForm.getRawValue(),
+    };
+
+    this.store.dispatch(editProjectAction(sendData));
+    this.router.navigate([RoutingPaths.HOME, RoutingPaths.PROJECTS]);
   }
 
   handleCancel() {

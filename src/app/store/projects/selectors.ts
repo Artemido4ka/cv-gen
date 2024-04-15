@@ -23,3 +23,18 @@ export const selectProject = createSelector(
   selectProjectsState,
   (state: IProjectsState) => state.project
 );
+
+export const selectResponsibilities = createSelector(
+  selectProjectsState,
+  (state: IProjectsState) => state.responsibilities
+);
+
+export const selectTeamRoles = createSelector(
+  selectProjectsState,
+  (state: IProjectsState) => state.teamRoles
+);
+
+export const selectTechStack = createSelector(
+  selectProjectsState,
+  (state: IProjectsState) => state.techStack
+);

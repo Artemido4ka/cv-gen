@@ -63,7 +63,7 @@
       <h2>Autocomplete Select</h2>
       <cv-gen-autocomplete-select
         formControlName="multiSelectedOptionsAndNewOptions"
-        [options]="autocompleteTestOptions"
+        [options$]="autocompleteSelectTestOptions"
         placeholder="Autocomplete select placeholder"></cv-gen-autocomplete-select>
     </div>
     <button (click)="onAutoCompleteSelectSubmit()">Autocomplete Select submit</button>

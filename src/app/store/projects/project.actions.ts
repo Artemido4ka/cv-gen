@@ -1,5 +1,10 @@
 import { createAction, props } from '@ngrx/store';
-import { IFormatedProject } from 'src/app/shared/types/project.types';
+import {
+  FormatedResponsibilityT,
+  FormatedTeamRoleT,
+  FormatedTechStackItemT,
+  IFormatedProject,
+} from 'src/app/shared/types/project.types';
 
 export enum EProjectActions {
   GetProjects = '[Project API] Get Projects',
@@ -14,6 +19,15 @@ export enum EProjectActions {
   EditProject = '[Project API] Edit Project',
   EditProjectSuccess = '[Project API] Edit Project Success',
   EditProjectError = '[Project API] Edit Project Error',
+  GetTechStack = '[Shared API] Get TechStack',
+  GetTechStackSuccess = '[Shared API] Get TechStack Success',
+  GetTechStackError = '[Shared API] Get TechStack Error',
+  GetTeamRoles = '[Shared API] Get TeamRoles',
+  GetTeamRolesSuccess = '[Shared API] Get TeamRoles Success',
+  GetTeamRolesError = '[Shared API] Get TeamRoles Error',
+  GetResponsibilities = '[Shared API] Get Responsibilities',
+  GetResponsibilitiesSuccess = '[Shared API] Get Responsibilities Success',
+  GetResponsibilitiesError = '[Shared API] Get Responsibilities Error',
 }
 
 //Get all projects
@@ -71,5 +85,44 @@ export const editProjectSuccessAction = createAction(
 
 export const editProjectFailedAction = createAction(
   EProjectActions.EditProjectError,
+  props<{ error: Error }>()
+);
+
+//Get techStack
+export const getTechStackAction = createAction(EProjectActions.GetTechStack);
+
+export const getTechStackSuccessAction = createAction(
+  EProjectActions.GetTechStackSuccess,
+  props<{ techStack: FormatedTechStackItemT[] }>()
+);
+
+export const getTechStackFailedAction = createAction(
+  EProjectActions.GetTechStackError,
+  props<{ error: Error }>()
+);
+
+//Get teamRoles
+export const getTeamRolesAction = createAction(EProjectActions.GetTeamRoles);
+
+export const getTeamRolesSuccessAction = createAction(
+  EProjectActions.GetTeamRolesSuccess,
+  props<{ teamRoles: FormatedTeamRoleT[] }>()
+);
+
+export const getTeamRolesFailedAction = createAction(
+  EProjectActions.GetTeamRolesError,
+  props<{ error: Error }>()
+);
+
+//Get teamRoles
+export const getResponsibilitiesAction = createAction(EProjectActions.GetResponsibilities);
+
+export const getResponsibilitiesSuccessAction = createAction(
+  EProjectActions.GetResponsibilitiesSuccess,
+  props<{ responsibilities: FormatedResponsibilityT[] }>()
+);
+
+export const getResponsibilitiesFailedAction = createAction(
+  EProjectActions.GetResponsibilitiesError,
   props<{ error: Error }>()
 );

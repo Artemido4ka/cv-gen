@@ -19,8 +19,21 @@ import {
 import { AutocompleteSelectComponent } from '../autocomplete-select/autocomplete-select.component';
 import { projectRequiredFieldValidator } from 'src/app/modules/projects/constants/projects.constant';
 import { customValidator } from 'src/app/shared/validators/validators';
-import { IFormatedProject } from 'src/app/shared/types/project.types';
+import { FormatedTechStackItemT, IFormatedProject } from 'src/app/shared/types/project.types';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { Observable } from 'rxjs';
+import { Store, select } from '@ngrx/store';
+import { IAppState } from 'src/app/store/app.store';
+import {
+  selectResponsibilities,
+  selectTeamRoles,
+  selectTechStack,
+} from 'src/app/store/projects/selectors';
+import {
+  getResponsibilitiesAction,
+  getTeamRolesAction,
+  getTechStackAction,
+} from 'src/app/store/projects/project.actions';
 
 @UntilDestroy()
 @Component({
@@ -53,9 +66,13 @@ export class ProjectFormComponent implements ControlValueAccessor, DoCheck, OnIn
     responsibilities: [Array<string>(), projectRequiredFieldValidator('responsibilities')],
   });
 
-  teachStackOptions = ['tech1', 'tech2', 'tech3'];
-  rolesOptions = ['roles1', 'roles2', 'roles3'];
-  responsibilitiesOptions = ['responsibility1', 'responsibility2', 'responsibility3'];
+  teachStackOptions$: Observable<FormatedTechStackItemT[]> = this.store.pipe(
+    select(selectTechStack)
+  );
+  rolesOptions$: Observable<FormatedTechStackItemT[]> = this.store.pipe(select(selectTeamRoles));
+  responsibilitiesOptions$: Observable<FormatedTechStackItemT[]> = this.store.pipe(
+    select(selectResponsibilities)
+  );
 
   onChange: (val: Partial<IFormatedProject>) => void;
   onTouch: () => void;
@@ -63,12 +80,16 @@ export class ProjectFormComponent implements ControlValueAccessor, DoCheck, OnIn
   constructor(
     private fb: FormBuilder,
     private ngControl: NgControl,
-    private cdRef: ChangeDetectorRef
+    private cdRef: ChangeDetectorRef,
+    private store: Store<IAppState>
   ) {
     this.ngControl.valueAccessor = this;
   }
 
   public ngOnInit(): void {
+    this.store.dispatch(getTeamRolesAction());
+    this.store.dispatch(getResponsibilitiesAction());
+    this.store.dispatch(getTechStackAction());
     this.initFormValuesChanges();
   }
 

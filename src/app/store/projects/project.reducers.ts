@@ -13,6 +13,15 @@ import {
   getProjectsAction,
   getProjectsFailedAction,
   getProjectsSuccessAction,
+  getResponsibilitiesAction,
+  getResponsibilitiesFailedAction,
+  getResponsibilitiesSuccessAction,
+  getTeamRolesAction,
+  getTeamRolesFailedAction,
+  getTeamRolesSuccessAction,
+  getTechStackAction,
+  getTechStackFailedAction,
+  getTechStackSuccessAction,
 } from './project.actions';
 import { EReqStatus } from 'src/app/shared/constants/request.status';
 
@@ -56,10 +65,45 @@ export const projectReducers = createReducer(
   on(editProjectAction, state => ({ ...state, requestStatus: EReqStatus.PENDING })),
 
   on(editProjectSuccessAction, (state, { project }) => {
-    return { ...state, project, requestStatus: EReqStatus.SUCCESS };
+    return { ...state, project, requestStatus: EReqStatus.SUCCESS, projects: null };
   }),
 
   on(editProjectFailedAction, (state, { error }) => {
     return { ...state, error, requestStatus: EReqStatus.FAILED };
+  }),
+
+  //Get techStack
+  on(getTechStackAction, state => ({ ...state, techStackRequestStatus: EReqStatus.PENDING })),
+
+  on(getTechStackSuccessAction, (state, { techStack }) => {
+    return { ...state, techStack, techStackRequestStatus: EReqStatus.SUCCESS };
+  }),
+
+  on(getTechStackFailedAction, (state, { error }) => {
+    return { ...state, error, techStackRequestStatus: EReqStatus.FAILED };
+  }),
+
+  //Get teamRoles
+  on(getTeamRolesAction, state => ({ ...state, teamRolesRequestStatus: EReqStatus.PENDING })),
+
+  on(getTeamRolesSuccessAction, (state, { teamRoles }) => {
+    return { ...state, teamRoles, teamRolesRequestStatus: EReqStatus.SUCCESS };
+  }),
+
+  on(getTeamRolesFailedAction, (state, { error }) => {
+    return { ...state, error, teamRolesRequestStatus: EReqStatus.FAILED };
+  }),
+  //Get responsibilities
+  on(getResponsibilitiesAction, state => ({
+    ...state,
+    responsibilitiesRequestStatus: EReqStatus.PENDING,
+  })),
+
+  on(getResponsibilitiesSuccessAction, (state, { responsibilities }) => {
+    return { ...state, responsibilities, responsibilitiesRequestStatus: EReqStatus.SUCCESS };
+  }),
+
+  on(getResponsibilitiesFailedAction, (state, { error }) => {
+    return { ...state, error, responsibilitiesRequestStatus: EReqStatus.FAILED };
   })
 );

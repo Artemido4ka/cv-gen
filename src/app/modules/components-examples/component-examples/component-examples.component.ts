@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
+import { of } from 'rxjs';
 import { requiredValidator } from 'src/app/shared/validators/validators';
 
 export type OptionType = {
@@ -57,6 +58,8 @@ export class ComponentExamplesComponent {
   //--------------AUTOCOMPLETE FORMS-------------------------------
 
   autocompleteTestOptions = ['apple', 'orange', 'cherry'];
+
+  autocompleteSelectTestOptions = of(['apple', 'orange', 'cherry']);
 
   autocompleteForm = this.fb.group({
     textValue: ['', [requiredValidator('shared.errors.autoComplete.required')]],

@@ -30,7 +30,10 @@
       [matChipInputFor]="chipGrid" />
 
     <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectChip($event)">
-      <mat-option *ngFor="let option of filteredOptions" [value]="option" class="hide-checkbox">
+      <mat-option
+        *ngFor="let option of filteredOptions$ | async"
+        [value]="option"
+        class="hide-checkbox">
         {{ option }}
       </mat-option>
     </mat-autocomplete>

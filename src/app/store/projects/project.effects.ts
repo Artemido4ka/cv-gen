@@ -16,6 +16,15 @@ import {
   addProjectSuccessAction,
   editProjectSuccessAction,
   editProjectFailedAction,
+  getTechStackAction,
+  getTechStackSuccessAction,
+  getTeamRolesAction,
+  getTeamRolesSuccessAction,
+  getResponsibilitiesAction,
+  getResponsibilitiesSuccessAction,
+  getResponsibilitiesFailedAction,
+  getTeamRolesFailedAction,
+  getTechStackFailedAction,
 } from './project.actions';
 import { HttpErrorResponse } from '@angular/common/http';
 
@@ -69,6 +78,42 @@ export class ProjectsEffects {
         return this.projectsService.updateProject(action.id, action.project).pipe(
           map(project => editProjectSuccessAction({ project })),
           catchError((error: HttpErrorResponse) => of(editProjectFailedAction(error)))
+        );
+      })
+    )
+  );
+
+  loadTechStack$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(getTechStackAction),
+      switchMap(() => {
+        return this.projectsService.getTechStack().pipe(
+          map(techStack => getTechStackSuccessAction({ techStack })),
+          catchError((error: HttpErrorResponse) => of(getTechStackFailedAction(error)))
+        );
+      })
+    )
+  );
+
+  loadTeamRoles$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(getTeamRolesAction),
+      switchMap(() => {
+        return this.projectsService.getRoles().pipe(
+          map(teamRoles => getTeamRolesSuccessAction({ teamRoles })),
+          catchError((error: HttpErrorResponse) => of(getTeamRolesFailedAction(error)))
+        );
+      })
+    )
+  );
+
+  loadResponsibilities$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(getResponsibilitiesAction),
+      switchMap(() => {
+        return this.projectsService.getResponsibilities().pipe(
+          map(responsibilities => getResponsibilitiesSuccessAction({ responsibilities })),
+          catchError((error: HttpErrorResponse) => of(getResponsibilitiesFailedAction(error)))
         );
       })
     )

@@ -37,7 +37,7 @@
   <div class="item">
     <cv-gen-autocomplete-select
       formControlName="techStack"
-      [options]="teachStackOptions"
+      [options$]="teachStackOptions$"
       placeholder="home.project.teachStack.placeholder"
       label="home.project.teachStack.label"></cv-gen-autocomplete-select>
   </div>
@@ -45,7 +45,7 @@
   <div class="item">
     <cv-gen-autocomplete-select
       formControlName="teamRoles"
-      [options]="rolesOptions"
+      [options$]="rolesOptions$"
       placeholder="home.project.roles.placeholder"
       label="home.project.roles.label"></cv-gen-autocomplete-select>
   </div>
@@ -53,7 +53,7 @@
   <div class="item">
     <cv-gen-autocomplete-select
       formControlName="responsibilities"
-      [options]="responsibilitiesOptions"
+      [options$]="responsibilitiesOptions$"
       placeholder="home.project.responsibilities.placeholder"
       label="home.project.responsibilities.label"></cv-gen-autocomplete-select>
   </div>

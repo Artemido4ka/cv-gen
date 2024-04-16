@@ -125,6 +125,10 @@
         "save": "Save",
         "cancel": "Cancel"
       }
+    },
+    "sidebar": {
+      "projects": "Projects",
+      "employees": "Employees"
     }
   }
 }

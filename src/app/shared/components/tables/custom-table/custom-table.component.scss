@@ -6,14 +6,14 @@
 
 .table {
   height: 100%;
-  border: 1px solid #d9d9d9;
+  // border: 1px solid #d9d9d9;
 
   .header {
-    background: #fafafa;
+    background: #f2f2f2;
   }
 
   tr:nth-child(even) {
-    background-color: #f2f2f2;
+    background-color: #fafafa;
   }
 
   .cell {

@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { RoutingPaths } from 'src/app/shared/constants/routing-paths';
 
 @Component({
   selector: 'cv-gen-header',
@@ -7,5 +8,6 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeaderComponent {
+  homeRoute = RoutingPaths.HOME;
 
 }

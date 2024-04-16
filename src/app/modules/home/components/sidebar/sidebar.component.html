@@ -1,5 +1,24 @@
-<div class="sidebar">
-  <div>Dashboard</div>
-  <div>Employees</div>
-  <div>Projects</div>
+<div
+  class="sidebar"
+  [class.closed]="!isSidebarOpened"
+  [@openClose]="isSidebarOpened ? false : true">
+  <div class="links">
+    <a [routerLink]="employeesRoute" [routerLinkActive]="['active']" class="link">
+      <div class="icon"><mat-icon fontIcon="people"></mat-icon></div>
+      <div class="text">{{ 'home.sidebar.employees' | translate }}</div>
+    </a>
+
+    <a [routerLink]="projectsRoute" [routerLinkActive]="['active']" class="link">
+      <div class="icon"><mat-icon fontIcon="folder_copy"></mat-icon></div>
+      <div class="text">{{ 'home.sidebar.projects' | translate }}</div>
+    </a>
+  </div>
+
+  <div class="bottom-section">
+    <button class="button" (click)="handleOpenSideBar()">
+      <mat-icon
+        [ngStyle]="{ transform: isSidebarOpened ? 'scale(-1, 1)' : 'scale(1, 1)' }"
+        fontIcon="playlist_play"></mat-icon>
+    </button>
+  </div>
 </div>

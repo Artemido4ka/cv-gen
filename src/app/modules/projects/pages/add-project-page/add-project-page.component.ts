@@ -30,7 +30,7 @@ export class AddProjectPageComponent {
 
   handleSave() {
     if (this.addForm.invalid) {
-      this.addForm.controls.addProjectForm.markAllAsTouched();
+      this.addForm.controls.addProjectForm.markAsTouched();
       return;
     }
 

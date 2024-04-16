@@ -43,13 +43,13 @@ export class EditProjectPageComponent implements OnInit {
     this.project$.pipe(untilDestroyed(this)).subscribe(project => {
       this.editForm.controls.editProjectForm.setValue(project);
       //TODO: markAsUntouched() can be deleted later
-      this.editForm.controls.editProjectForm.markAsUntouched();
+      // this.editForm.controls.editProjectForm.markAsUntouched();
     });
   }
 
   handleSaveChanges() {
     if (this.editForm.invalid) {
-      this.editForm.controls.editProjectForm.markAllAsTouched();
+      this.editForm.controls.editProjectForm.markAsTouched();
       return;
     }
 

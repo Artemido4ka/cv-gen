@@ -2,9 +2,10 @@
   <button class="button" mat-raised-button color="primary" (click)="onSubmit()">
     {{ 'home.projects.buttons.addProject' | translate }}
   </button>
-
-  <cv-gen-custom-table
-    [tableData]="projects"
-    [columns]="projectsTableColumns"
-    [linkUrl]="linkUrl"></cv-gen-custom-table>
+  <div class="table-container">
+    <cv-gen-custom-table
+      [tableData]="projects"
+      [columns]="projectsTableColumns"
+      [linkUrl]="linkUrl"></cv-gen-custom-table>
+  </div>
 </div>

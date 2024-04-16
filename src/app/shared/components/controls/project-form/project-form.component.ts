@@ -103,20 +103,21 @@ export class ProjectFormComponent implements ControlValueAccessor, DoCheck, OnIn
       this.ngControl.control.setErrors(projectFormErrors.length ? projectFormErrors : null);
       // this.ngControl.control.setErrors({ formError: 'form is invalid !' });
     }
+
     //TODO: check when should children and parent touched
-    // if (this.ngControl.control?.touched) {
-    //   this.projectForm.markAllAsTouched();
-    //   this.cdRef.markForCheck();
-    // } else {
-    //   this.projectForm.markAsPristine();
-    // }
+    if (this.ngControl.control?.touched) {
+      this.projectForm.markAllAsTouched();
+      this.cdRef.markForCheck();
+    } else {
+      this.projectForm.markAsPristine();
+    }
   }
 
   protected initFormValuesChanges(): void {
     this.projectForm.valueChanges
       .pipe(untilDestroyed(this))
       .subscribe((value: Partial<IFormatedProject>) => {
-        this.onTouch();
+        // this.onTouch();
         this.onChange(value);
       });
   }

@@ -126,6 +126,21 @@
         "cancel": "Cancel"
       }
     },
+    "employees": {
+      "table": {
+        "headers": {
+          "id": "id",
+          "firstName": "First Name",
+          "lastName": "Last Name",
+          "email": "Email",
+          "department": "Department",
+          "specialization": "Specialization"
+        }
+      },
+      "buttons": {
+        "addEmployee": "Add Employee"
+      }
+    },
     "sidebar": {
       "projects": "Projects",
       "employees": "Employees"

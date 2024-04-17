@@ -26,7 +26,6 @@ import { ProjectFormComponent } from 'src/app/shared/components/controls/project
     MatButtonModule,
     CustomTableComponent,
     TableItemsCellComponent,
-    MatButtonModule,
     TranslateModule,
     InputComponent,
     DatepickerComponent,

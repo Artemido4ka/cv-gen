@@ -5,15 +5,19 @@ import { IProjectsState } from './projects/project.state';
 import { projectReducers } from './projects/project.reducers';
 import { IUserState } from './user/user.state';
 import { userReducers } from './user/user.reducers';
+import { IEmployeesState } from './employees/employees.state';
+import { employeesReducers } from './employees/employees.reducers';
 
 export interface IAppState {
   core: ICore;
   projectsState: IProjectsState;
   userState: IUserState;
+  employeesState: IEmployeesState;
 }
 
 export const appReducers: ActionReducerMap<IAppState, Action> = {
   core: coreReducers,
   projectsState: projectReducers,
   userState: userReducers,
+  employeesState: employeesReducers,
 };

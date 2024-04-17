@@ -11,6 +11,7 @@ import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { RegistrationPageComponent } from './pages/registration-page/registration-page.component';
 import { InputComponent } from 'src/app/shared/components/controls/input/input.component';
 import { ErrorMessageComponent } from 'src/app/shared/components/error-message/error-message.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [AuthPageComponent, LoginPageComponent, RegistrationPageComponent],
@@ -23,6 +24,7 @@ import { ErrorMessageComponent } from 'src/app/shared/components/error-message/e
     MatCheckboxModule,
     MatButtonModule,
     ErrorMessageComponent,
+    MatProgressSpinnerModule,
   ],
 })
 export class AuthModule {}

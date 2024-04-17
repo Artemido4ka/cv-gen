@@ -9,4 +9,6 @@ export class API_URLS {
   public static readonly ROLES_URL = this.BASE_URL + '/api/team-roles';
   public static readonly RESPONSIBILITIES_URL = this.BASE_URL + '/api/responsibilities';
   public static readonly TECH_STACK_URL = this.BASE_URL + '/api/skills';
+
+  public static readonly EMPLOYEES_URL = this.BASE_URL + '/api/employees';
 }

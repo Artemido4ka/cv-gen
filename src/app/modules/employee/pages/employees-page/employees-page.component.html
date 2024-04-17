@@ -1,0 +1,10 @@
+<div class="employees">
+  <button class="button" mat-raised-button color="primary" (click)="onSubmit()">
+    {{ 'home.employees.buttons.addEmployee' | translate }}
+  </button>
+  <div class="table-container">
+    <cv-gen-custom-table
+      [tableData]="employees"
+      [columns]="employeesTableColumns"></cv-gen-custom-table>
+  </div>
+</div>

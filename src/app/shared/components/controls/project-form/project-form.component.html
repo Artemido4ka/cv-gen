@@ -1,12 +1,14 @@
 <div [formGroup]="projectForm" class="form">
   <div class="item">
     <cv-gen-input
+      id="projectNameId"
       formControlName="projectName"
       placeholder="home.project.projectName.placeholder"
       label="home.project.projectName.label"></cv-gen-input>
   </div>
   <div class="item">
     <cv-gen-datepicker
+      id="startDateId"
       placeholder="home.project.startDate.placeholder"
       label="home.project.startDate.label"
       formControlName="startDate"></cv-gen-datepicker>
@@ -14,6 +16,7 @@
 
   <div class="item">
     <cv-gen-datepicker
+      id="endDateId"
       formControlName="endDate"
       placeholder="home.project.endDate.placeholder"
       label="home.project.endDate.label"></cv-gen-datepicker>
@@ -21,6 +24,7 @@
 
   <div class="item">
     <cv-gen-textarea
+      id="descriptionId"
       formControlName="description"
       placeholder="home.project.description.placeholder"
       label="home.project.description.label"></cv-gen-textarea>
@@ -28,6 +32,7 @@
 
   <div class="item">
     <cv-gen-input
+      id="teamSizeId"
       type="number"
       formControlName="teamSize"
       placeholder="home.project.teamSize.placeholder"
@@ -36,6 +41,7 @@
 
   <div class="item">
     <cv-gen-autocomplete-select
+      id="techStackId"
       formControlName="techStack"
       [options$]="teachStackOptions$"
       placeholder="home.project.teachStack.placeholder"
@@ -44,6 +50,7 @@
 
   <div class="item">
     <cv-gen-autocomplete-select
+      id="teamRolesId"
       formControlName="teamRoles"
       [options$]="rolesOptions$"
       placeholder="home.project.roles.placeholder"
@@ -52,6 +59,7 @@
 
   <div class="item">
     <cv-gen-autocomplete-select
+      id="responsibilitiesId"
       formControlName="responsibilities"
       [options$]="responsibilitiesOptions$"
       placeholder="home.project.responsibilities.placeholder"

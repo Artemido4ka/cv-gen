@@ -1,0 +1,14 @@
+<div class="add-form">
+  <div class="form">
+    <cv-gen-employee-info-form [formControl]="addEmployeeForm"></cv-gen-employee-info-form>
+  </div>
+
+  <div class="buttons">
+    <button mat-raised-button color="primary" (click)="handleSave()">
+      {{ 'home.employee.buttons.save' | translate }}
+    </button>
+    <button mat-raised-button (click)="handleCancel()">
+      {{ 'home.employee.buttons.cancel' | translate }}
+    </button>
+  </div>
+</div>

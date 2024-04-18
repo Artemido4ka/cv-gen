@@ -8,7 +8,7 @@ import { projectsTableColumns } from '../../constants/projects.constant';
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from 'src/app/store/app.store';
-import { selectProjectReqStatus, selectProjects } from 'src/app/store/projects/selectors';
+import { selectProjectReqStatus, selectProjects } from 'src/app/store/projects/projects.selectors';
 import { getProjectsAction } from 'src/app/store/projects/project.actions';
 import { EReqStatus } from 'src/app/shared/constants/request.status';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';

@@ -51,7 +51,7 @@
       <h2>Autocomplete</h2>
       <cv-gen-autocomplete
         formControlName="textValue"
-        [options]="autocompleteTestOptions"
+        [options$]="autocompleteSelectTestOptions"
         placeholder="Autocomplete placeholder"></cv-gen-autocomplete>
     </div>
     <button (click)="onAutoCompleteSubmit()">Autocomplete submit</button>

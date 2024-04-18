@@ -15,6 +15,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { ProjectsEffects } from './store/projects/project.effects';
 import { UserEffects } from './store/user/user.effects';
 import { EmployeesEffects } from './store/employees/employees.effects';
+import { CoreEffects } from './store/core/core.effects';
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http);
@@ -34,7 +35,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
       },
     }),
     StoreModule.forRoot(appReducers),
-    EffectsModule.forRoot([ProjectsEffects, UserEffects, EmployeesEffects]),
+    EffectsModule.forRoot([ProjectsEffects, UserEffects, EmployeesEffects, CoreEffects]),
     BrowserAnimationsModule,
     ToastComponent,
   ],

@@ -1,3 +1,6 @@
+import { Validators } from "@angular/forms";
+import { customValidator } from "src/app/shared/validators/validators";
+
 export const employeesTableColumns = [
   {
     columnDef: 'id',
@@ -24,3 +27,10 @@ export const employeesTableColumns = [
     header: 'home.employees.table.headers.specialization',
   },
 ];
+
+export const employeeRequiredFieldValidator = (translationKey: string) =>
+  customValidator(
+    Validators.required,
+    `home.employee.${translationKey}.errors.required`,
+    'required'
+  );

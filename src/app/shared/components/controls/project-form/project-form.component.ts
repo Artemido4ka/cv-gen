@@ -28,7 +28,7 @@ import {
   selectResponsibilities,
   selectTeamRoles,
   selectTechStack,
-} from 'src/app/store/projects/selectors';
+} from 'src/app/store/projects/projects.selectors';
 import {
   getResponsibilitiesAction,
   getTeamRolesAction,
@@ -132,6 +132,7 @@ export class ProjectFormComponent implements ControlValueAccessor, DoCheck, OnIn
   registerOnChange(fn: () => void): void {
     this.onChange = fn;
   }
+
   registerOnTouched(fn: () => void): void {
     this.onTouch = fn;
   }

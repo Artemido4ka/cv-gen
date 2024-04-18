@@ -10,7 +10,7 @@ import { IFormatedProject } from 'src/app/shared/types/project.types';
 import { RoutingPaths } from 'src/app/shared/constants/routing-paths';
 import { IAppState } from 'src/app/store/app.store';
 import { editProjectAction, getProjectAction } from 'src/app/store/projects/project.actions';
-import { selectProject } from 'src/app/store/projects/selectors';
+import { selectProject } from 'src/app/store/projects/projects.selectors';
 
 @UntilDestroy()
 @Component({

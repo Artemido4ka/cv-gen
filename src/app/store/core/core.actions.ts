@@ -1,22 +1,35 @@
-import { Action, createAction, props } from '@ngrx/store';
-import { ICore } from './core.state';
+import { createAction, props } from '@ngrx/store';
 
 export enum ECoreActions {
-  GetCore = '[Core] Get Core',
-  GetCoreSuccess = '[Core] Get Core Success',
+  GetDepartments = '[Shared API] Get Departments',
+  GetDepartmentsSuccess = '[Shared API] Get Departments Success',
+  GetDepartmentsError = '[Shared API] Get Departments Error',
+
+  GetSpecializations = '[Shared API] Get Specializations',
+  GetSpecializationsSuccess = '[Shared API] Get Specializations Success',
+  GetSpecializationsError = '[Shared API] Get Specializations Error',
 }
 
-// export class GetCore implements Action {
-//   public readonly type = ECoreActions.GetCore;
-// }
+export const getDepartmentsAction = createAction(ECoreActions.GetDepartments);
 
-// export class GetCoreSuccess implements Action {
-//   public readonly type = ECoreActions.GetCoreSuccess;
-//   constructor(public payload: ICore) {}
-// }
+export const getDepartmentsSuccessAction = createAction(
+  ECoreActions.GetDepartmentsSuccess,
+  props<{ departments: string[] }>()
+);
 
-// export type CoreActions = GetCore | GetCoreSuccess;
+export const getDepartmentsFailedAction = createAction(
+  ECoreActions.GetDepartmentsError,
+  props<{ error: Error }>()
+);
 
-export const getCore = createAction(ECoreActions.GetCore);
+export const getSpecializationsAction = createAction(ECoreActions.GetDepartments);
 
-export const getCoreSuccess = createAction(ECoreActions.GetCoreSuccess, props<{ value: string }>());
+export const getSpecializationsSuccessAction = createAction(
+  ECoreActions.GetSpecializationsSuccess,
+  props<{ specializations: string[] }>()
+);
+
+export const getSpecializationsFailedAction = createAction(
+  ECoreActions.GetSpecializationsError,
+  props<{ error: Error }>()
+);

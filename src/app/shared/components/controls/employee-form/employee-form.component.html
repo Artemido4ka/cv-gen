@@ -1,0 +1,39 @@
+<div [formGroup]="employeeForm" class="form">
+  <div class="item">
+    <cv-gen-input
+      id="firstNameId"
+      formControlName="firstName"
+      placeholder="home.employee.firstName.placeholder"
+      label="home.employee.firstName.label"></cv-gen-input>
+  </div>
+  <div class="item">
+    <cv-gen-input
+      id="lastNameId"
+      formControlName="lastName"
+      placeholder="home.employee.lastName.placeholder"
+      label="home.employee.lastName.label"></cv-gen-input>
+  </div>
+  <div class="item">
+    <cv-gen-input
+      id="emailId"
+      formControlName="email"
+      placeholder="home.employee.email.placeholder"
+      label="home.employee.email.label"></cv-gen-input>
+  </div>
+  <div class="item">
+    <cv-gen-autocomplete
+      id="departmentId"
+      placeholder="home.employee.department.placeholder"
+      label="home.employee.department.label"
+      formControlName="department"
+      [options$]="departmentOptions$"></cv-gen-autocomplete>
+  </div>
+  <div class="item">
+    <cv-gen-autocomplete
+      id="specializationId"
+      placeholder="home.employee.specialization.placeholder"
+      label="home.employee.specialization.label"
+      formControlName="specialization"
+      [options$]="specializationOptions$"></cv-gen-autocomplete>
+  </div>
+</div>

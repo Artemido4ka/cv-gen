@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RoutingPaths } from 'src/app/shared/constants/routing-paths';
-import { IFormatedProject } from 'src/app/shared/types/project.types';
 import { Location } from '@angular/common';
 import { Store } from '@ngrx/store';
 import { IAppState } from 'src/app/store/app.store';
@@ -21,8 +20,6 @@ export class AddProjectPageComponent {
     private location: Location,
     private store: Store<IAppState>
   ) {}
-
-  project: IFormatedProject;
 
   addForm = this.fb.group({
     addProjectForm: [],

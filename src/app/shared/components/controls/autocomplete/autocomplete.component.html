@@ -1,7 +1,13 @@
 <div class="autocomplete">
+  <cv-gen-label
+    [label]="label"
+    [hasError]="control.invalid && control.touched"
+    [id]="id"></cv-gen-label>
+
   <input
+    [id]="id"
     type="text"
-    placeholder="Search for a street"
+    [placeholder]="placeholder | translate"
     [formControl]="control"
     [matAutocomplete]="auto" />
 
@@ -10,7 +16,10 @@
     [errors]="control.errors"></cv-gen-error-message>
 
   <mat-autocomplete #auto="matAutocomplete">
-    <mat-option *ngFor="let option of filteredOptions" [value]="option" class="hide-checkbox">
+    <mat-option
+      *ngFor="let option of filteredOptions$ | async"
+      [value]="option"
+      class="hide-checkbox">
       {{ option }}
     </mat-option>
   </mat-autocomplete>

@@ -141,9 +141,53 @@
         "addEmployee": "Add Employee"
       }
     },
+    "employee": {
+      "firstName": {
+        "placeholder": "Enter first name",
+        "label": "First Name",
+        "errors": {
+          "required": "Please, enter first name !"
+        }
+      },
+      "lastName": {
+        "placeholder": "Enter last name",
+        "label": "Last Name",
+        "errors": {
+          "required": "Please, enter last name !"
+        }
+      },
+      "email": {
+        "placeholder": "Enter email",
+        "label": "Email",
+        "errors": {
+          "required": "Please, enter email !"
+        }
+      },
+      "specialization": {
+        "placeholder": "Enter specialization",
+        "label": "Specialization",
+        "errors": {
+          "required": "Please, enter specialization !"
+        }
+      },
+      "department": {
+        "placeholder": "Enter department",
+        "label": "Department",
+        "errors": {
+          "required": "Please, enter department !"
+        }
+      },
+      "buttons": {
+        "save": "save",
+        "cancel": "cancel"
+      }
+    },
     "sidebar": {
       "projects": "Projects",
-      "employees": "Employees"
+      "employees": "Employees",
+      "errors": {
+        "required": "Please, enter project name !"
+      }
     }
   }
 }

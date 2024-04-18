@@ -10,6 +10,7 @@ import { EReqStatus } from 'src/app/shared/constants/request.status';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { selectEmployees, selectEmployeesReqStatus } from 'src/app/store/employees/selectors';
 import { getEmployeesAction } from 'src/app/store/employees/employees.actions';
+import { RoutingPaths } from 'src/app/shared/constants/routing-paths';
 
 @UntilDestroy()
 @Component({
@@ -26,7 +27,7 @@ export class EmployeesPageComponent implements OnInit {
     private store: Store<IAppState>
   ) {}
 
-  // linkUrl = `${this.router.url}/${RoutingPaths.EDIT}`;
+  linkUrl = `${this.router.url}/${RoutingPaths.EDIT}`;
   employeesTableColumns = employeesTableColumns;
   employees: MatTableDataSource<IFormatedEmployee, MatTableDataSourcePaginator>;
 
@@ -37,7 +38,6 @@ export class EmployeesPageComponent implements OnInit {
     this.store.dispatch(getEmployeesAction());
 
     this.employees$.pipe(untilDestroyed(this)).subscribe(employees => {
-      console.log(employees, 'employees');
       if (!employees) return;
       this.employees = new MatTableDataSource(employees);
       this.cdRef.markForCheck();
@@ -45,6 +45,6 @@ export class EmployeesPageComponent implements OnInit {
   }
 
   onSubmit() {
-    // this.router.navigate([RoutingPaths.ADD], { relativeTo: this.route });
+    this.router.navigate([RoutingPaths.ADD], { relativeTo: this.route });
   }
 }

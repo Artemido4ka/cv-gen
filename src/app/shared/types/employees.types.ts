@@ -19,3 +19,4 @@ export interface IFormatedEmployee extends Omit<IEmployee, 'department' | 'speci
   department: string;
   specialization: string;
 }
+

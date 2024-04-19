@@ -6,6 +6,7 @@ import {
   IBasicObjectItem,
   IEmployee,
   IFormatedEmployee,
+  RequestEmployeeT,
 } from 'src/app/shared/types/employees.types';
 import { TechStackItemT } from 'src/app/shared/types/project.types';
 
@@ -21,6 +22,24 @@ export class EmployeesService {
         return employees.map(employee => this.formatEmployee(employee));
       })
     );
+  }
+
+  getEmployeeById(employeeId: number) {
+    return this.http
+      .get<IEmployee>(`${API_URLS.EMPLOYEES_URL}/${employeeId}`)
+      .pipe(map(employee => this.formatEmployee(employee)));
+  }
+
+  createEmployee(employeeBody: RequestEmployeeT) {
+    return this.http
+      .post<IEmployee>(API_URLS.EMPLOYEES_URL, employeeBody)
+      .pipe(map(employee => this.formatEmployee(employee)));
+  }
+
+  updateEmployee(projectId: number, projectBody: RequestEmployeeT) {
+    return this.http
+      .put<IEmployee>(`${API_URLS.EMPLOYEES_URL}/${projectId}`, projectBody)
+      .pipe(map(project => this.formatEmployee(project)));
   }
 
   getDepartments() {

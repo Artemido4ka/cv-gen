@@ -5,15 +5,15 @@ export enum EnumEmployeesActions {
   GetEmployees = '[Employees API] Get Employees',
   GetEmployeesSuccess = '[Employees API] Get Employees Success',
   GetEmployeesError = '[Employees API] Get Employees Error',
-  // GetProject = '[Project API] Get Project',
-  // GetProjectSuccess = '[Project API] Get Project Success',
-  // GetProjectError = '[Project API] Get Project Error',
-  // AddProject = '[Project API] Add Project',
-  // AddProjectSuccess = '[Project API] Add Project Success',
-  // AddProjectError = '[Project API] Add Project Error',
-  // EditProject = '[Project API] Edit Project',
-  // EditProjectSuccess = '[Project API] Edit Project Success',
-  // EditProjectError = '[Project API] Edit Project Error',
+  GetEmployee = '[Employees API] Get Employee',
+  GetEmployeeSuccess = '[Employees API] Get Employee Success',
+  GetEmployeeError = '[Employees API] Get Employee Error',
+  AddEmployee = '[Employees API] Add Employee',
+  AddEmployeeSuccess = '[Employees API] Add Employee Success',
+  AddEmployeeError = '[Employees API] Add Employee Error',
+  EditEmployee = '[Employees API] Edit Employee',
+  EditEmployeeSuccess = '[Employees API] Edit Employee Success',
+  EditEmployeeError = '[Employees API] Edit Employee Error',
 }
 
 //Get all employees
@@ -29,47 +29,50 @@ export const getEmployeesFailedAction = createAction(
   props<{ error: Error }>()
 );
 
-// //Get project by id
-// export const getProjectAction = createAction(EProjectActions.GetProject, props<{ id: number }>());
+//Get Employee by id
+export const getEmployeeAction = createAction(
+  EnumEmployeesActions.GetEmployee,
+  props<{ id: number }>()
+);
 
-// export const getProjectSuccessAction = createAction(
-//   EProjectActions.GetProjectSuccess,
-//   props<{ project: IFormatedProject }>()
-// );
+export const getEmployeeSuccessAction = createAction(
+  EnumEmployeesActions.GetEmployeeSuccess,
+  props<{ employee: IFormatedEmployee }>()
+);
 
-// export const getProjectFailedAction = createAction(
-//   EProjectActions.GetProjectError,
-//   props<{ error: Error }>()
-// );
+export const getEmployeeFailedAction = createAction(
+  EnumEmployeesActions.GetEmployeeError,
+  props<{ error: Error }>()
+);
 
-// //Create project
-// export const addProjectAction = createAction(
-//   EProjectActions.AddProject,
-//   props<{ project: IFormatedProject }>()
-// );
+//Create Employee
+export const addEmployeeAction = createAction(
+  EnumEmployeesActions.AddEmployee,
+  props<{ employee: IFormatedEmployee }>()
+);
 
-// export const addProjectSuccessAction = createAction(
-//   EProjectActions.AddProjectSuccess,
-//   props<{ project: IFormatedProject }>()
-// );
+export const addEmployeeSuccessAction = createAction(
+  EnumEmployeesActions.AddEmployeeSuccess,
+  props<{ employee: IFormatedEmployee }>()
+);
 
-// export const addProjectFailedAction = createAction(
-//   EProjectActions.AddProjectError,
-//   props<{ error: Error }>()
-// );
+export const addEmployeeFailedAction = createAction(
+  EnumEmployeesActions.AddEmployeeError,
+  props<{ error: Error }>()
+);
 
-// //Update project
-// export const editProjectAction = createAction(
-//   EProjectActions.EditProject,
-//   props<{ id: number; project: IFormatedProject }>()
-// );
+//Update Employee
+export const editEmployeeAction = createAction(
+  EnumEmployeesActions.EditEmployee,
+  props<{ id: number; employee: IFormatedEmployee }>()
+);
 
-// export const editProjectSuccessAction = createAction(
-//   EProjectActions.EditProjectSuccess,
-//   props<{ project: IFormatedProject }>()
-// );
+export const editEmployeeSuccessAction = createAction(
+  EnumEmployeesActions.EditEmployeeSuccess,
+  props<{ employee: IFormatedEmployee }>()
+);
 
-// export const editProjectFailedAction = createAction(
-//   EProjectActions.EditProjectError,
-//   props<{ error: Error }>()
-// );
+export const editEmployeeFailedAction = createAction(
+  EnumEmployeesActions.EditEmployeeError,
+  props<{ error: Error }>()
+);

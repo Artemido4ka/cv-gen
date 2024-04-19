@@ -20,3 +20,4 @@ export interface IFormatedEmployee extends Omit<IEmployee, 'department' | 'speci
   specialization: string;
 }
 
+export type RequestEmployeeT = Omit<IFormatedEmployee, 'id'>;

@@ -1,9 +1,11 @@
 import { Location } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { FormBuilder, FormControl } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { RoutingPaths } from 'src/app/shared/constants/routing-paths';
 import { IAppState } from 'src/app/store/app.store';
+import { addEmployeeAction } from 'src/app/store/employees/employees.actions';
 
 @Component({
   selector: 'cv-gen-add-employee-page',
@@ -13,7 +15,6 @@ import { IAppState } from 'src/app/store/app.store';
 })
 export class AddEmployeePageComponent {
   constructor(
-    private fb: FormBuilder,
     private router: Router,
     private location: Location,
     private store: Store<IAppState>
@@ -29,10 +30,8 @@ export class AddEmployeePageComponent {
 
     const sendData = { employee: this.addEmployeeForm.getRawValue() };
 
-    console.log(sendData);
-
-    // this.store.dispatch(addProjectEmployeeAction(sendData));
-    // this.router.navigate([RoutingPaths.HOME, RoutingPaths.EMPLOYEES]);
+    this.store.dispatch(addEmployeeAction(sendData));
+    this.router.navigate([RoutingPaths.HOME, RoutingPaths.EMPLOYEES]);
   }
 
   handleCancel() {

@@ -65,7 +65,7 @@ export const projectReducers = createReducer(
   on(editProjectAction, state => ({ ...state, requestStatus: EReqStatus.PENDING })),
 
   on(editProjectSuccessAction, (state, { project }) => {
-    return { ...state, project, requestStatus: EReqStatus.SUCCESS, projects: null };
+    return { ...state, project, requestStatus: EReqStatus.SUCCESS };
   }),
 
   on(editProjectFailedAction, (state, { error }) => {

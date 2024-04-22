@@ -6,9 +6,12 @@ import { employeesTableColumns } from '../../constants/employees.constant';
 import { MatTableDataSource, MatTableDataSourcePaginator } from '@angular/material/table';
 import { Observable } from 'rxjs';
 import { IFormatedEmployee } from 'src/app/shared/types/employees.types';
-import { EReqStatus } from 'src/app/shared/constants/request.status';
+import { RequestStatusEnum } from 'src/app/shared/constants/request.status';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { selectEmployees, selectEmployeesReqStatus } from 'src/app/store/employees/selectors';
+import {
+  selectEmployees,
+  selectEmployeesReqStatus,
+} from 'src/app/store/employees/employees-selectors';
 import { getEmployeesAction } from 'src/app/store/employees/employees.actions';
 import { RoutingPaths } from 'src/app/shared/constants/routing-paths';
 
@@ -32,7 +35,7 @@ export class EmployeesPageComponent implements OnInit {
   employees: MatTableDataSource<IFormatedEmployee, MatTableDataSourcePaginator>;
 
   employees$: Observable<IFormatedEmployee[]> = this.store.pipe(select(selectEmployees));
-  reqStatus$: Observable<EReqStatus> = this.store.pipe(select(selectEmployeesReqStatus));
+  reqStatus$: Observable<RequestStatusEnum> = this.store.pipe(select(selectEmployeesReqStatus));
 
   ngOnInit(): void {
     this.store.dispatch(getEmployeesAction());

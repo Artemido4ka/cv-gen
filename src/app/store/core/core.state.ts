@@ -1,17 +1,17 @@
-import { EReqStatus } from 'src/app/shared/constants/request.status';
+import { RequestStatusEnum } from 'src/app/shared/constants/request.status';
 
 export interface ICoreState {
   departments: string[];
-  departmentsRequestStatus: EReqStatus;
+  departmentsRequestStatus: RequestStatusEnum;
   specializations: string[];
-  specializationsRequestStatus: EReqStatus;
+  specializationsRequestStatus: RequestStatusEnum;
   error: Error;
 }
 
 export const initialCoreState: ICoreState = {
   departments: [],
   specializations: [],
-  departmentsRequestStatus: EReqStatus.SUCCESS,
-  specializationsRequestStatus: EReqStatus.SUCCESS,
+  departmentsRequestStatus: RequestStatusEnum.SUCCESS,
+  specializationsRequestStatus: RequestStatusEnum.SUCCESS,
   error: null,
 };

@@ -11,9 +11,20 @@ import { AddEmployeePageComponent } from './pages/add-employee-page/add-employee
 import { EditEmployeePageComponent } from './pages/edit-employee-page/edit-employee-page.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { EmployeeInfoFormComponent } from 'src/app/shared/components/controls/employee-form/employee-form.component';
+import { MatTabsModule } from '@angular/material/tabs';
+import { EmployeeInfoTabComponent } from './components/employee-info-tab/employee-info-tab.component';
+import { EmployeeCvTabComponent } from './components/employee-cv-tab/employee-cv-tab.component';
+import { ProjectFormComponent } from 'src/app/shared/components/controls/project-form/project-form.component';
+import { InputComponent } from 'src/app/shared/components/controls/input/input.component';
 
 @NgModule({
-  declarations: [EmployeesPageComponent, AddEmployeePageComponent, EditEmployeePageComponent],
+  declarations: [
+    EmployeesPageComponent,
+    AddEmployeePageComponent,
+    EditEmployeePageComponent,
+    EmployeeInfoTabComponent,
+    EmployeeCvTabComponent,
+  ],
   imports: [
     CommonModule,
     EmployeeRoutingModule,
@@ -22,6 +33,9 @@ import { EmployeeInfoFormComponent } from 'src/app/shared/components/controls/em
     TranslateModule,
     ReactiveFormsModule,
     EmployeeInfoFormComponent,
+    MatTabsModule,
+    ProjectFormComponent,
+    InputComponent,
   ],
 })
 export class EmployeeModule {}

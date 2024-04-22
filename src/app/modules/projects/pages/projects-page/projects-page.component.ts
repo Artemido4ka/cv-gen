@@ -10,7 +10,7 @@ import { Store, select } from '@ngrx/store';
 import { IAppState } from 'src/app/store/app.store';
 import { selectProjectReqStatus, selectProjects } from 'src/app/store/projects/projects.selectors';
 import { getProjectsAction } from 'src/app/store/projects/project.actions';
-import { EReqStatus } from 'src/app/shared/constants/request.status';
+import { RequestStatusEnum } from 'src/app/shared/constants/request.status';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
 @UntilDestroy()
@@ -33,7 +33,7 @@ export class ProjectsPageComponent implements OnInit {
   projects: MatTableDataSource<IFormatedProject, MatTableDataSourcePaginator>;
 
   projects$: Observable<IFormatedProject[]> = this.store.pipe(select(selectProjects));
-  reqStatus$: Observable<EReqStatus> = this.store.pipe(select(selectProjectReqStatus));
+  reqStatus$: Observable<RequestStatusEnum> = this.store.pipe(select(selectProjectReqStatus));
 
   ngOnInit(): void {
     this.store.dispatch(getProjectsAction());

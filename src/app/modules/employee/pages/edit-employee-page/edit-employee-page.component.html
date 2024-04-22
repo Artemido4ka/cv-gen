@@ -1,1 +1,19 @@
-<p>edit-employee-page works!</p>
+<div class="edit">
+  <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" class="tabs">
+    <mat-tab label="CV">
+      <div class="content">
+        <cv-gen-employee-cv-tab
+          [employeeId]="employeeId"
+          [editEmployeeForm]="editEmployeeForm"></cv-gen-employee-cv-tab>
+      </div>
+    </mat-tab>
+
+    <mat-tab label="info" class="tab">
+      <div class="content">
+        <cv-gen-employee-info-tab
+          [employeeId]="employeeId"
+          [editEmployeeForm]="editEmployeeForm"></cv-gen-employee-info-tab>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>

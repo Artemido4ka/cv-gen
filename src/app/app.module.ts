@@ -16,6 +16,7 @@ import { ProjectsEffects } from './store/projects/project.effects';
 import { UserEffects } from './store/user/user.effects';
 import { EmployeesEffects } from './store/employees/employees.effects';
 import { CoreEffects } from './store/core/core.effects';
+import { CVEffects } from './store/cv/cv.effects';
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http);
@@ -35,7 +36,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
       },
     }),
     StoreModule.forRoot(appReducers),
-    EffectsModule.forRoot([ProjectsEffects, UserEffects, EmployeesEffects, CoreEffects]),
+    EffectsModule.forRoot([ProjectsEffects, UserEffects, EmployeesEffects, CoreEffects, CVEffects]),
     BrowserAnimationsModule,
     ToastComponent,
   ],

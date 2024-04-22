@@ -23,87 +23,93 @@ import {
   getTechStackFailedAction,
   getTechStackSuccessAction,
 } from './project.actions';
-import { EReqStatus } from 'src/app/shared/constants/request.status';
+import { RequestStatusEnum } from 'src/app/shared/constants/request.status';
 
 export const projectReducers = createReducer(
   initialProjectState,
 
   //Get all projects
-  on(getProjectsAction, state => ({ ...state, requestStatus: EReqStatus.PENDING })),
+  on(getProjectsAction, state => ({ ...state, requestStatus: RequestStatusEnum.PENDING })),
 
   on(getProjectsSuccessAction, (state, { projects }) => {
-    return { ...state, projects, requestStatus: EReqStatus.SUCCESS };
+    return { ...state, projects, requestStatus: RequestStatusEnum.SUCCESS };
   }),
 
   on(getProjectsFailedAction, (state, { error }) => {
-    return { ...state, error, requestStatus: EReqStatus.FAILED };
+    return { ...state, error, requestStatus: RequestStatusEnum.FAILED };
   }),
 
   //Get project by id
-  on(getProjectAction, state => ({ ...state, requestStatus: EReqStatus.PENDING })),
+  on(getProjectAction, state => ({ ...state, requestStatus: RequestStatusEnum.PENDING })),
 
   on(getProjectSuccessAction, (state, { project }) => {
-    return { ...state, project, requestStatus: EReqStatus.SUCCESS };
+    return { ...state, project, requestStatus: RequestStatusEnum.SUCCESS };
   }),
 
   on(getProjectFailedAction, (state, { error }) => {
-    return { ...state, error, requestStatus: EReqStatus.FAILED };
+    return { ...state, error, requestStatus: RequestStatusEnum.FAILED };
   }),
 
   //Create project
-  on(addProjectAction, state => ({ ...state, requestStatus: EReqStatus.PENDING })),
+  on(addProjectAction, state => ({ ...state, requestStatus: RequestStatusEnum.PENDING })),
 
   on(addProjectSuccessAction, (state, { project }) => {
-    return { ...state, project, requestStatus: EReqStatus.SUCCESS };
+    return { ...state, project, requestStatus: RequestStatusEnum.SUCCESS };
   }),
 
   on(addProjectFailedAction, (state, { error }) => {
-    return { ...state, error, requestStatus: EReqStatus.FAILED };
+    return { ...state, error, requestStatus: RequestStatusEnum.FAILED };
   }),
 
   //Update project
-  on(editProjectAction, state => ({ ...state, requestStatus: EReqStatus.PENDING })),
+  on(editProjectAction, state => ({ ...state, requestStatus: RequestStatusEnum.PENDING })),
 
   on(editProjectSuccessAction, (state, { project }) => {
-    return { ...state, project, requestStatus: EReqStatus.SUCCESS };
+    return { ...state, project, requestStatus: RequestStatusEnum.SUCCESS };
   }),
 
   on(editProjectFailedAction, (state, { error }) => {
-    return { ...state, error, requestStatus: EReqStatus.FAILED };
+    return { ...state, error, requestStatus: RequestStatusEnum.FAILED };
   }),
 
   //Get techStack
-  on(getTechStackAction, state => ({ ...state, techStackRequestStatus: EReqStatus.PENDING })),
+  on(getTechStackAction, state => ({
+    ...state,
+    techStackRequestStatus: RequestStatusEnum.PENDING,
+  })),
 
   on(getTechStackSuccessAction, (state, { techStack }) => {
-    return { ...state, techStack, techStackRequestStatus: EReqStatus.SUCCESS };
+    return { ...state, techStack, techStackRequestStatus: RequestStatusEnum.SUCCESS };
   }),
 
   on(getTechStackFailedAction, (state, { error }) => {
-    return { ...state, error, techStackRequestStatus: EReqStatus.FAILED };
+    return { ...state, error, techStackRequestStatus: RequestStatusEnum.FAILED };
   }),
 
   //Get teamRoles
-  on(getTeamRolesAction, state => ({ ...state, teamRolesRequestStatus: EReqStatus.PENDING })),
+  on(getTeamRolesAction, state => ({
+    ...state,
+    teamRolesRequestStatus: RequestStatusEnum.PENDING,
+  })),
 
   on(getTeamRolesSuccessAction, (state, { teamRoles }) => {
-    return { ...state, teamRoles, teamRolesRequestStatus: EReqStatus.SUCCESS };
+    return { ...state, teamRoles, teamRolesRequestStatus: RequestStatusEnum.SUCCESS };
   }),
 
   on(getTeamRolesFailedAction, (state, { error }) => {
-    return { ...state, error, teamRolesRequestStatus: EReqStatus.FAILED };
+    return { ...state, error, teamRolesRequestStatus: RequestStatusEnum.FAILED };
   }),
   //Get responsibilities
   on(getResponsibilitiesAction, state => ({
     ...state,
-    responsibilitiesRequestStatus: EReqStatus.PENDING,
+    responsibilitiesRequestStatus: RequestStatusEnum.PENDING,
   })),
 
   on(getResponsibilitiesSuccessAction, (state, { responsibilities }) => {
-    return { ...state, responsibilities, responsibilitiesRequestStatus: EReqStatus.SUCCESS };
+    return { ...state, responsibilities, responsibilitiesRequestStatus: RequestStatusEnum.SUCCESS };
   }),
 
   on(getResponsibilitiesFailedAction, (state, { error }) => {
-    return { ...state, error, responsibilitiesRequestStatus: EReqStatus.FAILED };
+    return { ...state, error, responsibilitiesRequestStatus: RequestStatusEnum.FAILED };
   })
 );

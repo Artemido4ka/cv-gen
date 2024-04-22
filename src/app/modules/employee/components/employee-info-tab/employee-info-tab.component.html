@@ -1,0 +1,12 @@
+<div class="edit-info">
+  <cv-gen-employee-info-form [formControl]="editEmployeeForm"></cv-gen-employee-info-form>
+
+  <div class="buttons">
+    <button mat-raised-button color="primary" (click)="handleEmployeeSave()">
+      {{ 'home.employee.buttons.save' | translate }}
+    </button>
+    <button mat-raised-button (click)="handleEmployeeCancel()">
+      {{ 'home.employee.buttons.cancel' | translate }}
+    </button>
+  </div>
+</div>

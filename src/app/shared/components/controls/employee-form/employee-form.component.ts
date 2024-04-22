@@ -3,6 +3,7 @@ import {
   ChangeDetectorRef,
   Component,
   DoCheck,
+  Input,
   OnInit,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -38,6 +39,7 @@ export class EmployeeInfoFormComponent implements ControlValueAccessor, OnInit, 
 
   departmentOptions$: Observable<string[]> = this.store.pipe(select(selectDepartments));
   specializationOptions$: Observable<string[]> = this.store.pipe(select(selectSpecializations));
+  @Input() id: number | string = 'employeeFormId';
 
   onChange: (val: Partial<IFormatedEmployee>) => void;
   onTouch: () => void;
@@ -83,10 +85,12 @@ export class EmployeeInfoFormComponent implements ControlValueAccessor, OnInit, 
   }
 
   writeValue(employee: IFormatedEmployee | null): void {
+    this.employeeForm.reset();
     if (employee) {
       this.employeeForm.patchValue(employee);
-      this.employeeForm.markAsUntouched();
     }
+
+    this.employeeForm.markAsUntouched();
   }
 
   registerOnChange(fn: () => void): void {

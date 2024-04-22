@@ -19,6 +19,7 @@ import {
   getEmployeesSuccessAction,
 } from './employees.actions';
 import { EmployeesService } from 'src/app/modules/employee/services/employees.service';
+import { getAllCVsSuccessAction } from '../cv/cv.actions';
 
 @Injectable()
 export class EmployeesEffects {
@@ -44,7 +45,13 @@ export class EmployeesEffects {
       ofType(getEmployeeAction),
       switchMap(action => {
         return this.employeesService.getEmployeeById(action.id).pipe(
-          map(employee => getEmployeeSuccessAction({ employee })),
+          switchMap(employee =>
+            of(
+              getEmployeeSuccessAction({ employee }),
+              getAllCVsSuccessAction({ cvs: employee.cvs })
+            )
+          ),
+
           catchError((error: HttpErrorResponse) => of(getEmployeeFailedAction(error)))
         );
       })

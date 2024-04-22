@@ -7,12 +7,15 @@ import { IUserState } from './user/user.state';
 import { userReducers } from './user/user.reducers';
 import { IEmployeesState } from './employees/employees.state';
 import { employeesReducers } from './employees/employees.reducers';
+import { ICVState } from './cv/cv.state';
+import { cvReducers } from './cv/cv.reducers';
 
 export interface IAppState {
   core: ICoreState;
   projectsState: IProjectsState;
   userState: IUserState;
   employeesState: IEmployeesState;
+  cvState: ICVState;
 }
 
 export const appReducers: ActionReducerMap<IAppState, Action> = {
@@ -20,4 +23,5 @@ export const appReducers: ActionReducerMap<IAppState, Action> = {
   projectsState: projectReducers,
   userState: userReducers,
   employeesState: employeesReducers,
+  cvState: cvReducers,
 };

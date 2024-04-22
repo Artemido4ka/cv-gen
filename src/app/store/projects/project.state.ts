@@ -1,4 +1,4 @@
-import { EReqStatus } from 'src/app/shared/constants/request.status';
+import { RequestStatusEnum } from 'src/app/shared/constants/request.status';
 import {
   FormatedResponsibilityT,
   FormatedTeamRoleT,
@@ -9,25 +9,25 @@ import {
 export interface IProjectsState {
   projects: IFormatedProject[];
   project: IFormatedProject;
-  requestStatus: EReqStatus;
+  requestStatus: RequestStatusEnum;
   error: Error;
   techStack: FormatedTechStackItemT[];
-  techStackRequestStatus: EReqStatus;
+  techStackRequestStatus: RequestStatusEnum;
   teamRoles: FormatedTeamRoleT[];
-  teamRolesRequestStatus: EReqStatus;
+  teamRolesRequestStatus: RequestStatusEnum;
   responsibilities: FormatedResponsibilityT[];
-  responsibilitiesRequestStatus: EReqStatus;
+  responsibilitiesRequestStatus: RequestStatusEnum;
 }
 
 export const initialProjectState: IProjectsState = {
   projects: null,
   project: null,
-  requestStatus: EReqStatus.SUCCESS,
+  requestStatus: RequestStatusEnum.SUCCESS,
   error: null,
   techStack: [],
-  techStackRequestStatus: EReqStatus.SUCCESS,
+  techStackRequestStatus: RequestStatusEnum.SUCCESS,
   teamRoles: [],
-  teamRolesRequestStatus: EReqStatus.SUCCESS,
+  teamRolesRequestStatus: RequestStatusEnum.SUCCESS,
   responsibilities: [],
-  responsibilitiesRequestStatus: EReqStatus.SUCCESS,
+  responsibilitiesRequestStatus: RequestStatusEnum.SUCCESS,
 };

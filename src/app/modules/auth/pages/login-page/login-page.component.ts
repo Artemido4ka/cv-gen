@@ -8,7 +8,7 @@ import { Store, select } from '@ngrx/store';
 import { IAppState } from 'src/app/store/app.store';
 import { loginUserAction } from 'src/app/store/user/user.actions';
 import { Observable } from 'rxjs';
-import { EReqStatus } from 'src/app/shared/constants/request.status';
+import { RequestStatusEnum } from 'src/app/shared/constants/request.status';
 import { selectUserReqStatus } from 'src/app/store/user/selectors';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
@@ -26,7 +26,7 @@ export class LoginPageComponent {
     private store: Store<IAppState>
   ) {}
 
-  reqStatus$: Observable<EReqStatus> = this.store.pipe(select(selectUserReqStatus));
+  reqStatus$: Observable<RequestStatusEnum> = this.store.pipe(select(selectUserReqStatus));
 
   loginForm = this.fb.group({
     userName: ['', [loginRequiredFieldValidator('userName')]],
@@ -41,7 +41,7 @@ export class LoginPageComponent {
     this.store.dispatch(loginUserAction({ user: this.loginForm.getRawValue() }));
 
     this.reqStatus$.pipe(untilDestroyed(this)).subscribe(reqStatus => {
-      if (reqStatus === EReqStatus.SUCCESS) {
+      if (reqStatus === RequestStatusEnum.SUCCESS) {
         this.router.navigate([RoutingPaths.HOME]);
       }
     });

@@ -8,31 +8,34 @@ import {
   getSpecializationsSuccessAction,
 } from './core.actions';
 import { initialCoreState } from './core.state';
-import { EReqStatus } from 'src/app/shared/constants/request.status';
+import { RequestStatusEnum } from 'src/app/shared/constants/request.status';
 
 export const coreReducers = createReducer(
   initialCoreState,
 
-  on(getDepartmentsAction, state => ({ ...state, departmentsRequestStatus: EReqStatus.PENDING })),
+  on(getDepartmentsAction, state => ({
+    ...state,
+    departmentsRequestStatus: RequestStatusEnum.PENDING,
+  })),
 
   on(getDepartmentsSuccessAction, (state, { departments }) => {
-    return { ...state, departments, departmentsRequestStatus: EReqStatus.SUCCESS };
+    return { ...state, departments, departmentsRequestStatus: RequestStatusEnum.SUCCESS };
   }),
 
   on(getDepartmentsFailedAction, (state, { error }) => {
-    return { ...state, error, departmentsRequestStatus: EReqStatus.FAILED };
+    return { ...state, error, departmentsRequestStatus: RequestStatusEnum.FAILED };
   }),
 
   on(getSpecializationsAction, state => ({
     ...state,
-    specializationsRequestStatus: EReqStatus.PENDING,
+    specializationsRequestStatus: RequestStatusEnum.PENDING,
   })),
 
   on(getSpecializationsSuccessAction, (state, { specializations }) => {
-    return { ...state, specializations, specializationsRequestStatus: EReqStatus.SUCCESS };
+    return { ...state, specializations, specializationsRequestStatus: RequestStatusEnum.SUCCESS };
   }),
 
   on(getSpecializationsFailedAction, (state, { error }) => {
-    return { ...state, error, specializationsRequestStatus: EReqStatus.FAILED };
+    return { ...state, error, specializationsRequestStatus: RequestStatusEnum.FAILED };
   })
 );

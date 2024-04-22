@@ -1,3 +1,4 @@
+import { CVService } from 'src/app/modules/employee/services/cv.service';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs';
@@ -14,7 +15,10 @@ import { TechStackItemT } from 'src/app/shared/types/project.types';
   providedIn: 'root',
 })
 export class EmployeesService {
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private cvService: CVService
+  ) {}
 
   getEmployees() {
     return this.http.get<IEmployee[]>(API_URLS.EMPLOYEES_URL).pipe(
@@ -58,7 +62,9 @@ export class EmployeesService {
     const department = employee.department.name;
     const specialization = employee.specialization.name;
 
-    return { ...employee, department, specialization };
+    const cvs = employee.cvs.map(cv => this.cvService.formatCV(cv));
+
+    return { ...employee, department, specialization, cvs };
   }
 
   formatObjectToString(item: IBasicObjectItem[]) {

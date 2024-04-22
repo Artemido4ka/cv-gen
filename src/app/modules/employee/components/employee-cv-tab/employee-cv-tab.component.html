@@ -1,0 +1,31 @@
+<div>
+  <div *ngFor="let cv of employeeCVFormArray.controls; let i = index">
+    <button (click)="handleSelectCV(cv.controls.id.value)">
+      <div>
+        {{ cv.controls.cvName.value }}
+      </div>
+      <button (click)="handleDeleteCV($event, cv.controls.id.value)">Delete</button>
+    </button>
+  </div>
+  <div>
+    <button (click)="handleAddCV()">Add CV</button>
+  </div>
+
+  <div>
+    CV
+    <div *ngIf="selectedCVId !== 0" [formGroup]="getSelectedCVFormGroup()">
+      <cv-gen-input [formControl]="getSelectedCVFormGroup().controls.cvName"></cv-gen-input>
+
+      <cv-gen-employee-info-form [formControl]="getSelectedCVFormGroup().controls.employeeInfo">
+      </cv-gen-employee-info-form>
+
+      <div formArrayName="cvsProjects" *ngFor="let item of cvsProjects.controls; let i = index">
+        <button style="background: red" (click)="handleDeleteProject(i)">DELETE</button>
+        <cv-gen-project-form [formControl]="projectControlName(item)"></cv-gen-project-form>
+        fewfew
+      </div>
+
+      <button style="background: green" (click)="handleADDProject()">ADD PROJECT</button>
+    </div>
+  </div>
+</div>

@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 import { RoutingPaths } from 'src/app/shared/constants/routing-paths';
 import { IFormatedEmployee } from 'src/app/shared/types/employees.types';
 import { IAppState } from 'src/app/store/app.store';
+import { getDepartmentsAction, getSpecializationsAction } from 'src/app/store/core/core.actions';
 import { selectEmployee } from 'src/app/store/employees/employees-selectors';
 import { editEmployeeAction, getEmployeeAction } from 'src/app/store/employees/employees.actions';
 
@@ -34,6 +35,8 @@ export class EditEmployeePageComponent implements OnInit {
   ngOnInit(): void {
     this.employeeId = Number(this.route.snapshot.paramMap.get('id'));
     this.store.dispatch(getEmployeeAction({ id: this.employeeId }));
+    this.store.dispatch(getDepartmentsAction());
+    this.store.dispatch(getSpecializationsAction());
 
     this.employee$.pipe(untilDestroyed(this)).subscribe(employee => {
       this.editEmployeeForm.setValue(employee);

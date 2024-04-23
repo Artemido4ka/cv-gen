@@ -4,12 +4,12 @@ import { Injectable } from '@angular/core';
 import { map } from 'rxjs';
 import { API_URLS } from 'src/app/shared/constants/api-urls';
 import {
-  IBasicObjectItem,
   IEmployee,
   IFormatedEmployee,
   RequestEmployeeT,
 } from 'src/app/shared/types/employees.types';
 import { TechStackItemT } from 'src/app/shared/types/project.types';
+import { IBasicObjectItem } from 'src/app/shared/types/core.type';
 
 @Injectable({
   providedIn: 'root',
@@ -56,6 +56,18 @@ export class EmployeesService {
     return this.http
       .get<TechStackItemT[]>(API_URLS.SPECIALIZATIONS_URL)
       .pipe(map(specializations => this.formatObjectToString(specializations)));
+  }
+
+  getLanguages() {
+    return this.http
+      .get<IBasicObjectItem[]>(API_URLS.LANGUAGES_URL)
+      .pipe(map(languages => this.formatObjectToString(languages)));
+  }
+
+  getLevels() {
+    return this.http
+      .get<IBasicObjectItem[]>(API_URLS.LEVELS_URL)
+      .pipe(map(levels => this.formatObjectToString(levels)));
   }
 
   formatEmployee(employee: IEmployee): IFormatedEmployee {

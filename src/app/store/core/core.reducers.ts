@@ -3,6 +3,12 @@ import {
   getDepartmentsAction,
   getDepartmentsFailedAction,
   getDepartmentsSuccessAction,
+  getLanguagesAction,
+  getLanguagesFailedAction,
+  getLanguagesSuccessAction,
+  getLevelsAction,
+  getLevelsFailedAction,
+  getLevelsSuccessAction,
   getSpecializationsAction,
   getSpecializationsFailedAction,
   getSpecializationsSuccessAction,
@@ -37,5 +43,31 @@ export const coreReducers = createReducer(
 
   on(getSpecializationsFailedAction, (state, { error }) => {
     return { ...state, error, specializationsRequestStatus: RequestStatusEnum.FAILED };
+  }),
+
+  on(getLanguagesAction, state => ({
+    ...state,
+    languagesRequestStatus: RequestStatusEnum.PENDING,
+  })),
+
+  on(getLanguagesSuccessAction, (state, { languages }) => {
+    return { ...state, languages, languagesRequestStatus: RequestStatusEnum.SUCCESS };
+  }),
+
+  on(getLanguagesFailedAction, (state, { error }) => {
+    return { ...state, error, languagesRequestStatus: RequestStatusEnum.FAILED };
+  }),
+
+  on(getLevelsAction, state => ({
+    ...state,
+    levelsRequestStatus: RequestStatusEnum.PENDING,
+  })),
+
+  on(getLevelsSuccessAction, (state, { levels }) => {
+    return { ...state, levels, levelsRequestStatus: RequestStatusEnum.SUCCESS };
+  }),
+
+  on(getLevelsFailedAction, (state, { error }) => {
+    return { ...state, error, levelsRequestStatus: RequestStatusEnum.FAILED };
   })
 );

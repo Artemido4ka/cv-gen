@@ -191,10 +191,25 @@
           "required": "Please, enter skills !"
         }
       },
+      "language": {
+        "placeholder": "Enter language",
+        "label": "Language",
+        "errors": {
+          "required": "Please, enter language !"
+        }
+      },
+      "level": {
+        "placeholder": "Enter language level",
+        "label": "Language level",
+        "errors": {
+          "required": "Please, language level !"
+        }
+      },
       "buttons": {
         "save": "save",
         "cancel": "cancel",
-        "addProject": "Add Project"
+        "addProject": "Add Project",
+        "addLanguage": "Add language"
       }
     },
     "sidebar": {

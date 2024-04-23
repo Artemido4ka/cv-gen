@@ -23,3 +23,10 @@ export const selectSpecializationsRequestStatus = createSelector(
   selectCoreState,
   (state: ICoreState) => state.specializationsRequestStatus
 );
+
+export const selectLanguages = createSelector(
+  selectCoreState,
+  (state: ICoreState) => state.languages
+);
+
+export const selectLevels = createSelector(selectCoreState, (state: ICoreState) => state.levels);

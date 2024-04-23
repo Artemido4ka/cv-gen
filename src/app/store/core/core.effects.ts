@@ -9,6 +9,12 @@ import {
   getDepartmentsAction,
   getDepartmentsFailedAction,
   getDepartmentsSuccessAction,
+  getLanguagesAction,
+  getLanguagesFailedAction,
+  getLanguagesSuccessAction,
+  getLevelsAction,
+  getLevelsFailedAction,
+  getLevelsSuccessAction,
   getSpecializationsAction,
   getSpecializationsFailedAction,
   getSpecializationsSuccessAction,
@@ -40,6 +46,30 @@ export class CoreEffects {
         return this.employeesService.getDepartments().pipe(
           map(departments => getDepartmentsSuccessAction({ departments })),
           catchError((error: HttpErrorResponse) => of(getDepartmentsFailedAction(error)))
+        );
+      })
+    )
+  );
+
+  loadLanguages$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(getLanguagesAction),
+      switchMap(() => {
+        return this.employeesService.getLanguages().pipe(
+          map(languages => getLanguagesSuccessAction({ languages })),
+          catchError((error: HttpErrorResponse) => of(getLanguagesFailedAction(error)))
+        );
+      })
+    )
+  );
+
+  loadLevels$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(getLevelsAction),
+      switchMap(() => {
+        return this.employeesService.getLevels().pipe(
+          map(levels => getLevelsSuccessAction({ levels })),
+          catchError((error: HttpErrorResponse) => of(getLevelsFailedAction(error)))
         );
       })
     )

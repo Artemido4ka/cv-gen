@@ -26,6 +26,32 @@
     [formGroup]="employeeCVFormArray.at(selectedCVIndex)">
     <div class="cv-content">
       <div>
+        <button class="" mat-raised-button color="primary" (click)="handleAddLanguage()">
+          {{ 'home.employee.buttons.addLanguage' | translate }}
+        </button>
+
+        <div formArrayName="language" *ngFor="let languageItem of language.controls; let i = index">
+          <button class="" (click)="handleDeleteLanguage(i)">
+            <mat-icon fontIcon="delete_outline"></mat-icon>
+          </button>
+
+          <cv-gen-autocomplete
+            [formControl]="languageItem.controls.name"
+            id="languageNameId"
+            placeholder="home.employee.language.placeholder"
+            label="home.employee.language.label"
+            [options$]="languages$"></cv-gen-autocomplete>
+
+          <cv-gen-autocomplete
+            [formControl]="languageItem.controls.level"
+            id="languageLevelId"
+            placeholder="home.employee.level.placeholder"
+            label="home.employee.level.label"
+            [options$]="levels$"></cv-gen-autocomplete>
+        </div>
+      </div>
+
+      <div>
         <cv-gen-input
           id="cvName"
           placeholder="home.employee.cvName.placeholder"

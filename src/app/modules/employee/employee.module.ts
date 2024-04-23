@@ -19,6 +19,7 @@ import { ProjectFormComponent } from 'src/app/shared/components/controls/project
 import { InputComponent } from 'src/app/shared/components/controls/input/input.component';
 import { MatIconModule } from '@angular/material/icon';
 import { AutocompleteSelectComponent } from 'src/app/shared/components/controls/autocomplete-select/autocomplete-select.component';
+import { AutocompleteComponent } from 'src/app/shared/components/controls/autocomplete/autocomplete.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { AutocompleteSelectComponent } from 'src/app/shared/components/controls/
     MatIconModule,
     AutocompleteSelectComponent,
     MatExpansionModule,
+    AutocompleteComponent,
   ],
 })
 export class EmployeeModule {}

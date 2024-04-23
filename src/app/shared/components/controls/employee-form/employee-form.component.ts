@@ -16,7 +16,6 @@ import { employeeRequiredFieldValidator } from 'src/app/modules/employee/constan
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from 'src/app/store/app.store';
-import { getDepartmentsAction, getSpecializationsAction } from 'src/app/store/core/core.actions';
 import { selectDepartments, selectSpecializations } from 'src/app/store/core/core.selectors';
 
 @UntilDestroy()
@@ -54,8 +53,6 @@ export class EmployeeInfoFormComponent implements ControlValueAccessor, OnInit, 
   }
 
   public ngOnInit(): void {
-    this.store.dispatch(getDepartmentsAction());
-    this.store.dispatch(getSpecializationsAction());
     this.initFormValuesChanges();
   }
 

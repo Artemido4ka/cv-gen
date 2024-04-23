@@ -15,5 +15,8 @@ export class API_URLS {
   public static readonly DEPARTMENTS_URL = this.BASE_URL + '/api/departments';
   public static readonly SPECIALIZATIONS_URL = this.BASE_URL + '/api/specializations';
 
+  public static readonly LANGUAGES_URL = this.BASE_URL + '/api/languages';
+  public static readonly LEVELS_URL = this.BASE_URL + '/api/levels';
+
   public static readonly CV_URL = this.BASE_URL + '/api/cvs';
 }

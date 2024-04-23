@@ -1,26 +1,34 @@
-import { Location } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   Input,
   OnInit,
+  ViewChild,
 } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { RoutingPaths } from 'src/app/shared/constants/routing-paths';
-import { IFormatedEmployee } from 'src/app/shared/types/employees.types';
 import { IAppState } from 'src/app/store/app.store';
-import { editEmployeeAction, getEmployeeAction } from 'src/app/store/employees/employees.actions';
-
-import { getAllCVsAction } from 'src/app/store/cv/cv.actions';
 import { CVFormatedInterface } from 'src/app/shared/types/cv.type';
 import { selectCVs } from 'src/app/store/cv/cv.selectors';
-import { v4 as uuidv4 } from 'uuid';
+import { getTechStackAction } from 'src/app/store/projects/project.actions';
+import { FormatedTechStackItemT } from 'src/app/shared/types/project.types';
+import { selectTechStack } from 'src/app/store/projects/projects.selectors';
+import { employeeRequiredFieldValidator } from '../../constants/employees.constant';
+import { MatAccordion } from '@angular/material/expansion';
 
+interface CVTabFormInterface {
+  cvsProjects: FormArray;
+  employeeInfo: FormControl;
+  language: FormControl;
+  skills: FormControl;
+  cvName: FormControl;
+  id: FormControl;
+  // language: FormControl<Array<string>>;
+}
 @UntilDestroy()
 @Component({
   selector: 'cv-gen-employee-cv-tab',
@@ -30,8 +38,6 @@ import { v4 as uuidv4 } from 'uuid';
 })
 export class EmployeeCvTabComponent implements OnInit {
   constructor(
-    private router: Router,
-    private location: Location,
     private store: Store<IAppState>,
     private fb: FormBuilder,
     private readonly cdRef: ChangeDetectorRef
@@ -41,32 +47,29 @@ export class EmployeeCvTabComponent implements OnInit {
   @Input() editEmployeeForm: FormControl;
 
   cvs$: Observable<CVFormatedInterface[]> = this.store.pipe(select(selectCVs));
-  selectedCVId = 0;
+  selectedCVIndex = 0;
 
-  employeeCVFormArray = new FormArray<
-    FormGroup<{
-      cvsProjects: FormArray;
-      employeeInfo: FormControl;
-      language: FormControl;
-      skills: FormControl;
-      cvName: FormControl;
-      id: FormControl;
-    }>
-  >([]);
+  employeeCVFormArray = new FormArray<FormGroup<CVTabFormInterface>>([]);
+  skillsOptions$: Observable<FormatedTechStackItemT[]> = this.store.pipe(select(selectTechStack));
+
+  @ViewChild(MatAccordion) accordion: MatAccordion;
 
   ngOnInit(): void {
+    this.store.dispatch(getTechStackAction());
+
     this.cvs$.pipe(untilDestroyed(this)).subscribe(cvs => {
-      if (cvs) {
+      this.employeeCVFormArray.clear();
+      if (cvs && cvs.length) {
         cvs.forEach(({ cvsProjects, language, skills, cvName, id, ...restCVInfo }) => {
           const control = this.fb.group({
             id,
-            cvName,
-            language,
-            skills,
+            cvName: [cvName, [employeeRequiredFieldValidator('cvName')]],
+            language: [language],
+            skills: [skills, [employeeRequiredFieldValidator('skills')]],
             cvsProjects: this.fb.array(cvsProjects),
             employeeInfo: restCVInfo,
           });
-          this.selectedCVId = 1;
+
           return this.employeeCVFormArray.push(control);
         });
       }
@@ -76,20 +79,18 @@ export class EmployeeCvTabComponent implements OnInit {
   }
 
   handleDeleteCV(event: Event, id: number) {
-    const index = this.employeeCVFormArray.value.findIndex(cv => cv.id === id);
+    this.employeeCVFormArray.removeAt(id);
 
-    if (index !== -1) this.employeeCVFormArray.removeAt(index);
-
-    this.selectedCVId = 0;
+    this.selectedCVIndex = 0;
   }
 
   handleAddCV() {
     const control = this.fb.group({
-      id: new FormControl(uuidv4()),
-      cvName: new FormControl('new CV'),
+      id: new FormControl(),
+      cvName: new FormControl('New CV', [employeeRequiredFieldValidator('cvName')]),
       employeeInfo: this.editEmployeeForm,
       language: new FormControl(),
-      skills: new FormControl(),
+      skills: new FormControl([], [employeeRequiredFieldValidator('skills')]),
       cvsProjects: this.fb.array([]),
     });
 
@@ -97,51 +98,40 @@ export class EmployeeCvTabComponent implements OnInit {
   }
 
   handleSelectCV(id: number) {
-    this.selectedCVId = id;
-  }
-
-  getSelectedCVFormGroup(): FormGroup<{
-    cvsProjects: FormArray;
-    employeeInfo: FormControl;
-    language: FormControl;
-    skills: FormControl;
-    cvName: FormControl;
-    id: FormControl;
-  }> | null {
-    const selectedCV = this.employeeCVFormArray.controls.find(
-      cv => cv.controls.id.value === this.selectedCVId
-    );
-
-    return selectedCV ? selectedCV : null;
+    this.selectedCVIndex = id;
   }
 
   handleDeleteProject(removeProjIndex: number) {
-    const group = this.getSelectedCVFormGroup();
+    const projects = this.employeeCVFormArray.at(this.selectedCVIndex).controls.cvsProjects;
+    projects.removeAt(removeProjIndex);
+  }
 
-    const index = this.employeeCVFormArray.value.findIndex(cv => cv.id === group.controls.id.value);
-    if (index !== -1) {
-      const projects = this.employeeCVFormArray.at(index).controls.cvsProjects;
-      projects.removeAt(removeProjIndex);
-    }
+  handleADDProject() {
+    this.employeeCVFormArray
+      .at(this.selectedCVIndex)
+      .controls.cvsProjects.push(this.fb.control({ projectName: 'New Project' }));
   }
 
   get cvsProjects() {
-    const group = this.getSelectedCVFormGroup();
-    const res = group.controls['cvsProjects'] as FormArray;
-    // console.log(res);
-    return res;
+    const group = this.employeeCVFormArray.at(this.selectedCVIndex);
+    return group.controls.cvsProjects as FormArray<FormControl>;
   }
+
+  // getSelectedCVFormGroup(): FormGroup<CVTabFormInterface> {
+  //   return this.employeeCVFormArray.controls[this.selectedCVIndex];
+  // }
 
   projectControlName(control: AbstractControl): FormControl {
     return control as FormControl;
   }
 
-  handleADDProject() {
-    const group = this.getSelectedCVFormGroup();
+  handleCVSave() {
+    console.log(this.employeeCVFormArray.at(this.selectedCVIndex));
+    this.employeeCVFormArray.at(this.selectedCVIndex).markAllAsTouched();
+    this.accordion.openAll();
+  }
 
-    const index = this.employeeCVFormArray.value.findIndex(cv => cv.id === group.controls.id.value);
-
-    if (index !== -1)
-      this.employeeCVFormArray.at(index).controls.cvsProjects.push(this.fb.control(''));
+  handleCancel() {
+    console.log();
   }
 }

@@ -1,3 +1,4 @@
+import { MatExpansionModule } from '@angular/material/expansion';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -16,6 +17,8 @@ import { EmployeeInfoTabComponent } from './components/employee-info-tab/employe
 import { EmployeeCvTabComponent } from './components/employee-cv-tab/employee-cv-tab.component';
 import { ProjectFormComponent } from 'src/app/shared/components/controls/project-form/project-form.component';
 import { InputComponent } from 'src/app/shared/components/controls/input/input.component';
+import { MatIconModule } from '@angular/material/icon';
+import { AutocompleteSelectComponent } from 'src/app/shared/components/controls/autocomplete-select/autocomplete-select.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +39,9 @@ import { InputComponent } from 'src/app/shared/components/controls/input/input.c
     MatTabsModule,
     ProjectFormComponent,
     InputComponent,
+    MatIconModule,
+    AutocompleteSelectComponent,
+    MatExpansionModule,
   ],
 })
 export class EmployeeModule {}

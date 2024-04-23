@@ -1,0 +1,92 @@
+:host {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+.cv {
+  display: flex;
+  padding-top: 10px;
+  gap: 26px;
+
+  height: 100%;
+
+  .list-container {
+    width: 200px;
+
+    .list-item {
+      width: 100%;
+      height: 46px;
+      border: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      border-bottom: 1px solid #d9d9d9;
+      background: none;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      &.active {
+        border-bottom: 1px solid #1890ff;
+        color: #1890ff;
+      }
+
+      &:hover {
+        background: #f0f2f5;
+      }
+
+      .text {
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+
+    .button-delete-cv {
+      background: none;
+      border: none;
+      cursor: pointer;
+
+      &.active {
+        color: #1890ff;
+      }
+    }
+
+    .button-add-cv {
+      background: none;
+      border: none;
+      margin-top: 10px;
+    }
+  }
+
+  .main-content {
+    // background: red;
+    height: 100%;
+    width: 700px;
+    display: flex;
+    // background: red;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .accordion {
+      .button-delete-project {
+        background: none;
+        border: none;
+        cursor: pointer;
+        &:hover {
+          color: #ff4d4f;
+        }
+      }
+    }
+
+    .add-project-btn {
+      margin: 25px 0;
+    }
+
+    .bottom-buttons {
+      display: flex;
+      justify-content: flex-end;
+      gap: 20px;
+    }
+  }
+}

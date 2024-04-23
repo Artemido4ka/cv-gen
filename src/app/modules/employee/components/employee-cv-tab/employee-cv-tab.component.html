@@ -1,31 +1,84 @@
-<div>
-  <div *ngFor="let cv of employeeCVFormArray.controls; let i = index">
-    <button (click)="handleSelectCV(cv.controls.id.value)">
-      <div>
-        {{ cv.controls.cvName.value }}
-      </div>
-      <button (click)="handleDeleteCV($event, cv.controls.id.value)">Delete</button>
+<div class="cv">
+  <div class="list-container">
+    <div *ngFor="let cv of employeeCVFormArray.controls; let i = index">
+      <button class="list-item" (click)="handleSelectCV(i)" [class.active]="i === selectedCVIndex">
+        <div class="text">
+          {{ cv.controls.cvName.value }}
+        </div>
+
+        <button
+          (click)="handleDeleteCV($event, i)"
+          class="button-delete-cv"
+          [class.active]="i === selectedCVIndex">
+          <mat-icon fontIcon="delete_outline"></mat-icon>
+        </button>
+      </button>
+    </div>
+
+    <button (click)="handleAddCV()" class="button-add-cv">
+      <mat-icon fontIcon="add_box"></mat-icon>
     </button>
   </div>
-  <div>
-    <button (click)="handleAddCV()">Add CV</button>
-  </div>
 
-  <div>
-    CV
-    <div *ngIf="selectedCVId !== 0" [formGroup]="getSelectedCVFormGroup()">
-      <cv-gen-input [formControl]="getSelectedCVFormGroup().controls.cvName"></cv-gen-input>
-
-      <cv-gen-employee-info-form [formControl]="getSelectedCVFormGroup().controls.employeeInfo">
-      </cv-gen-employee-info-form>
-
-      <div formArrayName="cvsProjects" *ngFor="let item of cvsProjects.controls; let i = index">
-        <button style="background: red" (click)="handleDeleteProject(i)">DELETE</button>
-        <cv-gen-project-form [formControl]="projectControlName(item)"></cv-gen-project-form>
-        fewfew
+  <div
+    class="main-content"
+    *ngIf="employeeCVFormArray.length"
+    [formGroup]="employeeCVFormArray.at(selectedCVIndex)">
+    <div class="cv-content">
+      <div>
+        <cv-gen-input
+          id="cvName"
+          placeholder="home.employee.cvName.placeholder"
+          label="home.employee.cvName.label"
+          [formControl]="employeeCVFormArray.at(selectedCVIndex).controls.cvName"></cv-gen-input>
       </div>
 
-      <button style="background: green" (click)="handleADDProject()">ADD PROJECT</button>
+      <div>
+        <cv-gen-employee-info-form
+          [formControl]="employeeCVFormArray.at(selectedCVIndex).controls.employeeInfo">
+        </cv-gen-employee-info-form>
+      </div>
+
+      <div>
+        <cv-gen-autocomplete-select
+          id="cvSkills"
+          [formControl]="employeeCVFormArray.at(selectedCVIndex).controls.skills"
+          [options$]="skillsOptions$"
+          placeholder="home.employee.skills.placeholder"
+          label="home.employee.skills.label"></cv-gen-autocomplete-select>
+      </div>
+
+      <button
+        class="add-project-btn"
+        mat-raised-button
+        color="primary"
+        (click)="handleADDProject()">
+        {{ 'home.employee.buttons.addProject' | translate }}
+      </button>
+
+      <mat-accordion multi class="accordion">
+        <mat-expansion-panel
+          togglePosition="before"
+          formArrayName="cvsProjects"
+          *ngFor="let item of cvsProjects.controls; let i = index">
+          <mat-expansion-panel-header>
+            <mat-panel-title> {{ item.value.projectName }} </mat-panel-title>
+            <button class="button-delete-project" (click)="handleDeleteProject(i)">
+              <mat-icon fontIcon="delete_outline"></mat-icon>
+            </button>
+          </mat-expansion-panel-header>
+          <cv-gen-project-form [formControl]="projectControlName(item)"></cv-gen-project-form>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+
+    <div class="bottom-buttons">
+      <button mat-raised-button color="primary" (click)="handleCancel()">
+        {{ 'home.employee.buttons.cancel' | translate }}
+      </button>
+      <button mat-raised-button color="primary" (click)="handleCVSave()">
+        {{ 'home.employee.buttons.save' | translate }}
+      </button>
     </div>
   </div>
 </div>

@@ -177,9 +177,24 @@
           "required": "Please, enter department !"
         }
       },
+      "cvName": {
+        "placeholder": "Enter CV name",
+        "label": "CV Name",
+        "errors": {
+          "required": "Please, enter CV name !"
+        }
+      },
+      "skills": {
+        "placeholder": "Enter skills",
+        "label": "Skills",
+        "errors": {
+          "required": "Please, enter skills !"
+        }
+      },
       "buttons": {
         "save": "save",
-        "cancel": "cancel"
+        "cancel": "cancel",
+        "addProject": "Add Project"
       }
     },
     "sidebar": {

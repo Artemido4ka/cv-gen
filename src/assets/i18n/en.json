@@ -210,6 +210,11 @@
         "cancel": "cancel",
         "addProject": "Add Project",
         "addLanguage": "Add language"
+      },
+      "toasts": {
+        "addCVSuccess": "Created new CV",
+        "editCVSuccess": "Edited CV",
+        "deletedCVSuccess": "Deleted CV"
       }
     },
     "sidebar": {

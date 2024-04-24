@@ -20,6 +20,7 @@ import { InputComponent } from 'src/app/shared/components/controls/input/input.c
 import { MatIconModule } from '@angular/material/icon';
 import { AutocompleteSelectComponent } from 'src/app/shared/components/controls/autocomplete-select/autocomplete-select.component';
 import { AutocompleteComponent } from 'src/app/shared/components/controls/autocomplete/autocomplete.component';
+import { DebounceClickDirective } from 'src/app/shared/directives/debounce-click.directive';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { AutocompleteComponent } from 'src/app/shared/components/controls/autoco
     AutocompleteSelectComponent,
     MatExpansionModule,
     AutocompleteComponent,
+    DebounceClickDirective,
   ],
 })
 export class EmployeeModule {}

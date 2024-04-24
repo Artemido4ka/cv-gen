@@ -21,6 +21,8 @@ import { employeeRequiredFieldValidator } from '../../constants/employees.consta
 import { MatAccordion } from '@angular/material/expansion';
 import { selectLanguages, selectLevels } from 'src/app/store/core/core.selectors';
 import { getLanguagesAction, getLevelsAction } from 'src/app/store/core/core.actions';
+import { addCVAction, deleteCVAction, editCVAction } from 'src/app/store/cv/cv.actions';
+import { Location } from '@angular/common';
 
 interface CVTabFormInterface {
   cvsProjects: FormArray;
@@ -29,7 +31,6 @@ interface CVTabFormInterface {
   skills: FormControl;
   cvName: FormControl;
   id: FormControl;
-  // language: FormControl<Array<string>>;
 }
 @UntilDestroy()
 @Component({
@@ -42,7 +43,8 @@ export class EmployeeCvTabComponent implements OnInit {
   constructor(
     private store: Store<IAppState>,
     private fb: FormBuilder,
-    private readonly cdRef: ChangeDetectorRef
+    private readonly cdRef: ChangeDetectorRef,
+    private location: Location
   ) {}
 
   @Input() employeeId: number;
@@ -65,15 +67,15 @@ export class EmployeeCvTabComponent implements OnInit {
     this.store.dispatch(getLanguagesAction());
 
     this.cvs$.pipe(untilDestroyed(this)).subscribe(cvs => {
+
       this.employeeCVFormArray.clear();
       if (cvs && cvs.length) {
         cvs.forEach(({ cvsProjects, language, skills, cvName, id, ...restCVInfo }) => {
-          // console.log(cvs);
           const langArray = language.length
             ? language.map(({ name, level }) =>
                 this.fb.group({
-                  name: [name, employeeRequiredFieldValidator('language')],
-                  level: [level, employeeRequiredFieldValidator('level')],
+                  name: [name.name, employeeRequiredFieldValidator('language')],
+                  level: [level.name, employeeRequiredFieldValidator('level')],
                 })
               )
             : [];
@@ -81,7 +83,6 @@ export class EmployeeCvTabComponent implements OnInit {
           const control = this.fb.group({
             id,
             cvName: [cvName, [employeeRequiredFieldValidator('cvName')]],
-            // language: [language],
             skills: [skills, [employeeRequiredFieldValidator('skills')]],
             cvsProjects: this.fb.array(cvsProjects),
             language: this.fb.array(langArray),
@@ -90,18 +91,22 @@ export class EmployeeCvTabComponent implements OnInit {
 
           return this.employeeCVFormArray.push(control);
         });
-      }
 
-      console.log(this.employeeCVFormArray);
+        console.log(this.employeeCVFormArray);
+      }
 
       this.cdRef.markForCheck();
     });
   }
 
-  handleDeleteCV(event: Event, id: number) {
-    this.employeeCVFormArray.removeAt(id);
+  handleDeleteCV(event: Event, index: number) {
+    const cvId = this.employeeCVFormArray.at(index).value.id;
+    if (cvId) {
+      this.store.dispatch(deleteCVAction({ id: cvId }));
+    }
 
     this.selectedCVIndex = 0;
+    this.employeeCVFormArray.removeAt(index);
   }
 
   handleAddCV() {
@@ -167,12 +172,38 @@ export class EmployeeCvTabComponent implements OnInit {
   }
 
   handleCVSave() {
-    console.log(this.employeeCVFormArray.at(this.selectedCVIndex));
-    this.employeeCVFormArray.at(this.selectedCVIndex).markAllAsTouched();
-    this.accordion.openAll();
+    const selectedCV = this.employeeCVFormArray.at(this.selectedCVIndex);
+    if (selectedCV.invalid) {
+      selectedCV.markAllAsTouched();
+      this.accordion.openAll();
+      return;
+    }
+
+    const rawValue = selectedCV.getRawValue();
+
+    const formatSendingLangArray = rawValue.language.length
+      ? rawValue.language.map(({ name, level }) => {
+          return { name: { name: name }, level: { name: level } };
+        })
+      : [];
+
+    const cvBody = {
+      cvName: rawValue.cvName,
+      language: formatSendingLangArray,
+      skills: rawValue.skills,
+      projects: rawValue.cvsProjects,
+      employeeId: this.employeeId,
+      ...rawValue.employeeInfo,
+    };
+
+    const cvId = rawValue.id;
+
+    cvId
+      ? this.store.dispatch(editCVAction({ id: cvId, cv: cvBody }))
+      : this.store.dispatch(addCVAction({ cv: cvBody }));
   }
 
   handleCancel() {
-    console.log();
+    this.location.back();
   }
 }

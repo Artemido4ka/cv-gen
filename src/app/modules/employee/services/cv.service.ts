@@ -29,13 +29,19 @@ export class CVService {
       .pipe(map(cv => this.formatCV(cv)));
   }
 
-  createCV(cvBody: any) {
+  createCV(cvBody: CVFormatedInterface) {
     return this.http.post<CVInterface>(API_URLS.CV_URL, cvBody).pipe(map(cv => this.formatCV(cv)));
   }
 
-  updateCV(cvId: number, cvBody: any) {
+  updateCV(cvId: number, cvBody: CVFormatedInterface) {
     return this.http
       .put<CVInterface>(`${API_URLS.CV_URL}/${cvId}`, cvBody)
+      .pipe(map(cv => this.formatCV(cv)));
+  }
+
+  deleteCV(cvId: number) {
+    return this.http
+      .delete<CVInterface>(`${API_URLS.CV_URL}/${cvId}`)
       .pipe(map(cv => this.formatCV(cv)));
   }
 
@@ -43,7 +49,7 @@ export class CVService {
     const department = cv.department.name;
     const specialization = cv.specialization.name;
     const language = cv.language.map(i => {
-      return { name: i.name.name, level: i.level.name };
+      return { name: i.name, level: i.level };
     });
     const skills = cv.skills.map(i => i.name);
     const cvsProjects = cv.cvsProjects.map(project => this.projectsService.formatProject(project));

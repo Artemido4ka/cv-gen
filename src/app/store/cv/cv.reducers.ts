@@ -13,6 +13,9 @@ import {
   getAllCVsAction,
   getAllCVsFailedAction,
   getAllCVsSuccessAction,
+  deleteCVAction,
+  deleteCVFailedAction,
+  deleteCVSuccessAction,
 } from './cv.actions';
 import { RequestStatusEnum } from 'src/app/shared/constants/request.status';
 
@@ -45,7 +48,7 @@ export const cvReducers = createReducer(
   on(addCVAction, state => ({ ...state, requestStatus: RequestStatusEnum.PENDING })),
 
   on(addCVSuccessAction, (state, { cv }) => {
-    return { ...state, cv, requestStatus: RequestStatusEnum.SUCCESS };
+    return { ...state, cv, cvs: [...state.cvs, cv], requestStatus: RequestStatusEnum.SUCCESS };
   }),
 
   on(addCVFailedAction, (state, { error }) => {
@@ -57,6 +60,24 @@ export const cvReducers = createReducer(
 
   on(editCVSuccessAction, (state, { cv }) => {
     return { ...state, cv, requestStatus: RequestStatusEnum.SUCCESS };
+  }),
+
+  on(editCVFailedAction, (state, { error }) => {
+    return { ...state, error, requestStatus: RequestStatusEnum.FAILED };
+  }),
+
+  //Delete CV
+  on(deleteCVAction, state => ({ ...state, requestStatus: RequestStatusEnum.PENDING })),
+
+  on(deleteCVSuccessAction, (state, { cv: deletedCV }) => {
+    const filteredCVs = state.cvs.filter(cv => cv.id !== deletedCV.id);
+
+    return {
+      ...state,
+      cv: deletedCV,
+      cvs: [...filteredCVs],
+      requestStatus: RequestStatusEnum.SUCCESS,
+    };
   }),
 
   on(editCVFailedAction, (state, { error }) => {

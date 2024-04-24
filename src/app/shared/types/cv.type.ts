@@ -31,8 +31,8 @@ export interface CVFormatedInterface
 }
 
 export interface FormatedLanguageInterface {
-  name: string;
-  level: string;
+  name: Pick<IBasicObjectItem, 'name'>;
+  level: Pick<IBasicObjectItem, 'name'>;
 }
 
 export interface IBasicObjectItem {

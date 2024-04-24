@@ -15,15 +15,23 @@ import {
   addCVSuccessAction,
   editCVSuccessAction,
   editCVFailedAction,
+  deleteCVAction,
+  deleteCVSuccessAction,
+  deleteCVFailedAction,
 } from './cv.actions';
 import { HttpErrorResponse } from '@angular/common/http';
 import { CVService } from 'src/app/modules/employee/services/cv.service';
+import { ToastService } from 'src/app/shared/services/toast.service';
+import { TOAST_STATUS } from 'src/app/shared/constants/toasts';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable()
 export class CVEffects {
   constructor(
     private actions$: Actions,
-    private cvService: CVService
+    private cvService: CVService,
+    private toastService: ToastService,
+    private translate: TranslateService
   ) {}
 
   loadAllCVs$ = createEffect(() =>
@@ -55,7 +63,13 @@ export class CVEffects {
       ofType(addCVAction),
       switchMap(action => {
         return this.cvService.createCV(action.cv).pipe(
-          map(cv => addCVSuccessAction({ cv })),
+          map(cv => {
+            this.translate.get('home.employee.toasts.addCVSuccess').subscribe((message: string) => {
+              this.toastService.showToast(message, TOAST_STATUS.success);
+            });
+
+            return addCVSuccessAction({ cv });
+          }),
           catchError((error: HttpErrorResponse) => of(addCVFailedAction(error)))
         );
       })
@@ -67,8 +81,36 @@ export class CVEffects {
       ofType(editCVAction),
       switchMap(action => {
         return this.cvService.updateCV(action.id, action.cv).pipe(
-          map(cv => editCVSuccessAction({ cv })),
+          map(cv => {
+            this.translate
+              .get('home.employee.toasts.editCVSuccess')
+              .subscribe((message: string) => {
+                this.toastService.showToast(message, TOAST_STATUS.success);
+              });
+
+            return editCVSuccessAction({ cv });
+          }),
           catchError((error: HttpErrorResponse) => of(editCVFailedAction(error)))
+        );
+      })
+    )
+  );
+
+  removeCV$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(deleteCVAction),
+      switchMap(action => {
+        return this.cvService.deleteCV(action.id).pipe(
+          map(cv => {
+            this.translate
+              .get('home.employee.toasts.deletedCVSuccess')
+              .subscribe((message: string) => {
+                this.toastService.showToast(message, TOAST_STATUS.success);
+              });
+
+            return deleteCVSuccessAction({ cv });
+          }),
+          catchError((error: HttpErrorResponse) => of(deleteCVFailedAction(error)))
         );
       })
     )

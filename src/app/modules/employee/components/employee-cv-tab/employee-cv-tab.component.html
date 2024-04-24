@@ -1,7 +1,11 @@
 <div class="cv">
   <div class="list-container">
     <div *ngFor="let cv of employeeCVFormArray.controls; let i = index">
-      <button class="list-item" (click)="handleSelectCV(i)" [class.active]="i === selectedCVIndex">
+      <button
+        class="list-item"
+        (click)="handleSelectCV(i)"
+        [class.active]="i === selectedCVIndex"
+        [class.new]="!cv.controls.id.value">
         <div class="text">
           {{ cv.controls.cvName.value }}
         </div>
@@ -21,20 +25,34 @@
   </div>
 
   <div
-    class="main-content"
+    class="cv-content"
     *ngIf="employeeCVFormArray.length"
     [formGroup]="employeeCVFormArray.at(selectedCVIndex)">
-    <div class="cv-content">
+    <div class="cv-items">
       <div>
-        <button class="" mat-raised-button color="primary" (click)="handleAddLanguage()">
-          {{ 'home.employee.buttons.addLanguage' | translate }}
-        </button>
+        <cv-gen-input
+          id="cvName"
+          placeholder="home.employee.cvName.placeholder"
+          label="home.employee.cvName.label"
+          [formControl]="employeeCVFormArray.at(selectedCVIndex).controls.cvName"></cv-gen-input>
+      </div>
 
-        <div formArrayName="language" *ngFor="let languageItem of language.controls; let i = index">
-          <button class="" (click)="handleDeleteLanguage(i)">
-            <mat-icon fontIcon="delete_outline"></mat-icon>
-          </button>
+      <cv-gen-employee-info-form
+        [formControl]="employeeCVFormArray.at(selectedCVIndex).controls.employeeInfo">
+      </cv-gen-employee-info-form>
 
+      <cv-gen-autocomplete-select
+        id="cvSkills"
+        [formControl]="employeeCVFormArray.at(selectedCVIndex).controls.skills"
+        [options$]="skillsOptions$"
+        placeholder="home.employee.skills.placeholder"
+        label="home.employee.skills.label"></cv-gen-autocomplete-select>
+
+      <div class="languages">
+        <div
+          class="language"
+          formArrayName="language"
+          *ngFor="let languageItem of language.controls; let i = index">
           <cv-gen-autocomplete
             [formControl]="languageItem.controls.name"
             id="languageNameId"
@@ -48,39 +66,21 @@
             placeholder="home.employee.level.placeholder"
             label="home.employee.level.label"
             [options$]="levels$"></cv-gen-autocomplete>
+
+          <button class="button-delete-language" (click)="handleDeleteLanguage(i)">
+            <mat-icon fontIcon="delete_outline"></mat-icon>
+          </button>
+        </div>
+
+        <div>
+          <button mat-stroked-button color="primary" (click)="handleAddLanguage()">
+            <div>
+              {{ 'home.employee.buttons.addLanguage' | translate }}
+            </div>
+            <mat-icon fontIcon="add"></mat-icon>
+          </button>
         </div>
       </div>
-
-      <div>
-        <cv-gen-input
-          id="cvName"
-          placeholder="home.employee.cvName.placeholder"
-          label="home.employee.cvName.label"
-          [formControl]="employeeCVFormArray.at(selectedCVIndex).controls.cvName"></cv-gen-input>
-      </div>
-
-      <div>
-        <cv-gen-employee-info-form
-          [formControl]="employeeCVFormArray.at(selectedCVIndex).controls.employeeInfo">
-        </cv-gen-employee-info-form>
-      </div>
-
-      <div>
-        <cv-gen-autocomplete-select
-          id="cvSkills"
-          [formControl]="employeeCVFormArray.at(selectedCVIndex).controls.skills"
-          [options$]="skillsOptions$"
-          placeholder="home.employee.skills.placeholder"
-          label="home.employee.skills.label"></cv-gen-autocomplete-select>
-      </div>
-
-      <button
-        class="add-project-btn"
-        mat-raised-button
-        color="primary"
-        (click)="handleADDProject()">
-        {{ 'home.employee.buttons.addProject' | translate }}
-      </button>
 
       <mat-accordion multi class="accordion">
         <mat-expansion-panel
@@ -96,13 +96,26 @@
           <cv-gen-project-form [formControl]="projectControlName(item)"></cv-gen-project-form>
         </mat-expansion-panel>
       </mat-accordion>
+
+      <div>
+        <button mat-stroked-button color="primary" color="primary" (click)="handleADDProject()">
+          <div>
+            {{ 'home.employee.buttons.addProject' | translate }}
+          </div>
+          <mat-icon fontIcon="add"></mat-icon>
+        </button>
+      </div>
     </div>
 
     <div class="bottom-buttons">
-      <button mat-raised-button color="primary" (click)="handleCancel()">
+      <button mat-stroked-button color="accent" (click)="handleCancel()">
         {{ 'home.employee.buttons.cancel' | translate }}
       </button>
-      <button mat-raised-button color="primary" (click)="handleCVSave()">
+      <button
+        cvGenDebounceClick
+        (debounceClick)="handleCVSave()"
+        mat-stroked-button
+        color="primary">
         {{ 'home.employee.buttons.save' | translate }}
       </button>
     </div>

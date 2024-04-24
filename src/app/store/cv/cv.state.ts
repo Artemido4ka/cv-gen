@@ -9,7 +9,7 @@ export interface ICVState {
 }
 
 export const initialCVState: ICVState = {
-  cvs: null,
+  cvs: [],
   cv: null,
   requestStatus: RequestStatusEnum.SUCCESS,
   error: null,

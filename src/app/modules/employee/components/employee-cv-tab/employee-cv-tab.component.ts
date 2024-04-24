@@ -68,8 +68,21 @@ export class EmployeeCvTabComponent implements OnInit {
 
     this.cvs$.pipe(untilDestroyed(this)).subscribe(cvs => {
 
-      this.employeeCVFormArray.clear();
-      if (cvs && cvs.length) {
+      const isCVFormArrayLength = this.employeeCVFormArray.length;
+      const isCVArrayLength = cvs.length;
+
+      if (cvs && !isCVArrayLength && isCVFormArrayLength) {
+        this.employeeCVFormArray.clear();
+      }
+
+      if (cvs && isCVArrayLength && isCVFormArrayLength) {
+        const newIdOfCreatedCV = cvs[cvs.length - 1].id;
+        this.employeeCVFormArray.at(this.selectedCVIndex).patchValue({
+          id: newIdOfCreatedCV,
+        });
+      }
+
+      if (cvs && isCVArrayLength && !isCVFormArrayLength) {
         cvs.forEach(({ cvsProjects, language, skills, cvName, id, ...restCVInfo }) => {
           const langArray = language.length
             ? language.map(({ name, level }) =>
@@ -91,15 +104,13 @@ export class EmployeeCvTabComponent implements OnInit {
 
           return this.employeeCVFormArray.push(control);
         });
-
-        console.log(this.employeeCVFormArray);
       }
 
       this.cdRef.markForCheck();
     });
   }
 
-  handleDeleteCV(event: Event, index: number) {
+  handleDeleteCV(index: number) {
     const cvId = this.employeeCVFormArray.at(index).value.id;
     if (cvId) {
       this.store.dispatch(deleteCVAction({ id: cvId }));

@@ -19,8 +19,11 @@
       </button>
     </div>
 
-    <button (click)="handleAddCV()" class="button-add-cv">
-      <mat-icon fontIcon="add_box"></mat-icon>
+    <button (click)="handleAddCV()" class="button-add-cv" mat-stroked-button>
+      <div>
+        {{ 'home.employee.buttons.addCV' | translate }}
+      </div>
+      <mat-icon fontIcon="add"></mat-icon>
     </button>
   </div>
 
@@ -98,7 +101,7 @@
       </mat-accordion>
 
       <div>
-        <button mat-stroked-button color="primary" color="primary" (click)="handleADDProject()">
+        <button mat-stroked-button color="primary" (click)="handleADDProject()">
           <div>
             {{ 'home.employee.buttons.addProject' | translate }}
           </div>

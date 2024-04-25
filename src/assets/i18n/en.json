@@ -209,7 +209,8 @@
         "save": "save",
         "cancel": "cancel",
         "addProject": "Add Project",
-        "addLanguage": "Add language"
+        "addLanguage": "Add language",
+        "addCV": "Add CV"
       },
       "toasts": {
         "addCVSuccess": "Created new CV",

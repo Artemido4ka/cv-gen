@@ -1,0 +1,19 @@
+:host {
+    display: block;
+    height: 100%;
+    width: 100%;
+  }
+  
+  .info-tab {
+    height: 100%;
+    max-width: 800px;
+  
+    .buttons {
+      margin-top: 60px;
+      display: flex;
+      width: 100%;
+      justify-content: flex-end;
+      gap: 20px;
+    }
+  }
+  

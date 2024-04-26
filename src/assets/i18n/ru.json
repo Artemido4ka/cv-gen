@@ -1,20 +1,23 @@
 {
   "shared": {
     "errors": {
+      "auth": {
+        "unexpected": "Unexpected error"
+      },
       "input": {
-        "required": "Please, specify the field !"
+        "required": "Пожалуйста, specify the field !"
       },
       "textarea": {
         "required": "Textarea is required !"
       },
-      "select": {
-        "required": "Please, select something !"
+      "выберете": {
+        "required": "Пожалуйста, выберете something !"
       },
       "date": {
-        "required": "Please, select the date !"
+        "required": "Пожалуйста, выберете the date !"
       },
       "autoComplete": {
-        "required": "Please, type something !"
+        "required": "Пожалуйста, type something !"
       }
     }
   },
@@ -34,9 +37,199 @@
           "required": "Пожалуйста, введите пароль !"
         }
       },
-      "checkbox": "Запомнить меня",
-      "forgotPassword": "Забыли пароль ?",
-      "button": "Войти"
+      "checkbox": "Remember me",
+      "forgotPassword": "Forgot your пароль ?",
+      "button": "Login",
+      "errors": {
+        "credentials": "Wrong email or пароль !"
+      }
+    }
+  },
+  "home": {
+    "projects": {
+      "table": {
+        "headers": {
+          "id": "id",
+          "projectName": "Проект",
+          "description": "Описание",
+          "startDate": "Начало",
+          "endDate": "Конец",
+          "teamSize": "Размер команды",
+          "responsibilities": "Обязанности",
+          "teamRoles": "Роли",
+          "techStack": "Тех Стэк"
+        }
+      },
+      "buttons": {
+        "addProject": "Добавить проект"
+      }
+    },
+    "project": {
+      "projectName": {
+        "label": "Project Name",
+        "placeholder": "введите project name",
+        "errors": {
+          "required": "Пожалуйста, введите project name !"
+        }
+      },
+      "startDate": {
+        "label": "Start Date",
+        "placeholder": "выберете start date",
+        "errors": {
+          "required": "Пожалуйста, введите start date !"
+        }
+      },
+      "endDate": {
+        "label": "End Date",
+        "placeholder": "выберете end date",
+        "errors": {
+          "required": "Пожалуйста, введите end date !"
+        }
+      },
+      "teamSize": {
+        "label": "Team Size",
+        "placeholder": "введите team size",
+        "errors": {
+          "required": "Пожалуйста, введите team size !"
+        }
+      },
+      "teachStack": {
+        "label": "Teach Stack",
+        "placeholder": "выберете or введите teach stack",
+
+        "errors": {
+          "required": "Пожалуйста, введите tech stack !"
+        }
+      },
+      "roles": {
+        "label": "Roles",
+        "placeholder": "выберете or введите roles",
+        "errors": {
+          "required": "Пожалуйста, введите roles !"
+        }
+      },
+      "responsibilities": {
+        "label": "Responsibilities",
+        "placeholder": "выберете or введите responsibilities",
+        "errors": {
+          "required": "Пожалуйста, введите responsibilities !"
+        }
+      },
+      "description": {
+        "label": "Описание",
+        "placeholder": "Введите описание",
+        "errors": {
+          "required": "Пожалуйста, введите описание !"
+        }
+      },
+      "buttons": {
+        "save": "Сохранить",
+        "cancel": "Отмена"
+      }
+    },
+    "employees": {
+      "table": {
+        "headers": {
+          "id": "id",
+          "firstName": "First Name",
+          "lastName": "Last Name",
+          "email": "Email",
+          "department": "Department",
+          "specialization": "Specialization"
+        }
+      },
+      "buttons": {
+        "addEmployee": "Add Employee"
+      }
+    },
+    "employee": {
+      "firstName": {
+        "placeholder": "введите first name",
+        "label": "First Name",
+        "errors": {
+          "required": "Пожалуйста, введите first name !"
+        }
+      },
+      "lastName": {
+        "placeholder": "введите last name",
+        "label": "Last Name",
+        "errors": {
+          "required": "Пожалуйста, введите last name !"
+        }
+      },
+      "email": {
+        "placeholder": "введите email",
+        "label": "Email",
+        "errors": {
+          "required": "Пожалуйста, введите email !"
+        }
+      },
+      "specialization": {
+        "placeholder": "введите specialization",
+        "label": "Specialization",
+        "errors": {
+          "required": "Пожалуйста, введите specialization !"
+        }
+      },
+      "department": {
+        "placeholder": "введите department",
+        "label": "Department",
+        "errors": {
+          "required": "Пожалуйста, введите department !"
+        }
+      },
+      "cvName": {
+        "placeholder": "введите CV name",
+        "label": "CV Name",
+        "errors": {
+          "required": "Пожалуйста, введите CV name !"
+        }
+      },
+      "skills": {
+        "placeholder": "введите skills",
+        "label": "Skills",
+        "errors": {
+          "required": "Пожалуйста, введите skills !"
+        }
+      },
+      "language": {
+        "placeholder": "введите language",
+        "label": "Language",
+        "errors": {
+          "required": "Пожалуйста, введите language !"
+        }
+      },
+      "level": {
+        "placeholder": "введите language level",
+        "label": "Language level",
+        "errors": {
+          "required": "Пожалуйста, language level !"
+        }
+      },
+      "buttons": {
+        "save": "Save",
+        "cancel": "Cancel",
+        "addProject": "Add Project",
+        "addLanguage": "Add language",
+        "addCV": "Add CV",
+        "submit": "Submit"
+      },
+      "toasts": {
+        "addCVSuccess": "Created new CV",
+        "editCVSuccess": "Edited CV",
+        "deletedCVSuccess": "Deleted CV"
+      },
+      "modals": {
+        "confirmDeleteProject": "Are you shure ?",
+        "confirmDeleteCV": "Are you shure ?"
+      }
+    },
+    "sidebar": {
+      "projects": "Проекты",
+      "employees": "Сотрудники",
+      "errors": {
+        "required": "Пожалуйста, введите project name !"
+      }
     }
   }
 }

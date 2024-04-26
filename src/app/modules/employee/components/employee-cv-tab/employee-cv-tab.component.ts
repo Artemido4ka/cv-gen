@@ -12,7 +12,7 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { IAppState } from 'src/app/store/app.store';
-import { CVFormatedInterface } from 'src/app/shared/types/cv.type';
+import { CVFormatedInterface, FormatedLanguageInterface } from 'src/app/shared/types/cv.type';
 import { selectCV, selectCVs } from 'src/app/store/cv/cv.selectors';
 import { getTechStackAction } from 'src/app/store/projects/project.actions';
 import { FormatedTechStackItemT, IFormatedProject } from 'src/app/shared/types/project.types';
@@ -65,15 +65,6 @@ export class EmployeeCvTabComponent implements OnInit {
   levels$: Observable<string[]> = this.store.pipe(select(selectLevels));
   selectedCVIndex = 0;
 
-  openConfirmModal(method: () => void, message: string): void {
-    this.dialog.open(ModalConfirmComponent, {
-      data: {
-        method,
-        message,
-      },
-    });
-  }
-
   ngOnInit(): void {
     this.store.dispatch(getTechStackAction());
     this.store.dispatch(getLevelsAction());
@@ -81,30 +72,23 @@ export class EmployeeCvTabComponent implements OnInit {
 
     this.cvs$.pipe(untilDestroyed(this)).subscribe(cvs => {
       const arrayOfCVs = cvs.map(({ cvsProjects, language, skills, cvName, id, ...restCVInfo }) => {
-        const langArray = language.length
-          ? language.map(({ name, level }) =>
-              this.fb.group({
-                name: [name.name, employeeRequiredFieldValidator('language')],
-                level: [level.name, employeeRequiredFieldValidator('level')],
-              })
-            )
-          : [];
+        const langArray = this.formatLanguageArray(language);
 
-        const control = this.fb.group({
-          id,
-          cvName: [cvName, [employeeRequiredFieldValidator('cvName')]],
-          skills: [skills, [employeeRequiredFieldValidator('skills')]],
-          cvsProjects: this.fb.array(cvsProjects),
-          language: this.fb.array(langArray),
-          employeeInfo: restCVInfo,
-        });
-
-        return control;
+        return this.createCVFormGroup(cvName, restCVInfo, langArray, skills, cvsProjects, id);
       });
 
       this.employeeCVFormArray = new FormArray(arrayOfCVs);
 
       this.cdRef.markForCheck();
+    });
+  }
+
+  openConfirmModal(method: () => void, message: string): void {
+    this.dialog.open(ModalConfirmComponent, {
+      data: {
+        method,
+        message,
+      },
     });
   }
 
@@ -126,16 +110,8 @@ export class EmployeeCvTabComponent implements OnInit {
   }
 
   handleAddCV() {
-    const control = this.fb.group({
-      id: new FormControl(),
-      cvName: new FormControl('New CV', [employeeRequiredFieldValidator('cvName')]),
-      employeeInfo: this.editEmployeeForm,
-      language: this.fb.array([]),
-      skills: new FormControl([], [employeeRequiredFieldValidator('skills')]),
-      cvsProjects: this.fb.array([]),
-    });
-
-    this.employeeCVFormArray.push(control);
+    const addedCV = this.createCVFormGroup('New CV');
+    this.employeeCVFormArray.push(addedCV);
   }
 
   handleSelectCV(id: number) {
@@ -261,5 +237,37 @@ export class EmployeeCvTabComponent implements OnInit {
 
   handleCancel() {
     this.location.back();
+  }
+
+  formatLanguageArray(language: FormatedLanguageInterface[]) {
+    return language.length
+      ? language.map(({ name, level }) =>
+          this.fb.group({
+            name: [name.name, employeeRequiredFieldValidator('language')],
+            level: [level.name, employeeRequiredFieldValidator('level')],
+          })
+        )
+      : [];
+  }
+
+  createCVFormGroup(
+    cvName: string,
+    employeeInfo = this.editEmployeeForm.value,
+    language?: FormGroup<{
+      name: FormControl<string>;
+      level: FormControl<string>;
+    }>[],
+    skills = Array<string>(),
+    cvsProjects = Array<unknown>(),
+    id?: number
+  ) {
+    return this.fb.group({
+      id: new FormControl(id),
+      cvName: new FormControl(cvName, [employeeRequiredFieldValidator('cvName')]),
+      employeeInfo: employeeInfo,
+      language: this.fb.array(language || []),
+      skills: new FormControl(skills, [employeeRequiredFieldValidator('skills')]),
+      cvsProjects: this.fb.array(cvsProjects),
+    });
   }
 }

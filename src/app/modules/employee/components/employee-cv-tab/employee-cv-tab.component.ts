@@ -10,7 +10,7 @@ import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup } from 
 
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { Store, select } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, switchMap } from 'rxjs';
 import { IAppState } from 'src/app/store/app.store';
 import { CVFormatedInterface } from 'src/app/shared/types/cv.type';
 import { selectCVs } from 'src/app/store/cv/cv.selectors';
@@ -63,7 +63,6 @@ export class EmployeeCvTabComponent implements OnInit {
   levels$: Observable<string[]> = this.store.pipe(select(selectLevels));
   selectedCVIndex = 0;
 
-
   openConfirmModal(method: () => void, message: string): void {
     this.dialog.open(ModalConfirmComponent, {
       data: {
@@ -73,27 +72,30 @@ export class EmployeeCvTabComponent implements OnInit {
     });
   }
 
+  //TODO:check logic when adding new cv
   ngOnInit(): void {
     this.store.dispatch(getTechStackAction());
     this.store.dispatch(getLevelsAction());
     this.store.dispatch(getLanguagesAction());
 
     this.cvs$.pipe(untilDestroyed(this)).subscribe(cvs => {
+      this.employeeCVFormArray.clear();
+
       const isCVFormArrayLength = this.employeeCVFormArray.length;
       const isCVArrayLength = cvs.length;
 
-      if (cvs && !isCVArrayLength && isCVFormArrayLength) {
-        this.employeeCVFormArray.clear();
-      }
+      // if (!isCVArrayLength && isCVFormArrayLength) {
+      //   this.employeeCVFormArray.clear();
+      // }
 
-      if (cvs && isCVArrayLength && isCVFormArrayLength) {
-        const newIdOfCreatedCV = cvs[cvs.length - 1].id;
-        this.employeeCVFormArray.at(this.selectedCVIndex).patchValue({
-          id: newIdOfCreatedCV,
-        });
-      }
+      // if (isCVArrayLength && isCVFormArrayLength) {
+      //   const newIdOfCreatedCV = cvs[cvs.length - 1].id;
+      //   this.employeeCVFormArray.at(this.selectedCVIndex).patchValue({
+      //     id: newIdOfCreatedCV,
+      //   });
+      // }
 
-      if (cvs && isCVArrayLength && !isCVFormArrayLength) {
+      if (isCVArrayLength) {
         cvs.forEach(({ cvsProjects, language, skills, cvName, id, ...restCVInfo }) => {
           const langArray = language.length
             ? language.map(({ name, level }) =>

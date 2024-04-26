@@ -14,6 +14,7 @@ export type RequestProject = Omit<IFormatedProject, 'id'>;
 
 export interface IFormatedProject
   extends Omit<IProject, 'responsibilities' | 'teamRoles' | 'techStack'> {
+  [key: string]: number | string | string[];
   responsibilities: string[];
   teamRoles: string[];
   techStack: string[];

@@ -21,6 +21,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { AutocompleteSelectComponent } from 'src/app/shared/components/controls/autocomplete-select/autocomplete-select.component';
 import { AutocompleteComponent } from 'src/app/shared/components/controls/autocomplete/autocomplete.component';
 import { DebounceClickDirective } from 'src/app/shared/directives/debounce-click.directive';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ModalConfirmComponent } from 'src/app/shared/components/modals/modal-confirm/modal-confirm.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +48,8 @@ import { DebounceClickDirective } from 'src/app/shared/directives/debounce-click
     MatExpansionModule,
     AutocompleteComponent,
     DebounceClickDirective,
+    MatDialogModule,
+    ModalConfirmComponent,
   ],
 })
 export class EmployeeModule {}

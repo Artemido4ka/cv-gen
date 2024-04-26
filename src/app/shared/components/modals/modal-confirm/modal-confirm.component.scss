@@ -1,0 +1,13 @@
+.modal {
+  padding: 20px;
+  text-align: center;
+
+  .message {
+    margin-bottom: 20px;
+  }
+
+  .buttons {
+    display: flex;
+    gap: 20px;
+  }
+}

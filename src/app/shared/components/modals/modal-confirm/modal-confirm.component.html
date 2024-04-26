@@ -1,0 +1,12 @@
+<div class="modal">
+  <div class="message">{{ message | translate }}</div>
+
+  <div class="buttons">
+    <button mat-stroked-button color="primary" (click)="handleSubmit()">
+      {{ 'home.employee.buttons.submit' | translate }}
+    </button>
+    <button mat-stroked-button color="accent" (click)="handleClose()">
+      {{ 'home.employee.buttons.cancel' | translate }}
+    </button>
+  </div>
+</div>

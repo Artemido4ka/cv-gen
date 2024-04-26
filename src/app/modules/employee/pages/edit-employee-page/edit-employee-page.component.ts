@@ -5,12 +5,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { RoutingPaths } from 'src/app/shared/constants/routing-paths';
 import { IFormatedEmployee } from 'src/app/shared/types/employees.types';
 import { IAppState } from 'src/app/store/app.store';
 import { getDepartmentsAction, getSpecializationsAction } from 'src/app/store/core/core.actions';
 import { selectEmployee } from 'src/app/store/employees/employees-selectors';
-import { editEmployeeAction, getEmployeeAction } from 'src/app/store/employees/employees.actions';
+import { getEmployeeAction } from 'src/app/store/employees/employees.actions';
 
 @UntilDestroy()
 @Component({
@@ -40,26 +39,10 @@ export class EditEmployeePageComponent implements OnInit {
 
     this.employee$.pipe(untilDestroyed(this)).subscribe(employee => {
       this.editEmployeeForm.setValue(employee);
-      // this.cdRef.markForCheck();
     });
   }
 
-  // handleSave() {
-  //   if (this.editEmployeeForm.invalid) {
-  //     this.editEmployeeForm.markAsTouched();
-  //     return;
-  //   }
-
-  //   const sendData = {
-  //     id: this.employeeId,
-  //     employee: this.editEmployeeForm.getRawValue(),
-  //   };
-
-  //   this.store.dispatch(editEmployeeAction(sendData));
-  //   this.router.navigate([RoutingPaths.HOME, RoutingPaths.EMPLOYEES]);
-  // }
-
-  // handleCancel() {
-  //   this.location.back();
-  // }
+  handleCancel() {
+    this.location.back();
+  }
 }

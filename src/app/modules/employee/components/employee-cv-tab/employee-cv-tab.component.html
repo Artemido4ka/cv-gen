@@ -11,7 +11,7 @@
         </div>
 
         <button
-          (click)="handleDeleteCV(i)"
+          (click)="handleOpenDeleteCVModal(i)"
           class="button-delete-cv"
           [class.active]="i === selectedCVIndex">
           <mat-icon fontIcon="delete_outline"></mat-icon>
@@ -92,7 +92,7 @@
           *ngFor="let item of cvsProjects.controls; let i = index">
           <mat-expansion-panel-header>
             <mat-panel-title> {{ item.value.projectName }} </mat-panel-title>
-            <button class="button-delete-project" (click)="handleDeleteProject(i)">
+            <button class="button-delete-project" (click)="handleOpenDeleteProjectModal(i)">
               <mat-icon fontIcon="delete_outline"></mat-icon>
             </button>
           </mat-expansion-panel-header>
@@ -101,7 +101,7 @@
       </mat-accordion>
 
       <div>
-        <button mat-stroked-button color="primary" (click)="handleADDProject()">
+        <button mat-stroked-button color="primary" (click)="handleOpenAddProjectModal()">
           <div>
             {{ 'home.employee.buttons.addProject' | translate }}
           </div>

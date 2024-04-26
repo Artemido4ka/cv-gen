@@ -15,7 +15,7 @@ import { IAppState } from 'src/app/store/app.store';
 import { CVFormatedInterface } from 'src/app/shared/types/cv.type';
 import { selectCVs } from 'src/app/store/cv/cv.selectors';
 import { getTechStackAction } from 'src/app/store/projects/project.actions';
-import { FormatedTechStackItemT } from 'src/app/shared/types/project.types';
+import { FormatedTechStackItemT, IFormatedProject } from 'src/app/shared/types/project.types';
 import { selectTechStack } from 'src/app/store/projects/projects.selectors';
 import { employeeRequiredFieldValidator } from '../../constants/employees.constant';
 import { MatAccordion } from '@angular/material/expansion';
@@ -23,6 +23,10 @@ import { selectLanguages, selectLevels } from 'src/app/store/core/core.selectors
 import { getLanguagesAction, getLevelsAction } from 'src/app/store/core/core.actions';
 import { addCVAction, deleteCVAction, editCVAction } from 'src/app/store/cv/cv.actions';
 import { Location } from '@angular/common';
+import { MatDialog } from '@angular/material/dialog';
+
+import { ModalConfirmComponent } from 'src/app/shared/components/modals/modal-confirm/modal-confirm.component';
+import { ProjectsModalComponent } from 'src/app/shared/components/modals/projects-modal/projects-modal.component';
 
 interface CVTabFormInterface {
   cvsProjects: FormArray;
@@ -44,22 +48,30 @@ export class EmployeeCvTabComponent implements OnInit {
     private store: Store<IAppState>,
     private fb: FormBuilder,
     private readonly cdRef: ChangeDetectorRef,
-    private location: Location
+    private location: Location,
+    public dialog: MatDialog
   ) {}
 
   @Input() employeeId: number;
   @Input() editEmployeeForm: FormControl;
+  @ViewChild(MatAccordion) accordion: MatAccordion;
 
   cvs$: Observable<CVFormatedInterface[]> = this.store.pipe(select(selectCVs));
-  selectedCVIndex = 0;
-
   employeeCVFormArray = new FormArray<FormGroup<CVTabFormInterface>>([]);
   skillsOptions$: Observable<FormatedTechStackItemT[]> = this.store.pipe(select(selectTechStack));
-
   languages$: Observable<string[]> = this.store.pipe(select(selectLanguages));
   levels$: Observable<string[]> = this.store.pipe(select(selectLevels));
+  selectedCVIndex = 0;
 
-  @ViewChild(MatAccordion) accordion: MatAccordion;
+
+  openConfirmModal(method: () => void, message: string): void {
+    this.dialog.open(ModalConfirmComponent, {
+      data: {
+        method,
+        message,
+      },
+    });
+  }
 
   ngOnInit(): void {
     this.store.dispatch(getTechStackAction());
@@ -67,7 +79,6 @@ export class EmployeeCvTabComponent implements OnInit {
     this.store.dispatch(getLanguagesAction());
 
     this.cvs$.pipe(untilDestroyed(this)).subscribe(cvs => {
-
       const isCVFormArrayLength = this.employeeCVFormArray.length;
       const isCVArrayLength = cvs.length;
 
@@ -110,6 +121,11 @@ export class EmployeeCvTabComponent implements OnInit {
     });
   }
 
+  handleOpenDeleteCVModal(index: number) {
+    const message = 'home.employee.modals.confirmDeleteCV';
+    this.openConfirmModal(() => this.handleDeleteCV(index), message);
+  }
+
   handleDeleteCV(index: number) {
     const cvId = this.employeeCVFormArray.at(index).value.id;
     if (cvId) {
@@ -118,6 +134,8 @@ export class EmployeeCvTabComponent implements OnInit {
 
     this.selectedCVIndex = 0;
     this.employeeCVFormArray.removeAt(index);
+
+    this.cdRef.markForCheck();
   }
 
   handleAddCV() {
@@ -140,12 +158,44 @@ export class EmployeeCvTabComponent implements OnInit {
   handleDeleteProject(removeProjIndex: number) {
     const projects = this.employeeCVFormArray.at(this.selectedCVIndex).controls.cvsProjects;
     projects.removeAt(removeProjIndex);
+    this.cdRef.markForCheck();
+  }
+
+  handleOpenDeleteProjectModal(removeProjIndex: number) {
+    const message = 'home.employee.modals.confirmDeleteProject';
+    this.openConfirmModal(() => this.handleDeleteProject(removeProjIndex), message);
   }
 
   handleADDProject() {
     this.employeeCVFormArray
       .at(this.selectedCVIndex)
       .controls.cvsProjects.push(this.fb.control({ projectName: 'New Project' }));
+  }
+
+  handleAddProjects(projects: IFormatedProject[]) {
+    const oldProjectsFormArray = this.employeeCVFormArray.at(this.selectedCVIndex).controls
+      .cvsProjects;
+    const newprojectsFormArray = this.fb.array(projects);
+
+    const mergedArray = [...newprojectsFormArray.controls, ...oldProjectsFormArray.controls];
+
+    this.employeeCVFormArray
+      .at(this.selectedCVIndex)
+      .setControl('cvsProjects', new FormArray(mergedArray));
+
+    this.cdRef.markForCheck();
+  }
+
+  handleOpenAddProjectModal() {
+    const modal = this.dialog.open(ProjectsModalComponent, {
+      data: {},
+    });
+
+    modal.afterClosed().subscribe(projects => {
+      if (projects) {
+        this.handleAddProjects(projects);
+      }
+    });
   }
 
   handleDeleteLanguage(removeLangIndex: number) {
@@ -174,10 +224,6 @@ export class EmployeeCvTabComponent implements OnInit {
     >;
   }
 
-  // getSelectedCVFormGroup(): FormGroup<CVTabFormInterface> {
-  //   return this.employeeCVFormArray.controls[this.selectedCVIndex];
-  // }
-
   projectControlName(control: AbstractControl): FormControl {
     return control as FormControl;
   }
@@ -200,9 +246,9 @@ export class EmployeeCvTabComponent implements OnInit {
 
     const cvBody = {
       cvName: rawValue.cvName,
-      language: formatSendingLangArray,
       skills: rawValue.skills,
       projects: rawValue.cvsProjects,
+      language: formatSendingLangArray,
       employeeId: this.employeeId,
       ...rawValue.employeeInfo,
     };

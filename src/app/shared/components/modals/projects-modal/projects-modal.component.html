@@ -1,0 +1,19 @@
+<div class="modal">
+  <cv-gen-select
+    optionName="projectName"
+    label="Multi select label"
+    placeholder="Multi select placeholder"
+    [formControl]="formControl"
+    [options]="options"
+    [isMultiple]="true">
+  </cv-gen-select>
+
+  <div class="buttons">
+    <button mat-stroked-button color="primary" (click)="handleSubmit()">
+      {{ 'home.employee.buttons.submit' | translate }}
+    </button>
+    <button mat-stroked-button color="accent" (click)="handleClose()">
+      {{ 'home.employee.buttons.cancel' | translate }}
+    </button>
+  </div>
+</div>

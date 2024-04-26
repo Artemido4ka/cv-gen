@@ -28,7 +28,7 @@ export class ProjectsService {
     return this.http.get<IProject[]>(this.PROJECTS_URL).pipe(
       map(projects => {
         return projects
-          .map(project => this.formatProjectDate(project))
+          // .map(project => this.formatProjectDate(project))
           .map(project => this.formatProject(project));
       })
     );

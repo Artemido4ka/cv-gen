@@ -206,16 +206,21 @@
         }
       },
       "buttons": {
-        "save": "save",
-        "cancel": "cancel",
+        "save": "Save",
+        "cancel": "Cancel",
         "addProject": "Add Project",
         "addLanguage": "Add language",
-        "addCV": "Add CV"
+        "addCV": "Add CV",
+        "submit": "Submit"
       },
       "toasts": {
         "addCVSuccess": "Created new CV",
         "editCVSuccess": "Edited CV",
         "deletedCVSuccess": "Deleted CV"
+      },
+      "modals": {
+        "confirmDeleteProject": "Are you shure ?",
+        "confirmDeleteCV": "Are you shure ?"
       }
     },
     "sidebar": {

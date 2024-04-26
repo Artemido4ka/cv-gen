@@ -8,7 +8,7 @@ import { ErrorMessageComponent } from '../../error-message/error-message.compone
 import { BaseControlDirective } from '../../../directives/base-control.directive';
 
 type OptionType = {
-  [key: string]: number | string;
+  [key: string]: number | string | string[];
   id?: number;
   name?: string;
   abbrev?: string;

@@ -47,8 +47,11 @@ export const cvReducers = createReducer(
   //Create CV
   on(addCVAction, state => ({ ...state, requestStatus: RequestStatusEnum.PENDING })),
 
+  // on(addCVSuccessAction, (state, { cv }) => {
+  //   return { ...state, cv, cvs: [...state.cvs, cv], requestStatus: RequestStatusEnum.SUCCESS };
+  // }),
   on(addCVSuccessAction, (state, { cv }) => {
-    return { ...state, cv, cvs: [...state.cvs, cv], requestStatus: RequestStatusEnum.SUCCESS };
+    return { ...state, cv, requestStatus: RequestStatusEnum.SUCCESS };
   }),
 
   on(addCVFailedAction, (state, { error }) => {
@@ -69,13 +72,20 @@ export const cvReducers = createReducer(
   //Delete CV
   on(deleteCVAction, state => ({ ...state, requestStatus: RequestStatusEnum.PENDING })),
 
-  on(deleteCVSuccessAction, (state, { cv: deletedCV }) => {
-    const filteredCVs = state.cvs.filter(cv => cv.id !== deletedCV.id);
+  // on(deleteCVSuccessAction, (state, { cv: deletedCV }) => {
+  //   const filteredCVs = state.cvs.filter(cv => cv.id !== deletedCV.id);
 
+  //   return {
+  //     ...state,
+  //     cv: deletedCV,
+  //     cvs: [...filteredCVs],
+  //     requestStatus: RequestStatusEnum.SUCCESS,
+  //   };
+  // }),
+  on(deleteCVSuccessAction, (state, { cv: deletedCV }) => {
     return {
       ...state,
       cv: deletedCV,
-      cvs: [...filteredCVs],
       requestStatus: RequestStatusEnum.SUCCESS,
     };
   }),

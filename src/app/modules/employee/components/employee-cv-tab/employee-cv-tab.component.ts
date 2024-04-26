@@ -10,10 +10,10 @@ import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup } from 
 
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { Store, select } from '@ngrx/store';
-import { Observable, switchMap } from 'rxjs';
+import { Observable } from 'rxjs';
 import { IAppState } from 'src/app/store/app.store';
 import { CVFormatedInterface } from 'src/app/shared/types/cv.type';
-import { selectCVs } from 'src/app/store/cv/cv.selectors';
+import { selectCV, selectCVs } from 'src/app/store/cv/cv.selectors';
 import { getTechStackAction } from 'src/app/store/projects/project.actions';
 import { FormatedTechStackItemT, IFormatedProject } from 'src/app/shared/types/project.types';
 import { selectTechStack } from 'src/app/store/projects/projects.selectors';
@@ -57,6 +57,8 @@ export class EmployeeCvTabComponent implements OnInit {
   @ViewChild(MatAccordion) accordion: MatAccordion;
 
   cvs$: Observable<CVFormatedInterface[]> = this.store.pipe(select(selectCVs));
+  cv$: Observable<CVFormatedInterface> = this.store.pipe(select(selectCV));
+
   employeeCVFormArray = new FormArray<FormGroup<CVTabFormInterface>>([]);
   skillsOptions$: Observable<FormatedTechStackItemT[]> = this.store.pipe(select(selectTechStack));
   languages$: Observable<string[]> = this.store.pipe(select(selectLanguages));
@@ -72,52 +74,35 @@ export class EmployeeCvTabComponent implements OnInit {
     });
   }
 
-  //TODO:check logic when adding new cv
   ngOnInit(): void {
     this.store.dispatch(getTechStackAction());
     this.store.dispatch(getLevelsAction());
     this.store.dispatch(getLanguagesAction());
 
     this.cvs$.pipe(untilDestroyed(this)).subscribe(cvs => {
-      this.employeeCVFormArray.clear();
+      const arrayOfCVs = cvs.map(({ cvsProjects, language, skills, cvName, id, ...restCVInfo }) => {
+        const langArray = language.length
+          ? language.map(({ name, level }) =>
+              this.fb.group({
+                name: [name.name, employeeRequiredFieldValidator('language')],
+                level: [level.name, employeeRequiredFieldValidator('level')],
+              })
+            )
+          : [];
 
-      const isCVFormArrayLength = this.employeeCVFormArray.length;
-      const isCVArrayLength = cvs.length;
-
-      // if (!isCVArrayLength && isCVFormArrayLength) {
-      //   this.employeeCVFormArray.clear();
-      // }
-
-      // if (isCVArrayLength && isCVFormArrayLength) {
-      //   const newIdOfCreatedCV = cvs[cvs.length - 1].id;
-      //   this.employeeCVFormArray.at(this.selectedCVIndex).patchValue({
-      //     id: newIdOfCreatedCV,
-      //   });
-      // }
-
-      if (isCVArrayLength) {
-        cvs.forEach(({ cvsProjects, language, skills, cvName, id, ...restCVInfo }) => {
-          const langArray = language.length
-            ? language.map(({ name, level }) =>
-                this.fb.group({
-                  name: [name.name, employeeRequiredFieldValidator('language')],
-                  level: [level.name, employeeRequiredFieldValidator('level')],
-                })
-              )
-            : [];
-
-          const control = this.fb.group({
-            id,
-            cvName: [cvName, [employeeRequiredFieldValidator('cvName')]],
-            skills: [skills, [employeeRequiredFieldValidator('skills')]],
-            cvsProjects: this.fb.array(cvsProjects),
-            language: this.fb.array(langArray),
-            employeeInfo: restCVInfo,
-          });
-
-          return this.employeeCVFormArray.push(control);
+        const control = this.fb.group({
+          id,
+          cvName: [cvName, [employeeRequiredFieldValidator('cvName')]],
+          skills: [skills, [employeeRequiredFieldValidator('skills')]],
+          cvsProjects: this.fb.array(cvsProjects),
+          language: this.fb.array(langArray),
+          employeeInfo: restCVInfo,
         });
-      }
+
+        return control;
+      });
+
+      this.employeeCVFormArray = new FormArray(arrayOfCVs);
 
       this.cdRef.markForCheck();
     });
@@ -257,9 +242,21 @@ export class EmployeeCvTabComponent implements OnInit {
 
     const cvId = rawValue.id;
 
-    cvId
-      ? this.store.dispatch(editCVAction({ id: cvId, cv: cvBody }))
-      : this.store.dispatch(addCVAction({ cv: cvBody }));
+    if (!cvId) {
+      this.store.dispatch(addCVAction({ cv: cvBody }));
+
+      this.cv$.pipe(untilDestroyed(this)).subscribe(cv => {
+        this.employeeCVFormArray.at(this.selectedCVIndex).patchValue({
+          id: cv?.id,
+        });
+
+        this.cdRef.markForCheck();
+      });
+
+      return;
+    }
+
+    this.store.dispatch(editCVAction({ id: cvId, cv: cvBody }));
   }
 
   handleCancel() {

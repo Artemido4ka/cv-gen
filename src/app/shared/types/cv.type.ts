@@ -1,7 +1,7 @@
 import { IEmployee } from './employees.types';
 import { IFormatedProject, IProject } from './project.types';
 
-export interface CVInterface extends Omit<IEmployee, 'id'> {
+export interface CVInterface extends Omit<IEmployee, 'id' | 'cvs'> {
   id: number;
   cvName: string;
   language: LanguageInterface[];
@@ -28,6 +28,29 @@ export interface CVFormatedInterface
   department: string;
   specialization: string;
   cvsProjects: IFormatedProject[];
+}
+
+export interface sendingCVFormatedInterface
+  extends Omit<
+    CVInterface,
+    | 'language'
+    | 'skills'
+    | 'cvsProjects'
+    | 'department'
+    | 'specialization'
+    | 'departmentId'
+    | 'departmentId'
+    | 'specializationId'
+    | 'id'
+  > {
+  language: {
+    name: { name: string };
+    level: { name: string };
+  }[];
+  skills: string[];
+  department: string;
+  specialization: string;
+  projects: IFormatedProject[];
 }
 
 export interface FormatedLanguageInterface {

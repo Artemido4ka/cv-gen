@@ -12,7 +12,11 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { IAppState } from 'src/app/store/app.store';
-import { CVFormatedInterface, FormatedLanguageInterface } from 'src/app/shared/types/cv.type';
+import {
+  CVFormatedInterface,
+  FormatedLanguageInterface,
+  sendingCVFormatedInterface,
+} from 'src/app/shared/types/cv.type';
 import { selectCV, selectCVs } from 'src/app/store/cv/cv.selectors';
 import { getTechStackAction } from 'src/app/store/projects/project.actions';
 import { FormatedTechStackItemT, IFormatedProject } from 'src/app/shared/types/project.types';
@@ -27,6 +31,8 @@ import { MatDialog } from '@angular/material/dialog';
 
 import { ModalConfirmComponent } from 'src/app/shared/components/modals/modal-confirm/modal-confirm.component';
 import { ProjectsModalComponent } from 'src/app/shared/components/modals/projects-modal/projects-modal.component';
+import { CvPdfService } from 'src/app/shared/services/cv-pdf.service';
+import { IFormatedEmployee } from 'src/app/shared/types/employees.types';
 
 interface CVTabFormInterface {
   cvsProjects: FormArray;
@@ -35,6 +41,21 @@ interface CVTabFormInterface {
   skills: FormControl;
   cvName: FormControl;
   id: FormControl;
+}
+
+interface CVTabFormRawInterface {
+  cvsProjects: IFormatedProject[];
+  employeeInfo: Pick<
+    IFormatedEmployee,
+    'department' | 'specialization' | 'firstName' | 'lastName' | 'email'
+  >;
+  language: {
+    name: string;
+    level: string;
+  }[];
+  skills: string[];
+  cvName: string;
+  id: number;
 }
 @UntilDestroy()
 @Component({
@@ -49,7 +70,8 @@ export class EmployeeCvTabComponent implements OnInit {
     private fb: FormBuilder,
     private readonly cdRef: ChangeDetectorRef,
     private location: Location,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private cvPdfService: CvPdfService
   ) {}
 
   @Input() employeeId: number;
@@ -200,26 +222,11 @@ export class EmployeeCvTabComponent implements OnInit {
     }
 
     const rawValue = selectedCV.getRawValue();
-
-    const formatSendingLangArray = rawValue.language.length
-      ? rawValue.language.map(({ name, level }) => {
-          return { name: { name: name }, level: { name: level } };
-        })
-      : [];
-
-    const cvBody = {
-      cvName: rawValue.cvName,
-      skills: rawValue.skills,
-      projects: rawValue.cvsProjects,
-      language: formatSendingLangArray,
-      employeeId: this.employeeId,
-      ...rawValue.employeeInfo,
-    };
-
     const cvId = rawValue.id;
+    const cv = this.formatCVBody(rawValue);
 
     if (!cvId) {
-      this.store.dispatch(addCVAction({ cv: cvBody }));
+      this.store.dispatch(addCVAction({ cv: cv }));
 
       this.cv$.pipe(untilDestroyed(this)).subscribe(cv => {
         this.employeeCVFormArray.at(this.selectedCVIndex).patchValue({
@@ -232,7 +239,7 @@ export class EmployeeCvTabComponent implements OnInit {
       return;
     }
 
-    this.store.dispatch(editCVAction({ id: cvId, cv: cvBody }));
+    this.store.dispatch(editCVAction({ id: cvId, cv }));
   }
 
   handleCancel() {
@@ -269,5 +276,32 @@ export class EmployeeCvTabComponent implements OnInit {
       skills: new FormControl(skills, [employeeRequiredFieldValidator('skills')]),
       cvsProjects: this.fb.array(cvsProjects),
     });
+  }
+
+  handlePDF() {
+    const selectedCV = this.employeeCVFormArray.at(this.selectedCVIndex);
+    const rawValue = selectedCV.getRawValue();
+    const data = this.formatCVBody(rawValue);
+
+    this.cvPdfService.handlePDF(data);
+  }
+
+  formatCVBody(rawValue: CVTabFormRawInterface): sendingCVFormatedInterface {
+    const formatSendingLangArray = rawValue.language.length
+      ? rawValue.language.map(({ name, level }) => {
+          return { name: { name: name }, level: { name: level } };
+        })
+      : [];
+
+    const cvBody = {
+      cvName: rawValue.cvName,
+      skills: rawValue.skills,
+      projects: rawValue.cvsProjects.map(({ id, ...rest }) => rest),
+      language: formatSendingLangArray,
+      employeeId: this.employeeId,
+      ...rawValue.employeeInfo,
+    };
+
+    return cvBody;
   }
 }

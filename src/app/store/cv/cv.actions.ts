@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { CVFormatedInterface } from 'src/app/shared/types/cv.type';
+import { CVFormatedInterface, sendingCVFormatedInterface } from 'src/app/shared/types/cv.type';
 
 export enum CVActionsEnum {
   GetCVs = '[CV API] Get CVs',
@@ -43,7 +43,7 @@ export const getCVSuccessAction = createAction(
 export const getCVFailedAction = createAction(CVActionsEnum.GetCVError, props<{ error: Error }>());
 
 //Create CV
-export const addCVAction = createAction(CVActionsEnum.AddCV, props<{ cv: CVFormatedInterface }>());
+export const addCVAction = createAction(CVActionsEnum.AddCV, props<{ cv: sendingCVFormatedInterface }>());
 
 export const addCVSuccessAction = createAction(
   CVActionsEnum.AddCVSuccess,
@@ -55,7 +55,7 @@ export const addCVFailedAction = createAction(CVActionsEnum.AddCVError, props<{ 
 //Update CV
 export const editCVAction = createAction(
   CVActionsEnum.EditCV,
-  props<{ id: number; cv: CVFormatedInterface }>()
+  props<{ id: number; cv: sendingCVFormatedInterface }>()
 );
 
 export const editCVSuccessAction = createAction(

@@ -1,5 +1,5 @@
 import { ProjectsService } from './../../projects/services/projects.service';
-import { CVFormatedInterface, CVInterface } from './../../../shared/types/cv.type';
+import { CVFormatedInterface, CVInterface, sendingCVFormatedInterface } from './../../../shared/types/cv.type';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs';
@@ -29,11 +29,11 @@ export class CVService {
       .pipe(map(cv => this.formatCV(cv)));
   }
 
-  createCV(cvBody: CVFormatedInterface) {
+  createCV(cvBody: sendingCVFormatedInterface) {
     return this.http.post<CVInterface>(API_URLS.CV_URL, cvBody).pipe(map(cv => this.formatCV(cv)));
   }
 
-  updateCV(cvId: number, cvBody: CVFormatedInterface) {
+  updateCV(cvId: number, cvBody: sendingCVFormatedInterface) {
     return this.http
       .put<CVInterface>(`${API_URLS.CV_URL}/${cvId}`, cvBody)
       .pipe(map(cv => this.formatCV(cv)));

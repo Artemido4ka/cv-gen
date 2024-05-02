@@ -12,6 +12,9 @@ const routes: Routes = [
     path: RoutingPaths.HOME,
     loadChildren: () => import('./modules/home/home.module').then(m => m.HomeModule),
     canActivate: [authGuard],
+    data: {
+      breadcrumb: 'home',
+    },
   },
   {
     path: RoutingPaths.STORY_BOOK,

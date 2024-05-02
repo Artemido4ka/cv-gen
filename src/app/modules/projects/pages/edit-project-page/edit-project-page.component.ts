@@ -1,3 +1,4 @@
+import { BreadcrumbsService } from './../../../../shared/services/breadcrumbs.service';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { FormBuilder } from '@angular/forms';
@@ -25,7 +26,8 @@ export class EditProjectPageComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private location: Location,
-    private store: Store<IAppState>
+    private store: Store<IAppState>,
+    private breadcrumbsService: BreadcrumbsService
   ) {}
 
   projectId: number;
@@ -41,6 +43,7 @@ export class EditProjectPageComponent implements OnInit {
     this.store.dispatch(getProjectAction({ id: this.projectId }));
 
     this.project$.pipe(untilDestroyed(this)).subscribe(project => {
+      project && this.breadcrumbsService.addBreadCrumb(project.projectName);
       this.editForm.controls.editProjectForm.setValue(project);
       //TODO: markAsUntouched() can be deleted later
       // this.editForm.controls.editProjectForm.markAsUntouched();

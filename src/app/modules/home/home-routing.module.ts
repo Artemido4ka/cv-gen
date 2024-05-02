@@ -7,14 +7,21 @@ const routes: Routes = [
   {
     path: '',
     component: HomePageComponent,
+
     children: [
       {
         path: RoutingPaths.EMPLOYEES,
         loadChildren: () => import('../employee/employee.module').then(m => m.EmployeeModule),
+        data: {
+          breadcrumb: 'employees',
+        },
       },
       {
         path: RoutingPaths.PROJECTS,
         loadChildren: () => import('../projects/projects.module').then(m => m.ProjectsModule),
+        data: {
+          breadcrumb: 'projects',
+        },
       },
       { path: '**', redirectTo: RoutingPaths.PROJECTS },
     ],

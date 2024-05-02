@@ -18,6 +18,9 @@ const routes: Routes = [
   {
     path: `${RoutingPaths.EDIT}/:id`,
     component: EditProjectPageComponent,
+    data: {
+      breadcrumb: ''
+  }
   },
 ];
 

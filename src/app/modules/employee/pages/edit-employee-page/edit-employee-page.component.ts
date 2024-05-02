@@ -1,10 +1,11 @@
 import { Location } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { BreadcrumbsService } from 'src/app/shared/services/breadcrumbs.service';
 import { IFormatedEmployee } from 'src/app/shared/types/employees.types';
 import { IAppState } from 'src/app/store/app.store';
 import { getDepartmentsAction, getSpecializationsAction } from 'src/app/store/core/core.actions';
@@ -21,10 +22,9 @@ import { getEmployeeAction } from 'src/app/store/employees/employees.actions';
 export class EditEmployeePageComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
     private location: Location,
     private store: Store<IAppState>,
-    private readonly cdRef: ChangeDetectorRef
+    private breadcrumbsService: BreadcrumbsService
   ) {}
 
   employeeId: number;
@@ -38,6 +38,8 @@ export class EditEmployeePageComponent implements OnInit {
     this.store.dispatch(getSpecializationsAction());
 
     this.employee$.pipe(untilDestroyed(this)).subscribe(employee => {
+      employee &&
+        this.breadcrumbsService.addBreadCrumb(`${employee.firstName} ${employee.lastName}`);
       this.editEmployeeForm.setValue(employee);
     });
   }

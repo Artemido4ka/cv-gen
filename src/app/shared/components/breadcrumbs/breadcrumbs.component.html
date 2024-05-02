@@ -1,1 +1,9 @@
-<div class="breadcrumbs">Home/projects/:name</div>
+<div class="breadcrumbs">
+  <ul class="breadcrumb">
+    <li *ngFor="let breadcrumb of breadcrumbs">
+      <span [routerLink]="breadcrumb.url" routerLinkActive="active">
+        {{ breadcrumb.label }}
+      </span>
+    </li>
+  </ul>
+</div>

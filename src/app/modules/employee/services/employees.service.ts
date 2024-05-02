@@ -1,29 +1,23 @@
-import { CVService } from 'src/app/modules/employee/services/cv.service';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs';
 import { API_URLS } from 'src/app/shared/constants/api-urls';
-import {
-  IEmployee,
-  IFormatedEmployee,
-  RequestEmployeeT,
-} from 'src/app/shared/types/employees.types';
+import { IEmployee, RequestEmployeeT } from 'src/app/shared/types/employees.types';
 import { TechStackItemT } from 'src/app/shared/types/project.types';
 import { IBasicObjectItem } from 'src/app/shared/types/core.type';
+import { formatObjectToString } from 'src/app/shared/utils/project.utils';
+import { formatEmployee } from 'src/app/shared/utils/employee.utils';
 
 @Injectable({
   providedIn: 'root',
 })
 export class EmployeesService {
-  constructor(
-    private http: HttpClient,
-    private cvService: CVService
-  ) {}
+  constructor(private http: HttpClient) {}
 
   getEmployees() {
     return this.http.get<IEmployee[]>(API_URLS.EMPLOYEES_URL).pipe(
       map(employees => {
-        return employees.map(employee => this.formatEmployee(employee));
+        return employees.map(employee => formatEmployee(employee));
       })
     );
   }
@@ -31,55 +25,42 @@ export class EmployeesService {
   getEmployeeById(employeeId: number) {
     return this.http
       .get<IEmployee>(`${API_URLS.EMPLOYEES_URL}/${employeeId}`)
-      .pipe(map(employee => this.formatEmployee(employee)));
+      .pipe(map(employee => formatEmployee(employee)));
   }
 
   createEmployee(employeeBody: RequestEmployeeT) {
     return this.http
       .post<IEmployee>(API_URLS.EMPLOYEES_URL, employeeBody)
-      .pipe(map(employee => this.formatEmployee(employee)));
+      .pipe(map(employee => formatEmployee(employee)));
   }
 
   updateEmployee(projectId: number, projectBody: RequestEmployeeT) {
     return this.http
       .put<IEmployee>(`${API_URLS.EMPLOYEES_URL}/${projectId}`, projectBody)
-      .pipe(map(project => this.formatEmployee(project)));
+      .pipe(map(project => formatEmployee(project)));
   }
 
   getDepartments() {
     return this.http
       .get<IBasicObjectItem[]>(API_URLS.DEPARTMENTS_URL)
-      .pipe(map(departments => this.formatObjectToString(departments)));
+      .pipe(map(departments => formatObjectToString(departments)));
   }
 
   getSpecializations() {
     return this.http
       .get<TechStackItemT[]>(API_URLS.SPECIALIZATIONS_URL)
-      .pipe(map(specializations => this.formatObjectToString(specializations)));
+      .pipe(map(specializations => formatObjectToString(specializations)));
   }
 
   getLanguages() {
     return this.http
       .get<IBasicObjectItem[]>(API_URLS.LANGUAGES_URL)
-      .pipe(map(languages => this.formatObjectToString(languages)));
+      .pipe(map(languages => formatObjectToString(languages)));
   }
 
   getLevels() {
     return this.http
       .get<IBasicObjectItem[]>(API_URLS.LEVELS_URL)
-      .pipe(map(levels => this.formatObjectToString(levels)));
-  }
-
-  formatEmployee(employee: IEmployee): IFormatedEmployee {
-    const department = employee.department.name;
-    const specialization = employee.specialization.name;
-
-    const cvs = employee.cvs.map(cv => this.cvService.formatCV(cv));
-
-    return { ...employee, department, specialization, cvs };
-  }
-
-  formatObjectToString(item: IBasicObjectItem[]) {
-    return item.map(i => i.name);
+      .pipe(map(levels => formatObjectToString(levels)));
   }
 }

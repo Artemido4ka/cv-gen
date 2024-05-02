@@ -11,12 +11,22 @@ describe('LabelComponent', () => {
     TestBed.configureTestingModule({
       imports: [LabelComponent, TranslateModule.forRoot()],
     });
+
     fixture = TestBed.createComponent(LabelComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create component', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should take inputs', () => {
+    const h1 = fixture.nativeElement.querySelector('label');
+    component.label = 'test label';
+
+    component.hasError = true;
+    fixture.detectChanges();
+
+    expect(h1.textContent).toContain('test label');
   });
 });

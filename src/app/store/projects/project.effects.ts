@@ -27,12 +27,14 @@ import {
   getTechStackFailedAction,
 } from './project.actions';
 import { HttpErrorResponse } from '@angular/common/http';
+import { SharedAPIService } from 'src/app/shared/services/shared-api.service';
 
 @Injectable()
 export class ProjectsEffects {
   constructor(
     private actions$: Actions,
-    private projectsService: ProjectsService
+    private projectsService: ProjectsService,
+    private sharedAPIService: SharedAPIService
   ) {}
 
   loadProjects$ = createEffect(() =>
@@ -87,7 +89,7 @@ export class ProjectsEffects {
     this.actions$.pipe(
       ofType(getTechStackAction),
       switchMap(() => {
-        return this.projectsService.getTechStack().pipe(
+        return this.sharedAPIService.getTechStack().pipe(
           map(techStack => getTechStackSuccessAction({ techStack })),
           catchError((error: HttpErrorResponse) => of(getTechStackFailedAction(error)))
         );
@@ -99,7 +101,7 @@ export class ProjectsEffects {
     this.actions$.pipe(
       ofType(getTeamRolesAction),
       switchMap(() => {
-        return this.projectsService.getRoles().pipe(
+        return this.sharedAPIService.getRoles().pipe(
           map(teamRoles => getTeamRolesSuccessAction({ teamRoles })),
           catchError((error: HttpErrorResponse) => of(getTeamRolesFailedAction(error)))
         );
@@ -111,7 +113,7 @@ export class ProjectsEffects {
     this.actions$.pipe(
       ofType(getResponsibilitiesAction),
       switchMap(() => {
-        return this.projectsService.getResponsibilities().pipe(
+        return this.sharedAPIService.getResponsibilities().pipe(
           map(responsibilities => getResponsibilitiesSuccessAction({ responsibilities })),
           catchError((error: HttpErrorResponse) => of(getResponsibilitiesFailedAction(error)))
         );

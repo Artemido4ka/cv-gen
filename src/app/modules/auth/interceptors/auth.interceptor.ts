@@ -1,4 +1,4 @@
-import { ErrorsService } from './../../../shared/services/errors.service';
+import { ErrorsService } from '../../../shared/services/errors-service/errors.service';
 import { Injectable } from '@angular/core';
 import {
   HttpRequest,

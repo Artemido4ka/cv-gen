@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { animate, style, transition, trigger } from '@angular/animations';
-import { ToastService } from '../../services/toast.service';
+import { ToastService } from '../../services/toast-service/toast.service';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({

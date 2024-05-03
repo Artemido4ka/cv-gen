@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { TOAST_POSITION } from '../constants/toasts';
+import { TOAST_POSITION } from '../../constants/toasts';
 
 type toastType = {
   toastId: number;

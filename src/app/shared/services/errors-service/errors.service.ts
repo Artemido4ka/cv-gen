@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { ErrorHandler, Injectable } from '@angular/core';
-import { ToastService } from './toast.service';
-import { TOAST_STATUS } from '../constants/toasts';
+import { ToastService } from '../toast-service/toast.service';
+import { TOAST_STATUS } from '../../constants/toasts';
 
 @Injectable({
   providedIn: 'root',

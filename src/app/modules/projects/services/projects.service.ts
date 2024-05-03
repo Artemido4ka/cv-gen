@@ -1,4 +1,5 @@
-import { formatProject } from './../../../shared/utils/project.utils';
+import { SharedService } from './../../../shared/services/shared-service/shared.service';
+
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
@@ -9,7 +10,10 @@ import { IFormatedProject, IProject, RequestProject } from 'src/app/shared/types
   providedIn: 'root',
 })
 export class ProjectsService {
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private sharedService: SharedService
+  ) {}
 
   getProjects() {
     return this.http.get<IProject[]>(API_URLS.PROJECTS).pipe(
@@ -17,7 +21,7 @@ export class ProjectsService {
         return (
           projects
             // .map(project => formatProjectDate(project))
-            .map(project => formatProject(project))
+            .map(project => this.sharedService.formatProject(project))
         );
       })
     );
@@ -26,18 +30,18 @@ export class ProjectsService {
   getProjectById(projectId: number) {
     return this.http
       .get<IProject>(`${API_URLS.PROJECTS}/${projectId}`)
-      .pipe(map(project => formatProject(project)));
+      .pipe(map(project => this.sharedService.formatProject(project)));
   }
 
   createProject(projectBody: RequestProject): Observable<IFormatedProject> {
     return this.http
       .post<IProject>(API_URLS.PROJECTS, projectBody)
-      .pipe(map(project => formatProject(project)));
+      .pipe(map(project => this.sharedService.formatProject(project)));
   }
 
   updateProject(projectId: number, projectBody: RequestProject) {
     return this.http
       .put<IProject>(`${API_URLS.PROJECTS}/${projectId}`, projectBody)
-      .pipe(map(project => formatProject(project)));
+      .pipe(map(project => this.sharedService.formatProject(project)));
   }
 }

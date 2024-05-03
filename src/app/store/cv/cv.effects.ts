@@ -21,7 +21,7 @@ import {
 } from './cv.actions';
 import { HttpErrorResponse } from '@angular/common/http';
 import { CVService } from 'src/app/modules/employee/services/cv.service';
-import { ToastService } from 'src/app/shared/services/toast.service';
+import { ToastService } from 'src/app/shared/services/toast-service/toast.service';
 import { TOAST_STATUS } from 'src/app/shared/constants/toasts';
 import { TranslateService } from '@ngx-translate/core';
 

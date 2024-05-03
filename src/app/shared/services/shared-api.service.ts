@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { ResponsibilityT, TeamRoleT, TechStackItemT } from '../types/project.types';
 import { API_URLS } from '../constants/api-urls';
 import { map } from 'rxjs';
-import { formatObjectToString } from '../utils/project.utils';
+import { formatObjectToString } from '../utils/shared.utils';
 
 @Injectable({
   providedIn: 'root',

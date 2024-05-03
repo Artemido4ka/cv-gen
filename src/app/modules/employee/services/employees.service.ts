@@ -5,19 +5,23 @@ import { API_URLS } from 'src/app/shared/constants/api-urls';
 import { IEmployee, RequestEmployeeT } from 'src/app/shared/types/employees.types';
 import { TechStackItemT } from 'src/app/shared/types/project.types';
 import { IBasicObjectItem } from 'src/app/shared/types/core.type';
-import { formatObjectToString } from 'src/app/shared/utils/project.utils';
-import { formatEmployee } from 'src/app/shared/utils/employee.utils';
+
+import { formatObjectToString } from 'src/app/shared/utils/shared.utils';
+import { SharedService } from 'src/app/shared/services/shared-service/shared.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class EmployeesService {
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private sharedService: SharedService
+  ) {}
 
   getEmployees() {
     return this.http.get<IEmployee[]>(API_URLS.EMPLOYEES_URL).pipe(
       map(employees => {
-        return employees.map(employee => formatEmployee(employee));
+        return employees.map(employee => this.sharedService.formatEmployee(employee));
       })
     );
   }
@@ -25,19 +29,19 @@ export class EmployeesService {
   getEmployeeById(employeeId: number) {
     return this.http
       .get<IEmployee>(`${API_URLS.EMPLOYEES_URL}/${employeeId}`)
-      .pipe(map(employee => formatEmployee(employee)));
+      .pipe(map(employee => this.sharedService.formatEmployee(employee)));
   }
 
   createEmployee(employeeBody: RequestEmployeeT) {
     return this.http
       .post<IEmployee>(API_URLS.EMPLOYEES_URL, employeeBody)
-      .pipe(map(employee => formatEmployee(employee)));
+      .pipe(map(employee => this.sharedService.formatEmployee(employee)));
   }
 
   updateEmployee(projectId: number, projectBody: RequestEmployeeT) {
     return this.http
       .put<IEmployee>(`${API_URLS.EMPLOYEES_URL}/${projectId}`, projectBody)
-      .pipe(map(project => formatEmployee(project)));
+      .pipe(map(project => this.sharedService.formatEmployee(project)));
   }
 
   getDepartments() {

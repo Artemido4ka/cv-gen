@@ -9,13 +9,18 @@ import {
   PROJECT_TEST_DATA,
   PROJECT_TEST_FORMATED_DATA,
 } from 'src/app/shared/constants/testing-mocks';
+import { SharedService } from 'src/app/shared/services/shared-service/shared.service';
 
 describe('ProjectsService', () => {
   let projectsService: ProjectsService;
   let testingController: HttpTestingController;
+  const sharedServiceSpy = jasmine.createSpyObj('SharedService', ['formatProject']);
+  const fakeRes = PROJECT_TEST_FORMATED_DATA;
+  sharedServiceSpy.formatProject.and.returnValue(fakeRes);
 
   beforeEach(() => {
     TestBed.configureTestingModule({
+      providers: [ProjectsService, { provide: SharedService, useValue: sharedServiceSpy }],
       imports: [HttpClientTestingModule],
     });
     projectsService = TestBed.inject(ProjectsService);

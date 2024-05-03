@@ -12,7 +12,7 @@ type toastType = {
   providedIn: 'root',
 })
 export class ToastService {
-  toastsCount: 0;
+  toastsCount = 0;
 
   public toastsArray$: BehaviorSubject<toastType[]> = new BehaviorSubject<toastType[]>([]);
   public showToast$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
@@ -43,8 +43,9 @@ export class ToastService {
 
   closeToast(toastId: number): void {
     const toasts = this.getToasts();
-    toasts.splice(toastId, 1);
-    this.setToasts(toasts);
+    const filteredToasts = toasts.filter(t => t.toastId !== toastId);
+
+    this.setToasts(filteredToasts);
   }
 
   getToasts(): toastType[] {

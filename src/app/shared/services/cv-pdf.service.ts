@@ -1,6 +1,7 @@
 import { jsPDF } from 'jspdf';
 import { Injectable } from '@angular/core';
 import { sendingCVFormatedInterface } from '../types/cv.type';
+import { formatDate } from '@angular/common';
 
 @Injectable({
   providedIn: 'root',
@@ -101,9 +102,14 @@ export class CvPdfService {
     yPosProj += STEP_BETWEEN_PROJECTS;
 
     data.projects.forEach(p => {
+      const f = 'dd.MM.yyyy';
+      const l = 'en';
+      const startDate = formatDate(p.startDate, f, l);
+      const endDate = formatDate(p.endDate, f, l);
+
       doc.setFont(undefined, 'bold').text(p.projectName, xPosProj, yPosProj);
       doc.setFont(undefined, 'normal');
-      doc.text(`${p.startDate}- ${p.endDate}`, xPosProj, yPosProj + STEP_BETWEEN_ITEMS);
+      doc.text(`${startDate} - ${endDate}`, xPosProj, yPosProj + STEP_BETWEEN_ITEMS);
 
       yPosProj = this.checkPage(yPosProj, doc);
       doc.text(`Team size: ${p.teamSize}`, xPosProj, yPosProj + STEP_BETWEEN_ITEMS);

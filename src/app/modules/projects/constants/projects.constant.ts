@@ -1,4 +1,5 @@
 import { Validators } from '@angular/forms';
+import { DateCellComponent } from 'src/app/shared/components/cells/date-cell/date-cell.component';
 import { TableItemsCellComponent } from 'src/app/shared/components/cells/table-items-cell/table-items-cell.component';
 import { customValidator } from 'src/app/shared/validators/validators';
 
@@ -18,10 +19,12 @@ export const projectsTableColumns = [
   {
     columnDef: 'startDate',
     header: 'home.projects.table.headers.startDate',
+    cellComponent: DateCellComponent,
   },
   {
     columnDef: 'endDate',
     header: 'home.projects.table.headers.endDate',
+    cellComponent: DateCellComponent,
   },
   {
     columnDef: 'teamSize',
@@ -50,5 +53,3 @@ export const projectRequiredFieldValidator = (translationKey: string) =>
     `home.project.${translationKey}.errors.required`,
     'required'
   );
-
-  

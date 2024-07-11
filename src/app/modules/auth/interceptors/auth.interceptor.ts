@@ -38,7 +38,7 @@ export class AuthInterceptor implements HttpInterceptor {
     );
   }
 
-  private addTokenToRequest(request: HttpRequest<unknown>, token: string): HttpRequest<unknown> {
+  addTokenToRequest(request: HttpRequest<unknown>, token: string): HttpRequest<unknown> {
     return request.clone({
       setHeaders: {
         Authorization: `Bearer ${token}`,
@@ -46,7 +46,7 @@ export class AuthInterceptor implements HttpInterceptor {
     });
   }
 
-  private handleAuthError(request: HttpRequest<unknown>, next: HttpHandler) {
+  handleAuthError(request: HttpRequest<unknown>, next: HttpHandler) {
     return this.authService.refreshToken().pipe(
       switchMap((response: TokensResponse) => {
         const newAccessToken = response.access_token;

@@ -50,28 +50,9 @@ export class AuthService {
       );
   }
 
-  // refreshToken() {
-  //   // this.removeAccessToken();
-  //   console.log('inside refreshToken');
-  //   return this.http.get<TokensResponse>(this.REFRESH_TOKEN_URL, { withCredentials: true }).pipe(
-  //     catchError(err => {
-  //       // this.logout().subscribe();
-  //       return throwError(() => err);
-  //     }),
-  //     tap(res => {
-  //       console.log('call refreshToken');
-  //       this.setAccessToken(res.access_token);
-  //     })
-  //   );
-  // }
-
   refreshToken() {
     return this.http.get<TokensResponse>(this.REFRESH_TOKEN_URL, { withCredentials: true });
   }
-
-  // logout() {
-  //   return this.http.get(this.LOGOUT_URL);
-  // }
 
   logout() {
     this.removeAccessToken();

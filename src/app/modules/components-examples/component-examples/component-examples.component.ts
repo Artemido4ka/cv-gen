@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { of } from 'rxjs';
-import { requiredValidator } from 'src/app/shared/validators/validators';
 
 export type OptionType = {
   [key: string]: number | string;
@@ -29,8 +28,8 @@ export class ComponentExamplesComponent {
 
   //-------------------TEXT FORMS-------------------------------
   textform = this.fb.group({
-    userName: ['', [requiredValidator('shared.errors.input.required')]],
-    textarea: ['', [requiredValidator('shared.errors.textarea.required')]],
+    userName: [''],
+    textarea: [''],
   });
 
   onTextSubmit(): void {
@@ -47,8 +46,8 @@ export class ComponentExamplesComponent {
   ];
 
   selectForm = this.fb.group({
-    selectedOption: ['', [requiredValidator('shared.errors.select.required')]],
-    multiSelectedOptions: [[], [requiredValidator('shared.errors.select.required')]],
+    selectedOption: [''],
+    multiSelectedOptions: [[]],
   });
 
   onSelectSubmit(): void {
@@ -62,7 +61,7 @@ export class ComponentExamplesComponent {
   autocompleteSelectTestOptions = of(['apple', 'orange', 'cherry']);
 
   autocompleteForm = this.fb.group({
-    textValue: ['', [requiredValidator('shared.errors.autoComplete.required')]],
+    textValue: ['', []],
   });
   onAutoCompleteSubmit(): void {
     console.log(this.autocompleteForm, 'autocompleteForm');
@@ -71,10 +70,7 @@ export class ComponentExamplesComponent {
   //--------------AUTOCOMPLETE WITH SELECT FORMS----------------------
 
   autocompleteSelectForm = this.fb.group({
-    multiSelectedOptionsAndNewOptions: [
-      [this.autocompleteTestOptions[0]],
-      [requiredValidator('shared.errors.select.required')],
-    ],
+    multiSelectedOptionsAndNewOptions: [[this.autocompleteTestOptions[0]], []],
   });
   onAutoCompleteSelectSubmit(): void {
     console.log(this.autocompleteForm, 'autocompleteForm');
@@ -128,7 +124,7 @@ export class ComponentExamplesComponent {
   //-------------------------------DATE-PICKER-------------------------------
 
   datepickerForm = this.fb.group({
-    date: [new Date(), [requiredValidator('shared.errors.date.required')]],
+    date: [new Date(), []],
   });
   onDatePickerSubmit(): void {
     console.log(this.datepickerForm, 'datepickerForm');

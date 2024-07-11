@@ -46,10 +46,3 @@ export const projectsTableColumns = [
     cellComponent: TableItemsCellComponent,
   },
 ];
-
-export const projectRequiredFieldValidator = (translationKey: string) =>
-  customValidator(
-    Validators.required,
-    `home.project.${translationKey}.errors.required`,
-    'required'
-  );

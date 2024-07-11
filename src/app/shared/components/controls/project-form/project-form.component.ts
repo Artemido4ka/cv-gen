@@ -17,8 +17,10 @@ import {
   Validators,
 } from '@angular/forms';
 import { AutocompleteSelectComponent } from '../autocomplete-select/autocomplete-select.component';
-import { projectRequiredFieldValidator } from 'src/app/modules/projects/constants/projects.constant';
-import { customValidator } from 'src/app/shared/validators/validators';
+import {
+  customValidator,
+  projectRequiredFieldValidator,
+} from 'src/app/shared/validators/validators';
 import { FormatedTechStackItemT, IFormatedProject } from 'src/app/shared/types/project.types';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { Observable } from 'rxjs';

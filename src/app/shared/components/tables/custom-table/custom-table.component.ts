@@ -46,7 +46,7 @@ export class CustomTableComponent<T> implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   ngOnInit(): void {
-    this.displayedColumns = this.columns.map(c => c.columnDef);
+    this.displayedColumns = this.columns?.map(c => c.columnDef);
   }
 
   ngAfterViewInit() {
